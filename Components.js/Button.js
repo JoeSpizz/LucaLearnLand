@@ -13,26 +13,18 @@ export default function Button({label}) {
 const styles = StyleSheet.create({
     buttonContainer: {
         flex: 2,
-      width: 320,
-      height: 68,
-      marginHorizontal: 20,
       alignItems: 'center',
       justifyContent: 'center',
-      padding: 3,
     },
     button: {
       borderRadius: 10,
-      width: '100%',
-      height: '100%',
+      borderWidth: 5,
+      borderColor: 'green',
       alignItems: 'center',
       justifyContent: 'center',
-      flexDirection: 'row',
-    },
-    buttonIcon: {
-      paddingRight: 8,
     },
     buttonLabel: {
-      color: 'yellow',
+      color: 'blue',
       fontSize: 50,
     },
   });

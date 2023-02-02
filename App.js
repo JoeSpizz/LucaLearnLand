@@ -8,8 +8,10 @@ export default function App() {
       <Text style={styles.text}>Luca's Play</Text>
       <Text style={styles.smallText}>(and Learn)</Text>
       <Text style={styles.text}>Ground</Text>
-      <Button label="ABC..."/>
-      <Button label = "123..."/>
+      <Button label="ABC's"/>
+      <Button label = "123's"/>
+      <Button label = "Colors"/>
+      <Button label = "Animals"/>
       <StatusBar style="auto" />
     </View>
   );
@@ -18,7 +20,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#11D011',
+    backgroundColor: 'yellow',
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: 30,
@@ -30,8 +32,9 @@ const styles = StyleSheet.create({
   },
   smallText:{
     fontSize: 20,
-    color: 'blue',
+    color: 'orange',
     marginTop: -10,
-    marginBottom: -15
+    marginBottom: -15,
+    fontWeight: 'bold'
   }
 });
