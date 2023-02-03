@@ -23,10 +23,8 @@ const styles = EStyleSheet.create({
       borderWidth: 5,
       borderColor: '#00FC00',
       backgroundColor:'#00FC00',
+      marginTop: 20,
     },
-    'buttonContainer:first-child': {
-        marginLeft: 30
-      },
     buttonLabel: {
       color: '#195DF9',
       fontSize: 50,

@@ -13,8 +13,11 @@ import Animal from './Components.js/Animal';
 export default function App() {
   const Stack = createNativeStackNavigator();
   return (
-    <NavigationContainer>
-    <Stack.Navigator>
+ 
+    <NavigationContainer >
+    <Stack.Navigator screenOptions={{
+    headerShown: false
+  }}>
       <Stack.Screen name="Home" component={Title} />
       <Stack.Screen name="Letters" component={Alphabet} />
       <Stack.Screen name="Numbers" component={Number} />
@@ -22,6 +25,7 @@ export default function App() {
       <Stack.Screen name="Animals" component={Animal} />
     </Stack.Navigator>
   </NavigationContainer>
+
   );
 }
 EStyleSheet.build({
@@ -29,11 +33,7 @@ EStyleSheet.build({
 })
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: 'yellow',
-    paddingTop: 30,
+    justifyContent: 'space-between',
   },
-  title:{
-    marginLeft:20
-  }
 });
