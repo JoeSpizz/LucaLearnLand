@@ -1,30 +1,35 @@
-import { StyleSheet, View, Pressable, Text } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
-export default function Button({label}) {
+
+export default function Button({label, nav, navigation}) {
   return (
     <View style={styles.buttonContainer}>
-    <Pressable style={styles.button} onPress={() => alert(`Ready for ${label}'s?`)}>
+    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate(`${nav}`)}>
       <Text style={styles.buttonLabel}>{label}</Text>
-    </Pressable>
+    </TouchableOpacity>
   </View>
   )
 }
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
     buttonContainer: {
-        flex: 2,
-      alignItems: 'center',
-      justifyContent: 'center',
+      alignItems: 'flex-start',
+      justifyContent: 'space-between',
+      marginLeft: 15
     },
     button: {
       borderRadius: 10,
       borderWidth: 5,
-      borderColor: 'green',
-      alignItems: 'center',
-      justifyContent: 'center',
+      borderColor: '#00FC00',
+      backgroundColor:'#00FC00',
     },
+    'buttonContainer:first-child': {
+        marginLeft: 30
+      },
     buttonLabel: {
-      color: 'blue',
+      color: '#195DF9',
       fontSize: 50,
+      fontWeight: '800'
     },
   });

@@ -1,40 +1,39 @@
-import { StatusBar } from 'expo-status-bar';
+
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StyleSheet, Text, View } from 'react-native';
-import Button from './Components.js/Button';
+import EStyleSheet from 'react-native-extended-stylesheet';
+import Alphabet from './Components.js/Alphabet';
+import Title from './Components.js/Title';
+import Number from './Components.js/Number';
+import Color from './Components.js/Color';
+import Animal from './Components.js/Animal';
+
 
 export default function App() {
+  const Stack = createNativeStackNavigator();
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Luca's Play</Text>
-      <Text style={styles.smallText}>(and Learn)</Text>
-      <Text style={styles.text}>Ground</Text>
-      <Button label="ABC's"/>
-      <Button label = "123's"/>
-      <Button label = "Colors"/>
-      <Button label = "Animals"/>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+    <Stack.Navigator>
+      <Stack.Screen name="Home" component={Title} />
+      <Stack.Screen name="Letters" component={Alphabet} />
+      <Stack.Screen name="Numbers" component={Number} />
+      <Stack.Screen name="Colors" component={Color} />
+      <Stack.Screen name="Animals" component={Animal} />
+    </Stack.Navigator>
+  </NavigationContainer>
   );
 }
-
+EStyleSheet.build({
+ 
+})
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'yellow',
-    alignItems: 'center',
-    justifyContent: 'center',
     paddingTop: 30,
   },
-  text:{
-    color: 'red',
-    fontSize: 50,
-    fontWeight: "bold",
-  },
-  smallText:{
-    fontSize: 20,
-    color: 'orange',
-    marginTop: -10,
-    marginBottom: -15,
-    fontWeight: 'bold'
+  title:{
+    marginLeft:20
   }
 });
