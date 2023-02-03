@@ -4,7 +4,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 function Animal() {
   return (
    <View>
-       <Text> Animal</Text>
+       <Text> Animals Everywhere! </Text>
    </View>
   )
 }

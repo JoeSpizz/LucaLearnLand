@@ -4,7 +4,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 function Number() {
   return (
    <View>
-       <Text> Numbers</Text>
+       <Text> Numbers: Learn to count!</Text>
    </View>
   )
 }
