@@ -9,7 +9,7 @@ function Title({navigation}) {
     <Pressable style={styles.button} onPress={() => alert(`You are an inquisitive kid!`)}>
     <Text style={styles.text}>Luca's Play</Text>
       <Text style={styles.smallText}>(and Learn)</Text>
-      <Text style={styles.text}>Ground</Text>
+      <Text style={styles.text}>Ground!</Text>
     </Pressable>
     <Button label="ABC's" nav="Letters" navigation={navigation}/>
       <Button label = "123's" nav="Numbers" navigation={navigation}/>
