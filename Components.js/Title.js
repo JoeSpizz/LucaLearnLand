@@ -1,10 +1,12 @@
-import { View, Pressable, Text } from 'react-native';
+import { View, Pressable, Text, Alert } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import { useEffect } from 'react';
 import Truck from './Button';
 import Button from './Button';
 
 
 function Title({navigation}) {
+   
   return (
     <View style={styles.titleContainer}>
     <Pressable style={styles.button} onPress={() => alert(`You are an inquisitive kid!`)}>
