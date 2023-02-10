@@ -1,5 +1,6 @@
 import { View, Pressable, Text } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import Truck from './Button';
 import Button from './Button';
 
 
@@ -11,10 +12,10 @@ function Title({navigation}) {
       <Text style={styles.smallText}>(and Learn)</Text>
       <Text style={styles.text}>Ground!</Text>
     </Pressable>
-    <Button label="ABC's" nav="Letters" navigation={navigation}/>
-      <Button label = "123's" nav="Numbers" navigation={navigation}/>
-      <Button label = "Colors" nav="Colors" navigation={navigation}/>
-      <Button label = "Animals" nav="Animals" navigation={navigation}/>
+    <Truck label="ABC's" nav="Letters" navigation={navigation}/>
+      <Truck label = "123's" nav="Numbers" navigation={navigation}/>
+      <Truck label = "Colors" nav="Colors" navigation={navigation}/>
+      <Truck label = "Animals" nav="Animals" navigation={navigation}/>
   </View>
   )
 }
