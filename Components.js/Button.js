@@ -1,4 +1,4 @@
-import { Animated, View, Text, Easing, Alert } from 'react-native';
+import { Animated, View, Text, Easing, Image } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { useRef, useEffect } from 'react';
 
@@ -61,15 +61,7 @@ const wiggle = ()=>{
                 easing: Easing.linear, 
                 useNativeDriver: true  
               }),
-              //i'd like to have the car grow and take over screen,
-              //but upon returning to this page the button is still large
-            //   Animated.timing(
-            //     scaleValue,
-            //     {
-            //       toValue: 2,
-            //       duration: 1000,
-            //       useNativeDriver: true
-            //     }   )
+             
             Animated.timing(transX, {
                 toValue: 300,
                 useNativeDriver: true,
@@ -90,6 +82,8 @@ const wiggle = ()=>{
     onPress={wiggle}
     >
       <Text style={styles.buttonLabel}>{label}</Text>
+      <Image style={styles.buttonLabel} source={require('./truck2.png')}/>
+   
     </Text>
   </Animated.View>
   )
