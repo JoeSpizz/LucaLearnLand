@@ -6,6 +6,8 @@ import Button from './Button';
 
 
 function Title({navigation}) {
+
+    
    
   return (
     <View style={styles.titleContainer}>

@@ -1,6 +1,7 @@
 import { Animated, View, Text, Easing, Image } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { useRef, useEffect } from 'react';
+import { Pressable } from 'react-native-web';
 
 
 export default function Button({label, nav, navigation}) {
@@ -11,7 +12,6 @@ export default function Button({label, nav, navigation}) {
         inputRange: [0, 1],
         outputRange: ['0deg', '360deg']
       })
-    const scaleValue = useRef(new Animated.Value(1)).current;
     useEffect(() => {
         const focusHandler = navigation.addListener('focus', () => {
             transX.setValue(-160);
@@ -71,41 +71,39 @@ const wiggle = ()=>{
     
 }
 
+
+
   return (
     <Animated.View style={{
-        alignItems: 'flex-start',
-        justifyContent: 'space-between',
+        height: 100,
+        borderColor: "#0000FF",
+        borderStyle: "solid",
+        borderWidth: 5,
         marginLeft: 15,
-        transform: [{ translateX: transX}, {translateY: transY}, {rotate: engine}, {scale: scaleValue}],
+        transform: [{ translateX: transX}, {translateY: transY}, {rotate: engine}],
       }}>
-    <Text style={styles.button} 
+        
+    <Text
     onPress={wiggle}
     >
-      <Text style={styles.buttonLabel}>{label}</Text>
-      <Image style={styles.buttonLabel} source={require('./truck2.png')}/>
+      <Image style={styles.buttonImage} source={require('./truck2.png')}/>
+   </Text>
+
    
-    </Text>
   </Animated.View>
   )
 }
 
 const styles = EStyleSheet.create({
-    // buttonContainer: {
-    //   alignItems: 'flex-start',
-    //   justifyContent: 'space-between',
-    //   marginLeft: 15,
-    //   transform: { translateX: transX},
-    // },
-    button: {
-      borderRadius: 10,
-      borderWidth: 5,
-      borderColor: '#00FC00',
-      backgroundColor:'#00FC00',
-      marginTop: 20,
-    },
     buttonLabel: {
       color: '#195DF9',
-      fontSize: 50,
-      fontWeight: '800'
+      fontSize: 10,
+      fontWeight: '800',
+      
     },
+    buttonImage:{
+        height: 60,
+        width: 110,
+        position: 'absolute'
+    }
   });
