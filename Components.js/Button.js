@@ -26,7 +26,6 @@ export default function Button({label, nav, navigation}) {
                 useNativeDriver: true,
               }),
         ]).start()})
-
         return focusHandler;
 
     }, [navigation]);
@@ -107,3 +106,4 @@ const styles = EStyleSheet.create({
         position: 'absolute'
     }
   });
+ 
