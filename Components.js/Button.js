@@ -85,7 +85,7 @@ const wiggle = ()=>{
       </Text>
    
   </Animated.View>
-    <Text style={styles.buttonText}>{nav}</Text>
+    <Text style={styles.buttonText}  onPress={wiggle}>{nav}</Text>
     </View>
   )
 }
