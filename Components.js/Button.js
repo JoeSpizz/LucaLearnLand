@@ -1,10 +1,9 @@
-import { Animated, View, Text, Easing, Image } from 'react-native';
+import { Animated, Text, View, Easing, Image } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { useRef, useEffect } from 'react';
-import { Pressable } from 'react-native-web';
 
 
-export default function Button({label, nav, navigation}) {
+export default function Button({nav, navigation}) {
     const transX = useRef(new Animated.Value(-160)).current;
     const transY = useRef(new Animated.Value(-50)).current;
     const spinValue = useRef(new Animated.Value(0)).current;
@@ -15,7 +14,7 @@ export default function Button({label, nav, navigation}) {
     useEffect(() => {
         const focusHandler = navigation.addListener('focus', () => {
             transX.setValue(-160);
-            transY.setValue(-50)
+            transY.setValue(Math.floor(Math.random() * 100) + 1)
             Animated.parallel([
               Animated.timing(transX, {
                 toValue: 0,
@@ -73,37 +72,42 @@ const wiggle = ()=>{
 
 
   return (
+    <View>
     <Animated.View style={{
         height: 100,
-        borderColor: "#0000FF",
-        borderStyle: "solid",
-        borderWidth: 5,
-        marginLeft: 15,
-        transform: [{ translateX: transX}, {translateY: transY}, {rotate: engine}],
+       transform: [{ translateX: transX}, {translateY: transY}, {rotate: engine}],
       }}>
         
-    <Text
+    <Text style={styles.buttonLabel}
     onPress={wiggle}
-    >
-      <Image style={styles.buttonImage} source={require('./truck2.png')}/>
-   </Text>
-
+    > 
+     <Image style={styles.buttonImage} source={require('./truck2.png')}/>
+      </Text>
    
   </Animated.View>
+    <Text style={styles.buttonText}>{nav}</Text>
+    </View>
   )
 }
 
 const styles = EStyleSheet.create({
+  
     buttonLabel: {
-      color: '#195DF9',
-      fontSize: 10,
-      fontWeight: '800',
+      height: '100%'
       
     },
     buttonImage:{
-        height: 60,
-        width: 110,
-        position: 'absolute'
+      height: 60,
+      width: 110,
+      position: 'absolute',
+      resizeMethod: 'resize'
+  },
+    buttonText:{
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      color: 'blue',
+      fontWeight: 'bold',
+      fontSize: '1.5 rem'
     }
   });
  

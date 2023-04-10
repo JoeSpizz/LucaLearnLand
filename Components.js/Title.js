@@ -29,7 +29,8 @@ const styles = EStyleSheet.create({
     titleContainer:{
         backgroundColor: 'yellow',
         alignItems:'center',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
+        height: '100%'
     },
 text:{
     color: 'red',
@@ -46,5 +47,8 @@ text:{
     fontWeight: 'bold',
     alignItems:'center',
     textAlign:'center',
+  },
+  button:{
+    marginTop: 30
   }
 })

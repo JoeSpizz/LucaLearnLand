@@ -10,6 +10,7 @@ import Color from './Components.js/Color';
 import Animal from './Components.js/Animal';
 
 
+
 export default function App() {
   const Stack = createNativeStackNavigator();
   return (
@@ -24,6 +25,7 @@ export default function App() {
       <Stack.Screen name="Colors" component={Color} />
       <Stack.Screen name="Animals" component={Animal} />
     </Stack.Navigator>
+    
   </NavigationContainer>
 
   );
