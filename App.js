@@ -8,6 +8,9 @@ import Title from './Components.js/Title';
 import Number from './Components.js/Number';
 import Color from './Components.js/Color';
 import Animal from './Components.js/Animal';
+import Tracing from './Components.js/AlphabetLand/Tracing'
+import IdentifyLet from './Components.js/AlphabetLand/IdentifyLet'
+import Cases from './Components.js/AlphabetLand/Cases'
 
 
 
@@ -24,6 +27,9 @@ export default function App() {
       <Stack.Screen name="Numbers" component={Number} />
       <Stack.Screen name="Colors" component={Color} />
       <Stack.Screen name="Animals" component={Animal} />
+      <Stack.Screen name="Tracing" component={Tracing} />
+      <Stack.Screen name="IdentifyLet" component={IdentifyLet} />
+      <Stack.Screen name="Cases" component={Cases} />
     </Stack.Navigator>
     
   </NavigationContainer>
