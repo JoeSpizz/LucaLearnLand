@@ -15,19 +15,19 @@ const goHome= ()=>{
 
         <View>
         <Text style={styles.button} onPress={()=>{pressed('LearnAnimals')}}>
-          <Image style={styles.truck} source={require('../assets/truck1.png')} />
+          <Image style={styles.truck} source={require('../assets/trucks/truck1.png')} />
             Learn Animals
         </Text>
         </View>
         <View>
         <Text style={styles.button} onPress={()=>{pressed('AnimalSounds')}}>
-          <Image style={styles.truck} source={require('../assets/truck1.png')} />
+          <Image style={styles.truck} source={require('../assets/trucks/truck1.png')} />
           Identify Sound
         </Text>
         </View>
         <View>
         <Text style={styles.button} onPress={()=>{pressed('AnimalPictures')}}>
-          <Image style={styles.truck} source={require('../assets/truck1.png')} />
+          <Image style={styles.truck} source={require('../assets/trucks/truck1.png')} />
          Identify Picture 
         </Text>
         </View>

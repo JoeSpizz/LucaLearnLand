@@ -1,6 +1,7 @@
 import { Animated, Text, View, Easing, Image } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { useRef, useEffect } from 'react';
+import { Audio } from 'expo-av';
 
 
 export default function Button({nav, navigation}) {
@@ -13,23 +14,64 @@ export default function Button({nav, navigation}) {
       })
     useEffect(() => {
         const focusHandler = navigation.addListener('focus', () => {
+          async function breaking() {
+            const { sound } = await Audio.Sound.createAsync(
+              require('../assets/sounds/breaking.wav')
+            );
+            await sound.playAsync();
+          }
+          breaking()
+          
             transX.setValue(-160);
             transY.setValue(Math.floor(Math.random() * 100) + 1)
+            Animated.sequence([
             Animated.parallel([
               Animated.timing(transX, {
-                toValue: 0,
+                toValue: -100,
                 useNativeDriver: true,
               }),
               Animated.timing(transY, {
-                toValue: (0),
+                toValue: (-80),
                 useNativeDriver: true,
-              }),
+              }),]),
+              Animated.parallel([
+                Animated.timing(transX, {
+                  toValue: -20,
+                  useNativeDriver: true,
+                }),
+                Animated.timing(transY, {
+                  toValue: (20),
+                  useNativeDriver: true,
+                }),]),
+              Animated.parallel([
+                Animated.timing(transX, {
+                  toValue: 0,
+                  useNativeDriver: true,
+                }),
+                Animated.timing(transY, {
+                  toValue: (0),
+                  useNativeDriver: true,
+                }),
+            ])
         ]).start()})
         return focusHandler;
 
     }, [navigation]);
+//sound library
+    async function takeOff() {
+      const { sound } = await Audio.Sound.createAsync(
+        require('../assets/sounds/takeoffengine.mp3')
+      );
+      await sound.playAsync();
+    }
 
+   
+
+
+
+    //navigate to next page on press
 const wiggle = ()=>{
+    takeOff()
     let down = Animated.timing(spinValue,{
         toValue: -.01,
         duration: 75,

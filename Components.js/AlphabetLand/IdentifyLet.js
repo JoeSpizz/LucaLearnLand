@@ -1,7 +1,30 @@
-import {View, Text } from 'react-native';
+import {View, Text, Animated, Image } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import {useRef, useEffect} from 'react';
 
 function Tracing({navigation}) {
+    const transX = useRef(new Animated.Value(-160)).current;
+    const transY = useRef(new Animated.Value(-50)).current;
+useEffect(()=>{
+    const focusHandler = navigation.addListener('focus', () => {
+        Animated.parallel([
+            Animated.timing(transX, {
+              toValue: 0,
+              duration: 2075,
+              useNativeDriver: true,
+            }),
+            Animated.timing(transY, {
+              toValue: (0),
+              duration: 2075,
+              useNativeDriver: true,
+            }),]).start()
+})
+return focusHandler;
+
+}, [navigation]);
+
+
+// const myImage = require('./assets/truck1.png');
 const goHome= ()=>{
     navigation.navigate(`Letters`)
 }
@@ -9,7 +32,14 @@ const goHome= ()=>{
     <View style={styles.container}>
         <Text style={styles.title}>What Letter is This?</Text>
         <Text style={styles.title2}>The future home of the identify game</Text>
-        
+        <Animated.View style={{
+       transform: [{ translateX: transX}, {translateY: transY}],
+      }}>
+            <Text style={styles.text} >
+            <Image style={styles.truck} source={require('../../assets/trucks/truck1.png')} />
+         
+        </Text>
+        </Animated.View>
         <Text style={styles.button} 
         onPress={goHome}
         > Back to the Alphabet Land</Text>
@@ -52,5 +82,13 @@ const styles= EStyleSheet.create({
         color: '#FFFF00',
         paddingTop: 10,
         fontSize: '1.5rem'
-      }
+      },
+      text:{
+          textAlign: "center",
+      },    
+      truck:{
+        height: 60,
+        width: 110,
+        resizeMethod: 'resize'
+      },
 })

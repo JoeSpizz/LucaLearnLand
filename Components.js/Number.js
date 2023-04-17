@@ -16,19 +16,19 @@ const goHome= ()=>{
 
         <View>
         <Text style={styles.button} onPress={()=>{pressed('TracingNum')}}>
-          <Image style={styles.truck} source={require('../assets/truck1.png')} />
+          <Image style={styles.truck} source={require('../assets/trucks/truck1.png')} />
             Trace
         </Text>
         </View>
         <View>
         <Text style={styles.button} onPress={()=>{pressed('IdentifyNum')}}>
-          <Image style={styles.truck} source={require('../assets/truck1.png')} />
+          <Image style={styles.truck} source={require('../assets/trucks/truck1.png')} />
           Identify
         </Text>
         </View>
         <View>
         <Text style={styles.button} onPress={()=>{pressed('Count')}}>
-          <Image style={styles.truck} source={require('../assets/truck1.png')} />
+          <Image style={styles.truck} source={require('../assets/trucks/truck1.png')} />
          Count
         </Text>
         </View>

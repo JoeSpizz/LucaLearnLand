@@ -14,19 +14,19 @@ const goHome= ()=>{
         <Text style={styles.title2}>Let's Learn Our Letters!</Text>
         <View>
         <Text style={styles.button} onPress={()=>{pressed('Tracing')}}>
-          <Image style={styles.truck} source={require('../assets/truck1.png')} />
+          <Image style={styles.truck} source={require('../assets/trucks/truck1.png')} />
             Trace
         </Text>
         </View>
         <View>
         <Text style={styles.button} onPress={()=>{pressed('IdentifyLet')}}>
-          <Image style={styles.truck} source={require('../assets/truck1.png')} />
+          <Image style={styles.truck} source={require('../assets/trucks/truck1.png')} />
           Identify
         </Text>
         </View>
         <View>
         <Text style={styles.button} onPress={()=>{pressed('Cases')}}>
-          <Image style={styles.truck} source={require('../assets/truck1.png')} />
+          <Image style={styles.truck} source={require('../assets/trucks/truck1.png')} />
           Upper vs Lower
         </Text>
         </View>

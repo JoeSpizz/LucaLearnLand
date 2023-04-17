@@ -3,6 +3,11 @@
     "name": "LucasPlayAndLearnGround",
     "slug": "LucasPlayAndLearnGround",
     "version": "1.0.0",
+    "plugins": [
+      [
+        "expo-av"
+      ]
+    ],
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
