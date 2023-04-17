@@ -31,9 +31,6 @@ const goHome= ()=>{
         </Text>
         </View>
 
-       
-       
-
         <Text style={styles.homeButton} 
         onPress={goHome}
         > Back to the PlayGround</Text>

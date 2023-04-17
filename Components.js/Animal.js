@@ -1,7 +1,10 @@
-import {View, Text } from 'react-native';
+import {View, Text, Image } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 function Animal({navigation}) {
+  const pressed = (e)=>{
+    navigation.navigate(e)
+  }
 const goHome= ()=>{
     navigation.navigate(`Home`)
 }
@@ -9,8 +12,27 @@ const goHome= ()=>{
     <View style={styles.container}>
         <Text style={styles.title}>Animal Island</Text>
         <Text style={styles.title2}>The Creature Quarter</Text>
+
+        <View>
+        <Text style={styles.button} onPress={()=>{pressed('LearnAnimals')}}>
+          <Image style={styles.truck} source={require('../assets/truck1.png')} />
+            Learn Animals
+        </Text>
+        </View>
+        <View>
+        <Text style={styles.button} onPress={()=>{pressed('AnimalSounds')}}>
+          <Image style={styles.truck} source={require('../assets/truck1.png')} />
+          Identify Sound
+        </Text>
+        </View>
+        <View>
+        <Text style={styles.button} onPress={()=>{pressed('AnimalPictures')}}>
+          <Image style={styles.truck} source={require('../assets/truck1.png')} />
+         Identify Picture 
+        </Text>
+        </View>
         
-        <Text style={styles.button} 
+        <Text style={styles.homeButton} 
         onPress={goHome}
         > Back to the PlayGround</Text>
     </View>
@@ -38,8 +60,17 @@ const styles= EStyleSheet.create({
       color: "#E171FD",
       fontWeight: 'bold'
     },
+    button:{
+      height:85,
+    },
+    button2:{marginTop:40},
+    truck:{
+      height: 60,
+      width: 110,
+      resizeMethod: 'resize'
+    },
 
-    button: {
+    homeButton: {
         borderRadius: 10,
         borderWidth: 5,
         borderColor: '#00FC00',
