@@ -1,14 +1,31 @@
-import {View, Text, Animated, Image, TouchableWithoutFeedback } from 'react-native';
+import {View, Text, Animated, Easing, Image, TouchableWithoutFeedback } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import {useRef, useEffect, useState} from 'react';
+import {Audio} from 'expo-av'
 
 function Tracing({navigation}) {
     const transX = useRef(new Animated.Value(-160)).current;
     const transY = useRef(new Animated.Value(0)).current;
     const [key, setKey]= useState(0)
     const [myImage, setMyImage]= useState(require('../../assets/racers/racer2.png'))
+    const spinValue = useRef(new Animated.Value(0)).current;
+    const engine = spinValue.interpolate({
+        inputRange: [0, 1],
+        outputRange: ['0deg', '360deg']
+      })
+      const shakeAnimation = useRef(new Animated.Value(0)).current;
 
+   
 useEffect(()=>{
+    async function rumble() {
+        const { sound } = await Audio.Sound.createAsync(
+          require('../../assets/sounds/rumble.mp3')
+        );
+       
+        await sound.playAsync();
+      }
+      rumble()
+
     Animated.sequence([
         Animated.timing(transX, {
             toValue: -300,
@@ -21,9 +38,7 @@ useEffect(()=>{
             useNativeDriver: true,
           })
     ]).start()
-    
            
-
 }, [key]);
 
 let letter = String.fromCharCode(65 + Math.floor(Math.random() * 26));
@@ -31,82 +46,154 @@ let letter2 = String.fromCharCode(65 + Math.floor(Math.random() * 26));
 let letter3 = String.fromCharCode(65 + Math.floor(Math.random() * 26));
 let letter4 = String.fromCharCode(65 + Math.floor(Math.random() * 26));
 
+const blocks =[ <TouchableWithoutFeedback key={1} onPress={()=>guess(letter)}>
+    <View>
+    <Image style={styles.racer} source={myImage}/>
+    <Text style={styles.racerLetter}> {letter}</Text>
+    </View>
+</TouchableWithoutFeedback>, 
+<TouchableWithoutFeedback key={2} onPress={()=>guess(letter2)}>
+    <View>
+    <Image style={styles.racer} source={myImage}/>
+    <Text style={styles.racerLetter}> {letter2}</Text>
+    </View>
+</TouchableWithoutFeedback>, 
+<TouchableWithoutFeedback key={3} onPress={()=>guess(letter3)}>
+    <View>
+    <Image style={styles.racer} source={myImage}/>
+    <Text style={styles.racerLetter}> {letter3}</Text>
+    </View>
+</TouchableWithoutFeedback>, 
+<TouchableWithoutFeedback key={4} onPress={()=>guess(letter4)}>
+    <View>
+    <Image style={styles.racer} source={myImage}/>
+    <Text style={styles.racerLetter}> {letter4}</Text>
+    </View>
+</TouchableWithoutFeedback>]
+
+const shuffleArray = (array) => {
+  return [...array].sort(() => Math.random() - 0.5);
+};
+const shuffledArray = shuffleArray(blocks);
+
 const guess = (guess)=>{
 if (guess === letter){
-    reload()
+    success()
 }
 else{
-    alert("no")
+    failure()
 }}
 
-const reload = ()=>{
+const success = ()=>{
+    async function takeOff() {
+        const { sound } = await Audio.Sound.createAsync(
+          require('../../assets/sounds/quicktakeoff.mp3')
+        );
+       
+        await sound.playAsync();
+      }
+      takeOff()
+
+      async function tada() {
+        const { sound } = await Audio.Sound.createAsync(
+          require('../../assets/sounds/tada.mp3')
+        );
+       
+        await sound.playAsync();
+      }
+      tada()
     setMyImage(require('../../assets/racers/racerthumbsup.png'))
-    Animated.timing(transX, {
-        toValue: 350,
-        duration: 500,
-        useNativeDriver: true,
-      }).start(()=> {
+    let down = Animated.timing(spinValue,{
+        toValue: -.01,
+        duration: 75,
+        easing: Easing.linear, 
+        useNativeDriver: true  
+      })
+      let up = Animated.timing(spinValue,{
+        toValue: .01,
+        duration: 75,
+        easing: Easing.linear, 
+        useNativeDriver: true  
+      })
+        Animated.sequence([
+            up,
+            down,
+            up,
+            down,
+            up,
+            down,
+            Animated.timing(spinValue,{
+                toValue: 0,
+                duration: 100,
+                easing: Easing.linear, 
+                useNativeDriver: true  
+              }),
+             
+            Animated.timing(transX, {
+                toValue: 300,
+                useNativeDriver: true,
+              }),
+             
+        ]).start(()=> {
         setMyImage(require('../../assets/racers/racer2.png'))  
         setKey(key+1)})
    
 }
+
+const failure = () => {
+    async function wrong() {
+        const { sound } = await Audio.Sound.createAsync(
+          require('../../assets/sounds/incorrect.mp3')
+        );
+       
+        await sound.playAsync();
+      }
+      wrong()
+    Animated.sequence([
+      Animated.timing(shakeAnimation, { toValue: 5, duration: 50, useNativeDriver: true }),
+      Animated.timing(shakeAnimation, { toValue: -5, duration: 50, useNativeDriver: true }),
+      Animated.timing(shakeAnimation, { toValue: 5, duration: 50, useNativeDriver: true }),
+      Animated.timing(shakeAnimation, { toValue: 0, duration: 50, useNativeDriver: true }),
+    ]).start();
+  };
+  const animatedStyle = {
+    transform: [{ translateX: shakeAnimation }],
+    overflow: 'hidden'
+  };
 
 const goHome= ()=>{
     navigation.navigate(`Letters`)
 }
 
   return (
+      <View style={styles.big}>
+    <Animated.View style={animatedStyle}>
     <View style={styles.container}>
-        
+     
         <Text style={styles.title}>What Letter is This?</Text>
-        <Text style={styles.title2}>The future home of the identify game</Text>
-    <View style={styles.racerGrid}>
-        <TouchableWithoutFeedback onPress={()=>guess(letter)}>
-            <View>
-            <Image style={styles.racer} source={myImage}/>
-            <Text style={styles.racerLetter}> {letter}</Text>
-            </View>
-        </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback onPress={()=>guess(letter2)}>
-            <View>
-            <Image style={styles.racer} source={myImage}/>
-            <Text style={styles.racerLetter}> {letter2}</Text>
-            </View>
-        </TouchableWithoutFeedback>
+        <Text style={styles.title2}> </Text>
+        {/* randomizes the Racer's with letters on their chests */}
+        <View style={styles.grid}>
+        {shuffledArray.map((block) => block)}
         </View>
-        <View style={styles.racerGrid}>
-        <TouchableWithoutFeedback onPress={()=>guess(letter3)}>
-            <View>
-            <Image style={styles.racer} source={myImage}/>
-            <Text style={styles.racerLetter}> {letter3}</Text>
-            </View>
-        </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback onPress={()=>guess(letter4)}>
-            <View>
-            <Image style={styles.racer} source={myImage}/>
-            <Text style={styles.racerLetter}> {letter4}</Text>
-            </View>
-        </TouchableWithoutFeedback>
-        </View>
-
-        
-
-
-
-
-        <Animated.View style={[{
-       transform: [{ translateX: transX}, {translateY: transY},]
+        {/* truck carrying the correct letter */}
+        <Animated.View  style={[{
+       transform: [{ translateX: transX}, {translateY: transY},{rotate: engine}]
       },styles.guessBox]}>
            <Text style={styles.letter}>
            {letter}
             </Text>
-            <Text style={styles.identifier} onPress={reload}>
+            <Text style={styles.identifier} >
             <Image style={styles.truck} source={require('../../assets/trucks/truck6.png')} />
         </Text>
         </Animated.View>
+
         <Text style={styles.button} 
         onPress={goHome}
         > Back to the Alphabet Land</Text>
+       
+    </View>
+    </Animated.View>
     </View>
   )
 }
@@ -114,9 +201,10 @@ const goHome= ()=>{
 export default Tracing
 
 const styles= EStyleSheet.create({
+    big:{backgroundColor: 'red'},
     container:{
+      height: '100%',
       backgroundColor: 'red',
-      height: '100%'
     },
     title:{
       marginTop: 30,
@@ -132,22 +220,27 @@ const styles= EStyleSheet.create({
       color: "#FFFF00",
       fontWeight: 'bold'
     },
-    racerGrid:{
-        flexDirection: "row"
-    },
     racer:{
         height: 200,
-        width: 200,
-        resizeMode: 'contain'
+        width: 180,
+        textAlign: 'center'
     },
     racerLetter:{
         fontSize: "2rem",
         fontWeight: "bold",
         position: 'absolute',
-        left: 75,
+        left: 65,
         top: 60,
         color: "#FFFF00"
     },
+grid:{
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 10,
+},
 
     button: {
         borderRadius: 10,
@@ -184,5 +277,6 @@ const styles= EStyleSheet.create({
         height: 130,
         width: 200,
         // resizeMethod: 'cover',
-      },
+      }
+  
 })
