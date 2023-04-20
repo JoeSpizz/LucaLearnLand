@@ -18,6 +18,7 @@ export default function Button({nav, navigation}) {
             const { sound } = await Audio.Sound.createAsync(
               require('../assets/sounds/breaking.wav')
             );
+            await sound.setVolumeAsync(0.15)
             await sound.playAsync();
           }
           breaking()
@@ -62,6 +63,7 @@ export default function Button({nav, navigation}) {
       const { sound } = await Audio.Sound.createAsync(
         require('../assets/sounds/takeoffengine.mp3')
       );
+      await sound.setVolumeAsync(0.25)
       await sound.playAsync();
     }
 

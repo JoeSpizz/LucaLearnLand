@@ -1,11 +1,31 @@
 import {View, Text, Image } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import {Audio} from 'expo-av'
+import {useEffect} from 'react'
 
 function Number({navigation}) {
+
+  useEffect(()=>{
+    const welcome = async ()=>{
+      const {sound} = await Audio.Sound.createAsync(
+        require('../assets/sounds/numberville.mp3')
+      )
+      await sound.playAsync()
+  }
+  welcome()
+  })
+
   const pressed = (e)=>{
     navigation.navigate(e)
   }
 const goHome= ()=>{
+  const goBack = async ()=>{
+    const {sound} = await Audio.Sound.createAsync(
+      require('../assets/sounds/what-else-2.mp3')
+    )
+    await sound.playAsync()
+}
+goBack()
     navigation.navigate(`Home`)
 }
   return (

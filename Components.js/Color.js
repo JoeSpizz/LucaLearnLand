@@ -1,10 +1,29 @@
 import {View, Text, ImageBackground } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import { Audio } from 'expo-av';
+import {useEffect} from 'react'
 
 const image = { uri: "https://wallpaperaccess.com/full/1095871.jpg" };
 
 function Color({navigation}) {
+  useEffect(()=>{
+    const welcome = async ()=>{
+      const {sound} = await Audio.Sound.createAsync(
+        require('../assets/sounds/color-intro.mp3')
+      )
+      await sound.playAsync()
+  }
+  welcome()
+  })
+
 const goHome= ()=>{
+  const goBack = async ()=>{
+    const {sound} = await Audio.Sound.createAsync(
+      require('../assets/sounds/what-else.mp3')
+    )
+    await sound.playAsync()
+}
+goBack()
     navigation.navigate(`Home`)
 }
   return (

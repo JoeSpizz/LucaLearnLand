@@ -29,6 +29,16 @@ useEffect(()=>{
       }
       rumble()
 
+      if(key===0){
+        async function welcome() {
+            const { sound } = await Audio.Sound.createAsync(
+              require('../../assets/sounds/letter-match-1.mp3')
+            );
+            await sound.playAsync();
+          }
+          welcome()
+      }
+
     Animated.sequence([
         Animated.timing(transX, {
             toValue: -300,

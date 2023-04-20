@@ -29,6 +29,18 @@ useEffect(()=>{
       }
       rumble()
 
+      async function welcome() {
+        const { sound } = await Audio.Sound.createAsync(
+          require('../../assets/sounds/number-match-1.mp3')
+        );
+        setRumble(sound)
+       
+        await sound.playAsync();
+      }
+      welcome()
+
+
+
     Animated.sequence([
         Animated.timing(transX, {
             toValue: -300,

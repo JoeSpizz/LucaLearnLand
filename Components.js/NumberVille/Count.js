@@ -1,7 +1,18 @@
 import {View, Text } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import {useEffect} from 'react'
+import {Audio} from 'expo-av'   
 
 function Count({navigation}) {
+    useEffect(()=>{
+        async function welcome() {
+          const { sound } = await Audio.Sound.createAsync(
+            require('../../assets/sounds/number-count-1.mp3')
+          );
+          await sound.playAsync();
+        }
+        welcome()
+      })
 const goHome= ()=>{
     navigation.navigate(`Numbers`)
 }
