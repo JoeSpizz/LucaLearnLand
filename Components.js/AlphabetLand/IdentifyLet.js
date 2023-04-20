@@ -1,9 +1,10 @@
 import {View, Text, Animated, Easing, Image, TouchableWithoutFeedback } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import {useRef, useEffect, useState} from 'react';
-import {Audio} from 'expo-av'
+import {Audio, AV} from 'expo-av'
 
-function Tracing({navigation}) {
+
+function IdentifyLet({navigation}) {
     const transX = useRef(new Animated.Value(-160)).current;
     const transY = useRef(new Animated.Value(0)).current;
     const [key, setKey]= useState(0)
@@ -14,6 +15,7 @@ function Tracing({navigation}) {
         outputRange: ['0deg', '360deg']
       })
       const shakeAnimation = useRef(new Animated.Value(0)).current;
+      const [rumble, setRumble] = useState()
 
    
 useEffect(()=>{
@@ -21,6 +23,7 @@ useEffect(()=>{
         const { sound } = await Audio.Sound.createAsync(
           require('../../assets/sounds/rumble.mp3')
         );
+        setRumble(sound)
        
         await sound.playAsync();
       }
@@ -161,7 +164,11 @@ const failure = () => {
     overflow: 'hidden'
   };
 
-const goHome= ()=>{
+const goHome= async()=>{
+    if (rumble) {
+        await rumble.stopAsync();
+      }
+    
     navigation.navigate(`Letters`)
 }
 
@@ -171,7 +178,7 @@ const goHome= ()=>{
     <View style={styles.container}>
      
         <Text style={styles.title}>What Letter is This?</Text>
-        <Text style={styles.title2}> </Text>
+        <Text style={styles.title2}> You've gotten it right {key} times!</Text>
         {/* randomizes the Racer's with letters on their chests */}
         <View style={styles.grid}>
         {shuffledArray.map((block) => block)}
@@ -198,7 +205,7 @@ const goHome= ()=>{
   )
 }
 
-export default Tracing
+export default IdentifyLet
 
 const styles= EStyleSheet.create({
     big:{backgroundColor: 'red'},

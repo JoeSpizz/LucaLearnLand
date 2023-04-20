@@ -1,6 +1,7 @@
 import {View, Text } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
+
 function Tracing({navigation}) {
 const goHome= ()=>{
     navigation.navigate(`Letters`)
