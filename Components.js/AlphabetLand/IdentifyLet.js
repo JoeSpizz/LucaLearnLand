@@ -1,7 +1,8 @@
-import {View, Text, Animated, Easing, Image, TouchableWithoutFeedback } from 'react-native';
+import {View, Text, Animated, Easing, Image, TouchableWithoutFeedback, Vibration } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import {useRef, useEffect, useState} from 'react';
-import {Audio, AV} from 'expo-av'
+import {Audio} from 'expo-av'
+
 
 
 function IdentifyLet({navigation}) {
@@ -16,9 +17,18 @@ function IdentifyLet({navigation}) {
       })
       const shakeAnimation = useRef(new Animated.Value(0)).current;
       const [rumble, setRumble] = useState()
+      const [letter, setLetter] = useState('');
+      const [letter2, setLetter2] = useState('');
+      const [letter3, setLetter3] = useState('');
+      const [letter4, setLetter4] = useState('');
+
 
    
 useEffect(()=>{
+    setLetter(String.fromCharCode(65 + Math.floor(Math.random() * 26)))
+    setLetter2(String.fromCharCode(65 + Math.floor(Math.random() * 26)))
+    setLetter3(String.fromCharCode(65 + Math.floor(Math.random() * 26)))
+    setLetter4(String.fromCharCode(65 + Math.floor(Math.random() * 26)))
     async function rumble() {
         const { sound } = await Audio.Sound.createAsync(
           require('../../assets/sounds/rumble.mp3')
@@ -54,10 +64,7 @@ useEffect(()=>{
            
 }, [key]);
 
-let letter = String.fromCharCode(65 + Math.floor(Math.random() * 26));
-let letter2 = String.fromCharCode(65 + Math.floor(Math.random() * 26));
-let letter3 = String.fromCharCode(65 + Math.floor(Math.random() * 26));
-let letter4 = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+
 
 const blocks =[ <TouchableWithoutFeedback key={1} onPress={()=>guess(letter)}>
     <View>
@@ -115,6 +122,10 @@ const success = ()=>{
         await sound.playAsync();
       }
       tada()
+      setLetter('')
+      setLetter2('')
+      setLetter3(null)
+      setLetter4(null)
     setMyImage(require('../../assets/racers/racerthumbsup.png'))
     let down = Animated.timing(spinValue,{
         toValue: -.01,
@@ -162,6 +173,7 @@ const failure = () => {
         await sound.playAsync();
       }
       wrong()
+      Vibration.vibrate(500)
     Animated.sequence([
       Animated.timing(shakeAnimation, { toValue: 5, duration: 50, useNativeDriver: true }),
       Animated.timing(shakeAnimation, { toValue: -5, duration: 50, useNativeDriver: true }),

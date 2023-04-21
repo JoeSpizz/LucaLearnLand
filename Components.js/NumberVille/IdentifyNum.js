@@ -1,7 +1,8 @@
-import {View, Text, Animated, Easing, Image, TouchableWithoutFeedback } from 'react-native';
+import {View, Text, Animated, Easing, Image, TouchableWithoutFeedback, Vibration } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import {useRef, useEffect, useState} from 'react';
 import {Audio, AV} from 'expo-av'
+
 
 
 function IdentifyNum({navigation}) {
@@ -16,9 +17,17 @@ function IdentifyNum({navigation}) {
       })
       const shakeAnimation = useRef(new Animated.Value(0)).current;
       const [rumble, setRumble] = useState()
+      const [number, setnumber] = useState('');
+      const [number2, setnumber2] = useState('');
+      const [number3, setnumber3] = useState('');
+      const [number4, setnumber4] = useState('');
 
    
 useEffect(()=>{
+    setnumber(Math.floor(Math.random() * 20) + 1)
+    setnumber2(Math.floor(Math.random() * 20) + 1)
+    setnumber3(Math.floor(Math.random() * 20) + 1)
+    setnumber4(Math.floor(Math.random() * 20) + 1)
     async function rumble() {
         const { sound } = await Audio.Sound.createAsync(
           require('../../assets/sounds/rumble.mp3')
@@ -28,7 +37,7 @@ useEffect(()=>{
         await sound.playAsync();
       }
       rumble()
-
+if(key===0){
       async function welcome() {
         const { sound } = await Audio.Sound.createAsync(
           require('../../assets/sounds/number-match-1.mp3')
@@ -38,6 +47,7 @@ useEffect(()=>{
         await sound.playAsync();
       }
       welcome()
+    }
 
 
 
@@ -56,10 +66,7 @@ useEffect(()=>{
            
 }, [key]);
 
-let number = Math.floor(Math.random() * 20) + 1;
-let number2 = Math.floor(Math.random() * 20) + 1;
-let number3 = Math.floor(Math.random() * 20) + 1;
-let number4 = Math.floor(Math.random() * 20) + 1;
+
 
 const blocks =[ <TouchableWithoutFeedback key={1} onPress={()=>guess(number)}>
     <View>
@@ -100,6 +107,10 @@ else{
 }}
 
 const success = ()=>{
+    setnumber(null)
+    setnumber2(null)
+    setnumber3(null)
+    setnumber4(null)
     async function takeOff() {
         const { sound } = await Audio.Sound.createAsync(
           require('../../assets/sounds/quicktakeoff.mp3')
@@ -164,6 +175,7 @@ const failure = () => {
         await sound.playAsync();
       }
       wrong()
+      Vibration.vibrate(500)
     Animated.sequence([
       Animated.timing(shakeAnimation, { toValue: 5, duration: 50, useNativeDriver: true }),
       Animated.timing(shakeAnimation, { toValue: -5, duration: 50, useNativeDriver: true }),
