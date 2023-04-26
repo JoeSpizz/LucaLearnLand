@@ -42,9 +42,8 @@ function Title({navigation}) {
     </View>
   </Modal>
     <Pressable style={styles.button} >
-    <Text style={styles.text}>Luca's Play</Text>
-      <Text style={styles.smallText}>(and Learn)</Text>
-      <Text style={styles.text}>Ground!</Text>
+    <Text style={styles.text}>Luca's Learn</Text>
+      <Text style={styles.text}>Land!</Text>
     </Pressable>
     <Truck label="ABC's" nav="Letters" navigation={navigation}/>
       <Truck label = "123's" nav="Numbers" navigation={navigation}/>
