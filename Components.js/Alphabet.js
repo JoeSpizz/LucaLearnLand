@@ -30,24 +30,27 @@ const goHome= ()=>{
     <View style={styles.container}>
         <Text style={styles.title}>Alphabet Land</Text>
         <Text style={styles.title2}>Let's Learn Our Letters!</Text>
+
         <View>
-        <Text style={styles.button} onPress={()=>{pressed('Tracing')}}>
-          <Image style={styles.truck} source={require('../assets/trucks/truck1.png')} />
-            Trace
-        </Text>
-        </View>
-        <View>
-        <Text style={styles.button} onPress={()=>{pressed('IdentifyLet')}}>
-          <Image style={styles.truck} source={require('../assets/trucks/truck1.png')} />
-          Identify
-        </Text>
-        </View>
-        <View>
-        <Text style={styles.button} onPress={()=>{pressed('Cases')}}>
-          <Image style={styles.truck} source={require('../assets/trucks/truck1.png')} />
-          Upper vs Lower
-        </Text>
-        </View>
+  <Text style={styles.button} onPress={()=>{pressed('Tracing')}}>
+    <View style={styles.buttonContainer}>
+      <Image style={styles.truck} source={require('../assets/trucks/truck-7.png')} />
+      <Text style={styles.buttonText}>Trace</Text>
+    </View>
+  </Text>
+  <Text style={styles.button} onPress={()=>{pressed('IdentifyLet')}}>
+    <View style={styles.buttonContainer}>
+      <Image style={styles.truck} source={require('../assets/trucks/truck-7.png')} />
+      <Text style={styles.buttonText}>Identify</Text>
+    </View>
+  </Text>
+  <Text style={styles.button} onPress={()=>{pressed('Cases')}}>
+    <View style={styles.buttonContainer}>
+      <Image style={styles.truck} source={require('../assets/trucks/truck-7.png')} />
+      <Text style={styles.buttonText}>Upper vs Lower</Text>
+    </View>
+  </Text>
+</View>
 
         <Text style={styles.homeButton} 
         onPress={goHome}
@@ -61,7 +64,8 @@ export default Alphabet
 const styles= EStyleSheet.create({
     container:{
       backgroundColor: 'red',
-      height: '100%'
+      height: '100%',
+      
     },
     title:{
       marginTop: 30,
@@ -77,12 +81,20 @@ const styles= EStyleSheet.create({
       color: "#FFFF00",
       fontWeight: 'bold'
     },
-    button:{
-      height:85,
+    buttonContainer:{
+      flexDirection: 'column',
+      alignItems: 'center',
     },
-    button2:{marginTop:40},
+    button:{
+    marginTop: 60,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    },
+    buttonText:{
+      color: "#FFFF00"
+    },
     truck:{
-      height: 60,
+      height: 70,
       width: 110,
       resizeMethod: 'resize'
     },

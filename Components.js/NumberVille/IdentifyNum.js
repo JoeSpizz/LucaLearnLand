@@ -215,7 +215,7 @@ const goHome= async()=>{
            {number}
             </Text>
             <Text style={styles.identifier} >
-            <Image style={styles.truck} source={require('../../assets/trucks/truck6.png')} />
+            <Image style={styles.truck} source={require('../../assets/trucks/racecar-2.png')} />
         </Text>
         </Animated.View>
 
@@ -301,8 +301,8 @@ grid:{
           fontWeight: 'bold',
           fontSize: '3.5rem', 
           position: 'absolute',
-          top: 13,
-          left: 33
+          top: 40,
+          left: 20
       },
       truck:{
         height: 130,

@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "LucasPlayAndLearnGround",
-    "slug": "LucasPlayAndLearnGround",
-    "version": "1.0.0",
+    "name": "Luca's Learn Land",
+    "slug": "LucasLearnLand",
+    "version": "0.1.1",
     "plugins": [
       [
         "expo-av"
@@ -26,13 +26,24 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.lucalearnland",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.MODIFY_AUDIO_SETTINGS"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "8dd0ad33-9ac2-45b6-bce7-e688a5946883"
+      }
     }
   }
 }

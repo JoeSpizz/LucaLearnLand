@@ -34,20 +34,26 @@ goBack()
 
         <View>
         <Text style={styles.button} onPress={()=>{pressed('LearnAnimals')}}>
-          <Image style={styles.truck} source={require('../assets/trucks/truck1.png')} />
-            Learn Animals
+          <View>
+          <Image style={styles.truck} source={require('../assets/trucks/truck6.png')} />
+           <Text style={styles.buttonText}> Learn Animals</Text>
+           </View>
         </Text>
         </View>
         <View>
         <Text style={styles.button} onPress={()=>{pressed('AnimalSounds')}}>
-          <Image style={styles.truck} source={require('../assets/trucks/truck1.png')} />
-          Identify Sound
+          <View>
+          <Image style={styles.truck} source={require('../assets/trucks/truck6.png')} />
+          <Text style={styles.buttonText}>Identify Sound</Text>
+          </View>
         </Text>
         </View>
         <View>
         <Text style={styles.button} onPress={()=>{pressed('AnimalPictures')}}>
-          <Image style={styles.truck} source={require('../assets/trucks/truck1.png')} />
-         Identify Picture 
+          <View>
+          <Image style={styles.truck} source={require('../assets/trucks/truck6.png')} />
+         <Text style={styles.buttonText}>Identify Picture </Text>
+         </View>
         </Text>
         </View>
         
@@ -81,10 +87,16 @@ const styles= EStyleSheet.create({
     },
     button:{
       height:85,
+      marginTop: 60,
+      marginLeft: "auto",
+      marginRight: 'auto'
     },
-    button2:{marginTop:40},
+    buttonText:{
+      color: '#E171FD',
+      textAlign: 'center',
+    },
     truck:{
-      height: 60,
+      height: 70,
       width: 110,
       resizeMethod: 'resize'
     },

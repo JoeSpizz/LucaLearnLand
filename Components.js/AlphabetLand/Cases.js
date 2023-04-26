@@ -1,4 +1,4 @@
-import {View, Text, PanResponder, Animated } from 'react-native';
+import {View, Text, PanResponder, Animated, Vibration } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { useEffect, useState } from 'react';
 import {Audio} from 'expo-av'
@@ -132,7 +132,15 @@ function Cases({navigation}) {
            
           }
           else{
-            alert("NO")
+            async function wrong() {
+              const { sound } = await Audio.Sound.createAsync(
+                require('../../assets/sounds/incorrect.mp3')
+              );
+             
+              await sound.playAsync();
+            }
+            wrong()
+            Vibration.vibrate(500)
           }
 
         }

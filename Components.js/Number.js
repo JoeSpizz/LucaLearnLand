@@ -36,20 +36,26 @@ goBack()
 
         <View>
         <Text style={styles.button} onPress={()=>{pressed('TracingNum')}}>
-          <Image style={styles.truck} source={require('../assets/trucks/truck1.png')} />
-            Trace
+          <View>
+          <Image style={styles.truck} source={require('../assets/trucks/racecar-1.png')} />
+            <Text style={styles.buttonText}>Trace</Text>
+            </View>
         </Text>
         </View>
         <View>
         <Text style={styles.button} onPress={()=>{pressed('IdentifyNum')}}>
-          <Image style={styles.truck} source={require('../assets/trucks/truck1.png')} />
-          Identify
+          <View>
+          <Image style={styles.truck} source={require('../assets/trucks/racecar-1.png')} />
+          <Text style={styles.buttonText}>Identify</Text>
+            </View>
         </Text>
         </View>
         <View>
         <Text style={styles.button} onPress={()=>{pressed('Count')}}>
-          <Image style={styles.truck} source={require('../assets/trucks/truck1.png')} />
-         Count
+          <View>
+          <Image style={styles.truck} source={require('../assets/trucks/racecar-1.png')} />
+          <Text style={styles.buttonText}>Count</Text>
+            </View>
         </Text>
         </View>
 
@@ -84,8 +90,13 @@ const styles= EStyleSheet.create({
     },
     button:{
       height:85,
+      marginTop: 65,
+      marginLeft: 'auto',
+      marginRight: 'auto',
     },
-    button2:{marginTop:40},
+    buttonText:{
+      color:'#00FC00',
+    textAlign: 'center'},
     truck:{
       height: 60,
       width: 110,
