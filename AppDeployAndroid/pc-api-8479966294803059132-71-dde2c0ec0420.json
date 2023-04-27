@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "pc-api-8479966294803059132-71",
+  "private_key_id": "dde2c0ec0420b4dd528b1fc7b6bb0e389f9de979",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC12UK/QehsqrEE\nlQ6qPBpZXzD29IR1PJu3epr9zH1XgwYOc8PxdDqOXv9RSPu7DseUfjVjWfhcllRu\nCCCJHFUY6sAMbTEot/R12wPPyhw+mnhUM4joeBQLv8x70vP9VO724InPsD+VqfDn\nEhJ/9BdU3YVQF8PvslRh1R9OjQd/qU/vRboTXkawmo1a3LSGtqBh8+OMFqswpSmN\n2xFVPg7wCn3QzENogizQrn5hrqOWn4pTEZ/QkcVRZo4EkDiPxKoiU+7ol4ydXYus\n7vKcvbprTCl5+7ZdV2soDXFjFhvaSzKLCUEQlweAxrqnNspAqnztrpj9/LxH2br1\no3faipXDAgMBAAECggEAUPGNq9tW7TPHSp5cojrRkbF09p/da9/YAkIhRlJlAnSQ\nWBOAhvPw8plndVOStW89OCQ7eGc+TVwe5cFZVh6V5FrttDpQVOsY9fLQjgfNLbKN\nWBF+Yde9OIOdrgo2z68kFSDaRueRTfmQgRJCyNCqJ/zYj8+cSA/tToTShCDzUweW\nXnXYfQBMQw0rUWtTNXbia/B98OacVzUwL+QxLLIoik670YgBaLdjTEvkx0mt2E/d\nZK9+HVxjLLM/y2LAKmhDtv8s92BEPtX/QZL0IXCUgPChxWu4cb30aFqc7vPeOWAC\nCZEZ9F7UIRXvRqc3gt+XwyorCBcd2iS5YdPDRGL1QQKBgQDlLDTRpiSYzue360Hf\nqrd4+QWoZ9l859ZOw8aw6a3E98rVklcft/c+eDvezljWzyDqCSvfRekFD12/D7Ev\n9HHJivjZj6NsZ9dxtWBucetsQVXL/sKOtWj8fsz7/qW9WlPn8c+nzJM89mYaI83U\nM1XhfTPabE87ikSYXkPNyyFowQKBgQDLItwNacPintZS4jbL2TxlZgSP0tFUcVRb\nETrD639A1aOrEUKLMCo5CuQTJTa7mdd3CuA4hi3efmqMNjtusWQM3d6R4gBiZzfr\nAxcrZLIApMkkZj/bOFYSZA4ofqq1V4nql4M0YFBdCuoWElk2M5mxTl51aaMqZy5M\nB5du1y27gwKBgGXZXagG1KDs42KDtYT31A55baBIdwnh5waeT4F0ePvevFBqdznr\ngoBK4yDESAs/hns8lDjoUwUirSEqki6jzqYpkyrtgU2+YKtyVmb/TgeQidbdZA4U\nZZJBsEwWAgbDTCL6/rSuYIlpYDshymoSXoqWICNkm1n0u0OUMUIWksSBAoGBAJhw\nj4xtS3fcVOAcLJzrZ/x8A35e6YIiDfjNRDlUl8lyyYEN0c8cFQN7nc6URa+g8mW+\nPqeMYg2u9oxEAnO+IWPaeDUn0bwG05rEVfXVehMrllp/dPoxG75vYYSYEclGaRQo\nIWkDwisgjqyDlnkrXfIF6rLX1H90sPSTWdvvFL27AoGBANjh/ECevmmJlC97vgKD\n0I8DInZGZrAknKWPD4DlE511wL0RJurfvJvimGA8bi/J5g4aIgBfVjuq236kvi9g\n1Qi28sNtW1PIZ22E7MJLRLHqnS3FEeRBUvqzQKT9c3+EMNJ8kD8qJVVxi0lyFJ1o\n0C90Q3VM4StkWxYJZCTkzWxj\n-----END PRIVATE KEY-----\n",
+  "client_email": "luca-s-learning-land@pc-api-8479966294803059132-71.iam.gserviceaccount.com",
+  "client_id": "116822039189992321177",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/luca-s-learning-land%40pc-api-8479966294803059132-71.iam.gserviceaccount.com"
+}
