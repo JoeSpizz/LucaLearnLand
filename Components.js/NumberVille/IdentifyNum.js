@@ -24,7 +24,7 @@ function IdentifyNum({navigation}) {
 
    
 useEffect(()=>{
-    setnumber(Math.floor(Math.random() * 20) + 1)
+    setnumber(Math.floor(Math.random() * 20)+1)
     setnumber2(Math.floor(Math.random() * 20) + 1)
     setnumber3(Math.floor(Math.random() * 20) + 1)
     setnumber4(Math.floor(Math.random() * 20) + 1)
@@ -34,6 +34,7 @@ useEffect(()=>{
         );
         setRumble(sound)
        
+
         await sound.playAsync();
       }
       rumble()
