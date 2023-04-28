@@ -40,10 +40,20 @@ function Count({navigation}) {
           
           setPressed([...pressed, i])
         if((tally+1)===number){
+          async function tada() {
+            const { sound } = await Audio.Sound.createAsync(
+              require('../../assets/sounds/tada.mp3')
+            );
+           
+            await sound.playAsync();
+          }
+          tada()
+          setTimeout(() => {
             setNumber(number+1)
             setTally(0)
             setPressed([])
             setCounters(Array(number+1).fill(null));
+          }, 1500);
         }
       }
       }
