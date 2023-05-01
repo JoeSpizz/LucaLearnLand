@@ -13,6 +13,22 @@ function Count({navigation}) {
       require('../../assets/trucks/truck6.png'),
       require('../../assets/trucks/truck1.png'),
       require('../../assets/trucks/truck-7.png'),
+      require('../../assets/trucks/truck6.png'),require('../../assets/trucks/truck1.png'),
+      require('../../assets/trucks/truck-7.png'),
+      require('../../assets/trucks/truck6.png'),
+      require('../../assets/trucks/truck1.png'),
+      require('../../assets/trucks/truck-7.png'),
+      require('../../assets/trucks/truck6.png'),
+      require('../../assets/trucks/truck1.png'),
+      require('../../assets/trucks/truck-7.png'),
+      require('../../assets/trucks/truck6.png'),
+      require('../../assets/trucks/truck1.png'),
+      require('../../assets/trucks/truck-7.png'),
+      require('../../assets/trucks/truck6.png'),require('../../assets/trucks/truck1.png'),
+      require('../../assets/trucks/truck-7.png'),
+      require('../../assets/trucks/truck6.png'),
+      require('../../assets/trucks/truck1.png'),
+      require('../../assets/trucks/truck-7.png'),
       require('../../assets/trucks/truck6.png'),
     ];
     const [counters, setCounters] = useState(Array(number).fill(null));
@@ -48,6 +64,17 @@ function Count({navigation}) {
             await sound.playAsync();
           }
           tada()
+
+          if(tally+1===20){
+            setTimeout(() => {
+              setNumber(1)
+              setTally(0)
+              setPressed([])
+              setCounters(Array(number+1).fill(null));
+            }, 1500);
+          }
+
+
           setTimeout(() => {
             setNumber(number+1)
             setTally(0)
@@ -62,16 +89,17 @@ function Count({navigation}) {
       for (let i = 0; i < number; i++) {
       block.push(
       <View key={i} >
-        <TouchableWithoutFeedback onPress={pressed.includes(i) ? null: ()=>playerCounts(i) }>
-          <Text style={pressed.includes(i) ? styles.buttonPressed : undefined}>
+        <TouchableWithoutFeedback onPressIn={pressed.includes(i) ? null: ()=>playerCounts(i) }>
+          <View >
+          <Text style={pressed.includes(i) ? styles.buttonPressed : styles.imageContainer}>
               <Image style={styles.picture} source={images[number-1]}/>  
          </Text>
-         
-         
+         </View>
           </TouchableWithoutFeedback>
           <View>
          <Text style={pressed.includes(i)? styles.visible : styles.invisible}>{counters[i]}</Text>
          </View>
+         
           </View>);
       }
 
@@ -89,9 +117,9 @@ const goHome= ()=>{
         </Text>
         
         <View style={styles.countBoxContainer}>
-        <View style={styles.countBox}>
+  
        {block}
-        </View>
+    
         </View>
         
         <Text style={styles.button} 
@@ -124,19 +152,27 @@ const styles= EStyleSheet.create({
       fontWeight: 'bold'
     },
     countBoxContainer:{
+      marginTop: 20,
         flex: 1,
-    justifyContent: 'center', // aligns children vertically
-    alignItems: 'center', // aligns children horizontally
+    flexDirection: 'row',
+    width: "80%",
+    maxHeight: "70%",
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    borderWidth: 10,
+    borderStyle: "dashed",
+    elevation: 15,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    backgroundColor: "grey",
+    flex: 1,
+    justifyContent: 'space-around',
+    justifyContent: 'center',
     },
-    countBox:{
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderWidth: 15,
-        borderStyle: "dashed",
-        elevation: 15,
-        height: "60%",
-        width: "80%",
-        backgroundColor: "grey"
+    imageContainer:{
+      maxHeight: "45%",
+      alignItems: 'center',
+      flexBasis: "33%",
     },
     picture:{
           width: 50,
@@ -144,12 +180,19 @@ const styles= EStyleSheet.create({
           resizeMethod: "contain",
     },
     buttonPressed: {
-       opacity: .3
+       opacity: .3,
+       width: 50,
+          height: 50,
+          resizeMethod: "contain",
       },
       visible:{
-        color: 'rgba(255, 0, 255, 1.0)',
-        fontSize: '1.5rem',
-        fontWeight: 'bold'
+        
+        color: '#00FC00',
+        fontSize: '2rem',
+        fontWeight: 'bold',
+        position: 'absolute',
+        bottom: 0,
+        left: -10
       },
       invisible:{
         color: 'transparent'
