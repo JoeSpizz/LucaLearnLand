@@ -2,38 +2,29 @@ import {View, Text, Image, TouchableWithoutFeedback } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import {useEffect, useState} from 'react'
 import {Audio} from 'expo-av'   
+import One from './Counting/One';
+import Two from './Counting/Two';
+import Three from './Counting/Three';
+import Four from './Counting/Four';
+import Five from './Counting/Five';
+import Six from './Counting/Six';
+import Seven from './Counting/Seven';
+import Eight from './Counting/Eight';
+import Nine from './Counting/Nine';
+import Ten from './Counting/Ten';
+import Eleven from './Counting/Eleven';
+import Twelve from './Counting/Twelve';
+import Thirteen from './Counting/Thirteen';
+import Fourteen from './Counting/Fourteen';
+import Fifteen from './Counting/Fifteen';
+import Sixteen from './Counting/Sixteen';
+import Seventeen from './Counting/Seventeen';
+import Eighteen from './Counting/Eighteen';
+import Nineteen from './Counting/Nineteen';
+import Twenty from './Counting/Twenty';
 
 function Count({navigation}) {
     const [number, setNumber] = useState(1)
-    const [tally, setTally]= useState(0)
-    const [pressed, setPressed] = useState([]);
-    const images = [
-      require('../../assets/trucks/truck1.png'),
-      require('../../assets/trucks/truck-7.png'),
-      require('../../assets/trucks/truck6.png'),
-      require('../../assets/trucks/truck1.png'),
-      require('../../assets/trucks/truck-7.png'),
-      require('../../assets/trucks/truck6.png'),require('../../assets/trucks/truck1.png'),
-      require('../../assets/trucks/truck-7.png'),
-      require('../../assets/trucks/truck6.png'),
-      require('../../assets/trucks/truck1.png'),
-      require('../../assets/trucks/truck-7.png'),
-      require('../../assets/trucks/truck6.png'),
-      require('../../assets/trucks/truck1.png'),
-      require('../../assets/trucks/truck-7.png'),
-      require('../../assets/trucks/truck6.png'),
-      require('../../assets/trucks/truck1.png'),
-      require('../../assets/trucks/truck-7.png'),
-      require('../../assets/trucks/truck6.png'),require('../../assets/trucks/truck1.png'),
-      require('../../assets/trucks/truck-7.png'),
-      require('../../assets/trucks/truck6.png'),
-      require('../../assets/trucks/truck1.png'),
-      require('../../assets/trucks/truck-7.png'),
-      require('../../assets/trucks/truck6.png'),
-    ];
-    const [counters, setCounters] = useState(Array(number).fill(null));
-   
-
 
     useEffect(()=>{
         async function welcome() {
@@ -44,64 +35,35 @@ function Count({navigation}) {
         }
         welcome()
       },[])
-      
-      const block = []
   
-      const playerCounts = (i)=>{
-        if (!counters[i]) {
-          const newCounters = [...counters];
-          newCounters[i] = tally + 1;
-          setCounters(newCounters);
-          setTally(tally+1);
-          
-          setPressed([...pressed, i])
-        if((tally+1)===number){
-          async function tada() {
-            const { sound } = await Audio.Sound.createAsync(
-              require('../../assets/sounds/tada.mp3')
-            );
-           
-            await sound.playAsync();
-          }
-          tada()
-
-          if(tally+1===20){
-            setTimeout(() => {
-              setNumber(1)
-              setTally(0)
-              setPressed([])
-              setCounters(Array(number+1).fill(null));
-            }, 1500);
-          }
-
-
-          setTimeout(() => {
-            setNumber(number+1)
-            setTally(0)
-            setPressed([])
-            setCounters(Array(number+1).fill(null));
-          }, 1500);
-        }
+      const success = ()=>{
+        setNumber(number+1)
       }
+      const reset = () => {
+        setNumber(1)
       }
-      
-
-      for (let i = 0; i < number; i++) {
-      block.push(
-      <View key={i} >
-        <TouchableWithoutFeedback onPressIn={pressed.includes(i) ? null: ()=>playerCounts(i) }>
-          <View >
-          <Text style={pressed.includes(i) ? styles.buttonPressed : styles.imageContainer}>
-              <Image style={styles.picture} source={images[number-1]}/>  
-         </Text>
-         </View>
-          </TouchableWithoutFeedback>
-          <View>
-         <Text style={pressed.includes(i)? styles.visible : styles.invisible}>{counters[i]}</Text>
-         </View>
-         
-          </View>);
-      }
+      const images = [
+        <One onSuccess={success} />,
+        <Two onSuccess={success} />,
+       <Three onSuccess={success} />,
+       <Four onSuccess={success} />,
+       <Five onSuccess={success} />,
+       <Six onSuccess={success} />,
+       <Seven onSuccess={success} />,
+       <Eight onSuccess={success} />,
+       <Nine onSuccess={success} />,
+       <Ten onSuccess={success} />,
+       <Eleven onSuccess={success} />,
+       <Twelve onSuccess={success} />,
+       <Thirteen onSuccess={success} />,
+       <Fourteen onSuccess={success} />,
+       <Fifteen onSuccess={success} />,
+       <Sixteen onSuccess={success} />,
+       <Seventeen onSuccess={success} />,
+       <Eighteen onSuccess={success} />,
+       <Nineteen onSuccess={success} />,
+       <Twenty onReset={reset} />,
+      ];
 
 const goHome= ()=>{
     navigation.navigate(`Numbers`)
@@ -118,7 +80,7 @@ const goHome= ()=>{
         
         <View style={styles.countBoxContainer}>
   
-       {block}
+       {images[number-1]}
     
         </View>
         
@@ -153,50 +115,17 @@ const styles= EStyleSheet.create({
     },
     countBoxContainer:{
       marginTop: 20,
-        flex: 1,
-    flexDirection: 'row',
-    width: "80%",
-    maxHeight: "70%",
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    borderWidth: 10,
-    borderStyle: "dashed",
-    elevation: 15,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    backgroundColor: "grey",
-    flex: 1,
-    justifyContent: 'space-around',
-    justifyContent: 'center',
+      width: "80%",
+     height: '70%',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      borderWidth: 10,
+      borderStyle: "dashed",
+      elevation: 15,
+     backgroundColor: "grey",
+     alignItems: 'center',
     },
-    imageContainer:{
-      maxHeight: "45%",
-      alignItems: 'center',
-      flexBasis: "33%",
-    },
-    picture:{
-          width: 50,
-          height: 50,
-          resizeMethod: "contain",
-    },
-    buttonPressed: {
-       opacity: .3,
-       width: 50,
-          height: 50,
-          resizeMethod: "contain",
-      },
-      visible:{
-        
-        color: '#00FC00',
-        fontSize: '2rem',
-        fontWeight: 'bold',
-        position: 'absolute',
-        bottom: 0,
-        left: -10
-      },
-      invisible:{
-        color: 'transparent'
-      },
+
     button: {
         borderRadius: 10,
         borderWidth: 5,
