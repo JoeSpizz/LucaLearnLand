@@ -41,7 +41,7 @@ function Two(props) {
             
            <Text style={styles.imageContainer}>
            <View>
-                <Image style={pressed.includes(i) ? styles.buttonPressed : styles.picture} source={require('../../../assets/trucks/truck6.png')}/>  
+                <Image style={pressed.includes(i) ? styles.buttonPressed : styles.picture} source={require('../../../assets/trucks/headlights.png')}/>  
                 </View>
            </Text>
           

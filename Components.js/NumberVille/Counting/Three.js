@@ -40,7 +40,7 @@ function Three(props) {
             
            <Text style={styles.imageContainer}>
            <View>
-                <Image style={pressed.includes(i) ? styles.buttonPressed : styles.picture} source={require('../../../assets/trucks/truck6.png')}/>  
+                <Image style={pressed.includes(i) ? styles.buttonPressed : styles.picture} source={require('../../../assets/trucks/firetruck.png')}/>  
                 </View>
            </Text>
           
@@ -69,10 +69,10 @@ const styles = EStyleSheet.create({
         marginTop: 40,
       },
       picture:{
-        width: 200, height: 150,
+        width: 300, height: 120,
       },
       buttonPressed: {
-        width: 200, height: 150,
+        width: 300, height: 120,
          opacity: .3,
         },
         visible:{
@@ -80,10 +80,13 @@ const styles = EStyleSheet.create({
           fontSize: '7rem',
           fontWeight: 'bold',
           position: 'absolute',
-          bottom: -50,
-          left: 70
+          bottom: -40,
+          left: 110
         },
         invisible:{
-          color: 'transparent'
+          color: 'transparent',
+          position: 'absolute',
+          bottom: -40,
+          left: 110
         }
     })
