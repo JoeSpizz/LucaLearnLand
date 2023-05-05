@@ -67,12 +67,13 @@ const styles = EStyleSheet.create({
         alignItems: 'center',
         maxHeight: 100,
         marginTop: 40,
+        marginBottom: 20
       },
       picture:{
-        width: 300, height: 120,
+        width: 300, height: 130,
       },
       buttonPressed: {
-        width: 300, height: 120,
+        width: 300, height: 130,
          opacity: .3,
         },
         visible:{
@@ -80,13 +81,13 @@ const styles = EStyleSheet.create({
           fontSize: '7rem',
           fontWeight: 'bold',
           position: 'absolute',
-          bottom: -40,
+          bottom: -30,
           left: 110
         },
         invisible:{
           color: 'transparent',
           position: 'absolute',
-          bottom: -40,
+          bottom: -30,
           left: 110
         }
     })

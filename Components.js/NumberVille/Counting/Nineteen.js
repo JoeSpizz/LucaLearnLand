@@ -36,7 +36,7 @@ function Nineteen(props) {  const [pressed, setPressed] = useState([]);
           <TouchableWithoutFeedback onPressIn={pressed.includes(i) ? null: ()=>handlePress(i) }>
            <Text style={styles.imageContainer}>
             <View>
-                <Image style={pressed.includes(i) ? styles.buttonPressed : styles.picture} source={require('../../../assets/trucks/truck6.png')}/>  
+                <Image style={pressed.includes(i) ? styles.buttonPressed : styles.picture} source={require('../../../assets/countgame/racecar-4.png')}/>  
             </View>
            </Text>
           </TouchableWithoutFeedback>
@@ -66,33 +66,34 @@ const styles = EStyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'space-around',
+        marginTop: 10
       },
      imageContainer:{   
         alignItems: 'center',
         height: 77
       },
       picture:{
-        width: 90, height: 100,
+        width: 95, height: 70,
       },
       buttonPressed: {
-        width: 90, height: 100,
+        width: 95, height: 70,
          opacity: .3,
         },
         visible:{
           color: '#00FC00',
-          fontSize: '4rem',
+          fontSize: '3rem',
           fontWTen: 'bold',
           position: 'absolute',
-          bottom: -15,
-          left: 25
+          bottom: 10,
+          left: 35
         },
         visibleTen:{
             color: '#00FC00',
-            fontSize: '4rem',
+            fontSize: '3rem',
             fontWTen: 'bold',
             position: 'absolute',
-            bottom: -15,
-            left: 5
+            bottom: 10,
+            left: 20
           },
         invisible:{
           color: 'transparent',

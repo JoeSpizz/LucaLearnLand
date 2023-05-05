@@ -36,7 +36,7 @@ function Eleven(props) {  const [pressed, setPressed] = useState([]);
           <TouchableWithoutFeedback onPressIn={pressed.includes(i) ? null: ()=>handlePress(i) }>
            <Text style={styles.imageContainer}>
             <View>
-                <Image style={pressed.includes(i) ? styles.buttonPressed : styles.picture} source={require('../../../assets/trucks/truck6.png')}/>  
+                <Image style={pressed.includes(i) ? styles.buttonPressed : styles.picture} source={require('../../../assets/countgame/bus.png')}/>  
             </View>
            </Text>
           </TouchableWithoutFeedback>
@@ -69,13 +69,14 @@ const styles = EStyleSheet.create({
       },
      imageContainer:{   
         alignItems: 'center',
-        height: 85
+        height: 85,
+        marginTop: 8
       },
       picture:{
-        width: 115, height: 130,
+        width: 130, height: 70,
       },
       buttonPressed: {
-        width: 115, height: 130,
+        width: 130, height: 70,
          opacity: .3,
         },
         visible:{
@@ -83,7 +84,7 @@ const styles = EStyleSheet.create({
           fontSize: '5rem',
           fontWTen: 'bold',
           position: 'absolute',
-          bottom: -35,
+          bottom: 0,
           left: 35
         },
         visibleTen:{
@@ -91,7 +92,7 @@ const styles = EStyleSheet.create({
             fontSize: '5rem',
             fontWTen: 'bold',
             position: 'absolute',
-            bottom: -35,
+            bottom: 0,
             left: 10
           },
         invisible:{

@@ -36,7 +36,7 @@ function Five(props) {
           <TouchableWithoutFeedback onPressIn={pressed.includes(i) ? null: ()=>handlePress(i) }>
             <Text style={styles.imageContainer}>
                 <View>
-                    <Image style={pressed.includes(i) ? styles.buttonPressed : styles.picture} source={require('../../../assets/trucks/truck6.png')}/>  
+                    <Image style={pressed.includes(i) ? styles.buttonPressed : styles.picture} source={require('../../../assets/countgame/big-rig.png')}/>  
                 </View>
             </Text>
           </TouchableWithoutFeedback>
@@ -62,18 +62,18 @@ const styles = EStyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'space-around',
-        marginTop: 50
+        marginTop: 5
       },
      imageContainer:{   
         alignItems: 'center',
         maxHeight: 100,
-        marginBottom: 50
+        marginBottom: 5
       },
       picture:{
-        width: 130, height: 150,
+        width: 150, height: 100,
       },
       buttonPressed: {
-        width: 130, height: 150,
+        width: 150, height: 100,
          opacity: .3,
         },
         visible:{
@@ -81,8 +81,8 @@ const styles = EStyleSheet.create({
           fontSize: '6rem',
           fontWeight: 'bold',
           position: 'absolute',
-          bottom: 10,
-          left: 40
+          bottom: -10,
+          left: 50
         },
         invisible:{
           color: 'transparent',

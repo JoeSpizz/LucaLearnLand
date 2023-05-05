@@ -28,7 +28,7 @@ function One(props) {
     <TouchableWithoutFeedback onPressIn={()=>handlePress()}>
     <Text style={styles.imageContainer}>
       <View style={styles.test}>
-          <Image style={pressed ? styles.buttonPressed : styles.picture} source={require('../../../assets/trucks/truck1.png')}/>  
+          <Image style={pressed ? styles.buttonPressed : styles.picture} source={require('../../../assets/countgame/grave-digger.png')}/>  
           </View>
           </Text>
       </TouchableWithoutFeedback>
@@ -48,10 +48,10 @@ const styles = EStyleSheet.create({
         marginTop: 150
       },
       picture:{
-        width: 280, height: 170,
+        width: 280, height: 230,
       },
       buttonPressed: {
-        width: 280, height: 170,
+        width: 280, height: 230,
          opacity: .3,
         },
         visible:{

@@ -36,7 +36,7 @@ function Thirteen(props) {  const [pressed, setPressed] = useState([]);
           <TouchableWithoutFeedback onPressIn={pressed.includes(i) ? null: ()=>handlePress(i) }>
            <Text style={styles.imageContainer}>
             <View>
-                <Image style={pressed.includes(i) ? styles.buttonPressed : styles.picture} source={require('../../../assets/trucks/truck6.png')}/>  
+                <Image style={pressed.includes(i) ? styles.buttonPressed : styles.picture} source={require('../../../assets/countgame/trash-truck.png')}/>  
             </View>
            </Text>
           </TouchableWithoutFeedback>
@@ -72,10 +72,10 @@ const styles = EStyleSheet.create({
         height: 75
       },
       picture:{
-        width: 100, height: 100,
+        width: 135, height: 80,
       },
       buttonPressed: {
-        width: 100, height: 100,
+        width: 135, height: 80,
          opacity: .3,
         },
         visible:{
@@ -83,16 +83,16 @@ const styles = EStyleSheet.create({
           fontSize: '4rem',
           fontWTen: 'bold',
           position: 'absolute',
-          bottom: -20,
-          left: 30
+          bottom: -10,
+          left: 40
         },
         visibleTen:{
             color: '#00FC00',
             fontSize: '4rem',
             fontWTen: 'bold',
             position: 'absolute',
-            bottom: -20,
-            left: 10
+            bottom: -10,
+            left: 20
           },
         invisible:{
           color: 'transparent',

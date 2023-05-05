@@ -36,7 +36,7 @@ function Eight(props) {  const [pressed, setPressed] = useState([]);
           <TouchableWithoutFeedback style={styles.box} onPressIn={pressed.includes(i) ? null: ()=>handlePress(i) }>
            <Text style={styles.imageContainer}>
             <View>
-                <Image style={pressed.includes(i) ? styles.buttonPressed : styles.picture} source={require('../../../assets/trucks/truck6.png')}/>  
+                <Image style={pressed.includes(i) ? styles.buttonPressed : styles.picture} source={require('../../../assets/countgame/orange-racer.png')}/>  
             </View>
            </Text>
           </TouchableWithoutFeedback>
@@ -66,13 +66,14 @@ const styles = EStyleSheet.create({
      imageContainer:{   
         alignItems: 'center',
         maxHeight: 100,
-        marginBottom: 35
+        marginBottom: 70,
+        marginTop: 10
       },
       picture:{
-        width: 115, height: 130,
+        width: 80, height: 160,
       },
       buttonPressed: {
-        width: 115, height: 130,
+        width: 80, height: 160,
          opacity: .3,
         },
         visible:{
@@ -80,8 +81,8 @@ const styles = EStyleSheet.create({
           fontSize: '6rem',
           fontWeight: 'bold',
           position: 'absolute',
-          bottom: 10,
-          left: 30
+          bottom: 30,
+          left: 10
         },
         invisible:{
           color: 'transparent',

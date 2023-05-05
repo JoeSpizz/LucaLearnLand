@@ -41,7 +41,7 @@ function Six(props) {
             
            <Text style={styles.imageContainer}>
            <View>
-                <Image style={pressed.includes(i) ? styles.buttonPressed : styles.picture} source={require('../../../assets/trucks/truck6.png')}/>  
+                <Image style={pressed.includes(i) ? styles.buttonPressed : styles.picture} source={require('../../../assets/trucks/blaze.png')}/>  
                 </View>
            </Text>
           
@@ -73,12 +73,13 @@ const styles = EStyleSheet.create({
         alignItems: 'center',
         maxHeight: 100,
         marginBottom: 70,
+        marginTop: 30
       },
       picture:{
-        width: 130, height: 150,
+        width: 130, height: 90,
       },
       buttonPressed: {
-        width: 130, height: 150,
+        width: 130, height: 90,
          opacity: .3,
         },
         visible:{
@@ -86,7 +87,7 @@ const styles = EStyleSheet.create({
           fontSize: '6rem',
           fontWeight: 'bold',
           position: 'absolute',
-          bottom: 30,
+          bottom: 50,
           left: 40
         },
         invisible:{

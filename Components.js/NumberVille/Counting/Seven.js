@@ -37,7 +37,7 @@ function Seven(props) {
           <TouchableWithoutFeedback style={styles.box} onPressIn={pressed.includes(i) ? null: ()=>handlePress(i) }>
            <Text style={styles.imageContainer}>
             <View>
-                <Image style={pressed.includes(i) ? styles.buttonPressed : styles.picture} source={require('../../../assets/trucks/truck6.png')}/>  
+                <Image style={pressed.includes(i) ? styles.buttonPressed : styles.picture} source={require('../../../assets/countgame/bicycle.png')}/>  
             </View>
            </Text>
           </TouchableWithoutFeedback>
@@ -67,13 +67,14 @@ const styles = EStyleSheet.create({
      imageContainer:{   
         alignItems: 'center',
         maxHeight: 100,
-        marginBottom: 35
+        marginBottom: 20,
+        marginTop: 20
       },
       picture:{
-        width: 115, height: 130,
+        width: 130, height: 100,
       },
       buttonPressed: {
-        width: 115, height: 130,
+        width: 130, height: 100,
          opacity: .3,
         },
         visible:{
@@ -82,7 +83,7 @@ const styles = EStyleSheet.create({
           fontWeight: 'bold',
           position: 'absolute',
           bottom: 10,
-          left: 30
+          left: 35
         },
         invisible:{
           color: 'transparent',

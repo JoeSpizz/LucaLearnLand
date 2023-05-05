@@ -36,7 +36,7 @@ function Fourteen(props) {  const [pressed, setPressed] = useState([]);
           <TouchableWithoutFeedback onPressIn={pressed.includes(i) ? null: ()=>handlePress(i) }>
            <Text style={styles.imageContainer}>
             <View>
-                <Image style={pressed.includes(i) ? styles.buttonPressed : styles.picture} source={require('../../../assets/trucks/truck6.png')}/>  
+                <Image style={pressed.includes(i) ? styles.buttonPressed : styles.picture} source={require('../../../assets/countgame/airplane.png')}/>  
             </View>
            </Text>
           </TouchableWithoutFeedback>
@@ -69,30 +69,30 @@ const styles = EStyleSheet.create({
       },
      imageContainer:{   
         alignItems: 'center',
-        height: 75
+        height: 75, marginTop: 4
       },
       picture:{
-        width: 100, height: 100,
+        width: 135, height: 65,
       },
       buttonPressed: {
-        width: 100, height: 100,
+        width: 135, height: 65,
          opacity: .3,
         },
         visible:{
           color: '#00FC00',
-          fontSize: '4rem',
+          fontSize: '3rem',
           fontWTen: 'bold',
           position: 'absolute',
-          bottom: -20,
-          left: 30
+          bottom: 10,
+          left: 65
         },
         visibleTen:{
             color: '#00FC00',
-            fontSize: '4rem',
+            fontSize: '3rem',
             fontWTen: 'bold',
             position: 'absolute',
-            bottom: -20,
-            left: 10
+            bottom: 10,
+            left: 45
           },
         invisible:{
           color: 'transparent',

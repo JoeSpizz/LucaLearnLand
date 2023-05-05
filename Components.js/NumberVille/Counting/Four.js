@@ -36,7 +36,7 @@ function Four(props) {
           <TouchableWithoutFeedback style={styles.box} onPressIn={pressed.includes(i) ? null: ()=>handlePress(i) }>
             <Text style={styles.imageContainer}>
                 <View>
-                    <Image style={pressed.includes(i) ? styles.buttonPressed : styles.picture} source={require('../../../assets/trucks/truck6.png')}/>  
+                    <Image style={pressed.includes(i) ? styles.buttonPressed : styles.picture} source={require('../../../assets/countgame/tire.png')}/>  
                 </View>
             </Text>
           </TouchableWithoutFeedback>
@@ -61,13 +61,14 @@ const styles = EStyleSheet.create({
      imageContainer:{   
         alignItems: 'center',
         maxHeight: 100,
-        marginBottom: 35
+        marginBottom: 30,
+        marginTop: 5
       },
       picture:{
-        width: 180, height: 150,
+        width: 75, height: 120,
       },
       buttonPressed: {
-        width: 180, height: 150,
+        width: 75, height: 120,
          opacity: .3,
         },
         visible:{
@@ -75,15 +76,15 @@ const styles = EStyleSheet.create({
           fontSize: '7rem',
           fontWeight: 'bold',
           position: 'absolute',
-          bottom: -10,
-          left: 60,
+          bottom: 0,
+          left: 0,
         
         },
         invisible:{
           color: 'transparent',
           position: 'absolute',
-          bottom: -50,
-          left: 60,
+          bottom: 0,
+          left: 0,
           
         }
     })

@@ -85,6 +85,9 @@ const styles = EStyleSheet.create({
           left: 100
         },
         invisible:{
-          color: 'transparent'
+          color: 'transparent',
+          position: 'absolute',
+          bottom: -50,
+          left: 100
         }
     })

@@ -19,6 +19,8 @@ function Cases({navigation}) {
   ]);
   const [test, setTest] = useState()
   const [key, setKey] = useState(0)
+  const [pan, setPan] = useState({ x: new Animated.Value(0), y: new Animated.Value(0) });
+  const [lastPanPosition, setLastPanPosition] = useState({ x: 0, y: 0 });
 
   // shuffles array so lowercase letters are random
  useEffect(()=>{
@@ -40,11 +42,6 @@ function Cases({navigation}) {
     welcome()}
   },[])
 
-  
-
- 
-  const [pan, setPan] = useState({ x: new Animated.Value(0), y: new Animated.Value(0) });
-  const [lastPanPosition, setLastPanPosition] = useState({ x: 0, y: 0 });
 
   const panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
@@ -54,7 +51,7 @@ function Cases({navigation}) {
     },
     onPanResponderRelease: (evt, gestureState) => {
       setLastPanPosition({ x: lastPanPosition.x + gestureState.dx, y: lastPanPosition.y + gestureState.dy });
-    
+
       const upperLetterPosition = {
         x: lastPanPosition.x + gestureState.dx,
         y: lastPanPosition.y + gestureState.dy,
@@ -91,11 +88,6 @@ function Cases({navigation}) {
         height: 50,
         index: 3
       }];
-    
-
-      
-       
-        // alert(` at X: ${upperLetterRect.x} and Y: ${upperLetterRect.y}`);
        
         // check for overlap between the upper letter and the lowercase letter
         const overlap = lowercaseLetterRects.map(lowercaseLetterRect=> !(
@@ -116,10 +108,6 @@ function Cases({navigation}) {
               await sound.playAsync();
             }
             tada()
-            // alert("YES")
-            setKey(key+1)
-            setLastPanPosition({x:0, y:0})
-            setPan({x: new Animated.Value(0), y: new Animated.Value(0)})
             const next = getRandomLetter()
             setUppercaseLetter(next)
             setLowercaseLetters([
@@ -127,9 +115,12 @@ function Cases({navigation}) {
               getRandomLetter().toLowerCase(),
               getRandomLetter().toLowerCase(),
             ])
-            
-            
-           
+
+            setTimeout(() => {
+              setKey(key+1)
+              setLastPanPosition({x:0, y:0})
+              setPan({x: new Animated.Value(0), y: new Animated.Value(0)})
+          }, 50);
           }
           else{
             async function wrong() {
