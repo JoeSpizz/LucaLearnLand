@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { StyleSheet, View, Text, PanResponder, Animated } from 'react-native';
 
 
 const Drag = () => {
-    const [pan, setPan] = useState({ x: new Animated.Value(0), y: new Animated.Value(0) });
+  const pan = useRef(new Animated.ValueXY({ x: 10, y: 565 })).current;
   const [lastPosition, setLastPosition] = useState({ x: 0, y: 0 });
 
 

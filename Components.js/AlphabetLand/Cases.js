@@ -48,10 +48,12 @@ function Cases({navigation}) {
     onPanResponderMove: (evt, gestureState) => {
       pan.x.setValue(lastPanPosition.x + gestureState.dx);
       pan.y.setValue(lastPanPosition.y + gestureState.dy);
-    },
-    onPanResponderRelease: (evt, gestureState) => {
       setLastPanPosition({ x: lastPanPosition.x + gestureState.dx, y: lastPanPosition.y + gestureState.dy });
 
+    },
+    onPanResponderRelease: (evt, gestureState) => {
+     
+      //defines position and size of uppercase letter block
       const upperLetterPosition = {
         x: lastPanPosition.x + gestureState.dx,
         y: lastPanPosition.y + gestureState.dy,
@@ -67,7 +69,7 @@ function Cases({navigation}) {
         height: upperLetterDimensions.height,
       };
     
-      // check if the upper letter overlaps with any of the lowercase letters
+      //  defines lowercase letter locations and sizes
       const lowercaseLetterRects = [{
         x: -120,
         y: 420,
