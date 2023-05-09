@@ -1,23 +1,42 @@
 import {View, Text, Image } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import {Audio} from 'expo-av'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 function Animal({navigation}) {
+  const [forest, setForest] = useState()
 useEffect(()=>{
   const welcome = async ()=>{
     const {sound} = await Audio.Sound.createAsync(
       require('../assets/sounds/animal-island.mp3')
     )
+    setForest(sound)
+    await sound.setVolumeAsync(0.75)
     await sound.playAsync()
 }
 welcome()
-})
 
-  const pressed = (e)=>{
+async function forest() {
+  const { sound } = await Audio.Sound.createAsync(
+    require('../assets/animals/forest-ambience.mp3')
+  );
+  setForest(sound)
+  await sound.playAsync();
+}
+forest();
+}, [])
+
+  const pressed = async (e)=>{
+    if (forest) {
+      await forest.stopAsync();
+    }
     navigation.navigate(e)
   }
-const goHome= ()=>{
+
+const goHome= async()=>{
+  if (forest) {
+    await forest.stopAsync();
+  }
   const goBack = async ()=>{
     const {sound} = await Audio.Sound.createAsync(
       require('../assets/sounds/what-else-2.mp3')

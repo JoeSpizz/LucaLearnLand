@@ -1,14 +1,53 @@
-import {View, Text } from 'react-native';
+import { View, Text, Image, PanResponder } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import { useState } from 'react'
+import Cat from './Animals/Cat'
+import Cow from './Animals/Cow'
 
 function Count({navigation}) {
+  const [animal, setAnimal]= useState(0)
+
+const animals = {farm: [<Cat/>, <Cow/>],
+                forest: [],
+                neighborhood: []
+                }
+const [location, setLocation] = useState(animals.farm)
+const swipeLeft = () => {
+  setAnimal(animal - 1)
+}
+
+const swipeRight = () => {
+  setAnimal(animal + 1)
+}
+
 const goHome= ()=>{
     navigation.navigate(`Animals`)
 }
+
+const panResponder = PanResponder.create({
+  onStartShouldSetPanResponder: (evt, gestureState) => true,
+  onPanResponderRelease: (evt, gestureState) => {
+    if (gestureState.dx < 0) {
+      swipeRight()
+    } else {
+      swipeLeft()
+    }
+  },
+})
+
   return (
     <View style={styles.container}>
         <Text style={styles.title}>Learning Animals!</Text>
         <Text style={styles.title2}>Look, Click, Listen, Learn</Text>
+<View>
+        {location[animal]}
+        </View>
+    
+        <View  style={styles.arrows} {...panResponder.panHandlers}>
+        <Image style={styles.arrow} source={require('../../assets/left-arrow.png')} resizeMode="contain" />
+      
+        <Image style={styles.arrow} source={require('../../assets/right-arrow.png')}  resizeMode="contain"/>
+      </View>
         
         <Text style={styles.button} 
         onPress={goHome}
@@ -38,7 +77,19 @@ const styles= EStyleSheet.create({
       color: "#E171FD",
       fontWeight: 'bold'
     },
-
+    arrows: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      position: 'absolute',
+      bottom: 55,
+      left: 0
+    },
+    arrow: {
+      height: 200,
+      width: 180,
+      marginHorizontal: 10,
+    },
     button: {
         borderRadius: 10,
         borderWidth: 5,
