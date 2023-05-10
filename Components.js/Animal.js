@@ -4,13 +4,12 @@ import {Audio} from 'expo-av'
 import { useEffect, useState } from 'react';
 
 function Animal({navigation}) {
-  const [forest, setForest] = useState()
+const [forest, setForest] = useState()
 useEffect(()=>{
   const welcome = async ()=>{
     const {sound} = await Audio.Sound.createAsync(
       require('../assets/sounds/animal-island.mp3')
     )
-    setForest(sound)
     await sound.setVolumeAsync(0.75)
     await sound.playAsync()
 }
@@ -26,7 +25,7 @@ async function forest() {
 forest();
 }, [])
 
-  const pressed = async (e)=>{
+const pressed= async(e)=>{
     if (forest) {
       await forest.stopAsync();
     }

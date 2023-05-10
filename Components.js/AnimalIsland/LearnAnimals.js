@@ -3,11 +3,23 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import { useState } from 'react'
 import Cat from './Animals/Cat'
 import Cow from './Animals/Cow'
+import Owl from './Animals/Owl'
+import Crow from './Animals/Crow'
+import Donkey from './Animals/Donkey'
+import Duck from './Animals/Duck'
+import Eagle from './Animals/Eagle';
+import Elephant from './Animals/Elephant';
+import Goat from './Animals/Goat';
+import Horse from './Animals/Horse';
+import Lion from './Animals/Lion';
+import Pig from './Animals/Pig';
+import Rooster from './Animals/Rooster';
+
 
 function Count({navigation}) {
   const [animal, setAnimal]= useState(0)
 
-const animals = {farm: [<Cat/>, <Cow/>],
+const animals = {farm: [<Cat/>, <Cow/>, <Owl/>, <Crow/>, <Donkey/>, <Duck/>, <Eagle/>, <Elephant/>, <Goat/>, <Horse/>, <Lion/>, <Pig/>, <Rooster/>],
                 forest: [],
                 neighborhood: []
                 }
