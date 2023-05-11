@@ -4,11 +4,11 @@ import {Audio} from 'expo-av'
 import { useEffect } from 'react';
 
 
-function Eagle() {
+function Seagull() {
 useEffect(()=>{
     const squawk = async ()=>{
         const {sound} = await Audio.Sound.createAsync(
-          require('../../../assets/animals/eagle.mp3')
+          require('../../../assets/animals/seagulls.mp3')
         )
         await sound.playAsync()
     }
@@ -18,7 +18,7 @@ useEffect(()=>{
 const play = ()=>{
     const squawk = async ()=>{
         const {sound} = await Audio.Sound.createAsync(
-          require('../../../assets/animals/eagle.mp3')
+          require('../../../assets/animals/seagulls.mp3')
         )
         await sound.playAsync()
     }
@@ -27,17 +27,17 @@ const play = ()=>{
 
     return (
         <View style={styles.container}>
-        <Text style={styles.title}>Eagle</Text>
+        <Text style={styles.title}>Seagull</Text>
         <TouchableOpacity onPress={play}>
         <View style={styles.picture} >
-          <Image style={styles.Eagle} source={require("../../../assets/animal-pictures/eagle.jpg")} resizeMode="contain"/>
+          <Image style={styles.Seagull} source={require("../../../assets/animal-pictures/seagull.jpg")} resizeMode="contain"/>
           </View>
         </TouchableOpacity>
       </View>
       )
 }
 
-export default Eagle
+export default Seagull
 
 const styles= EStyleSheet.create({
     container:{
@@ -57,7 +57,7 @@ const styles= EStyleSheet.create({
         alignSelf: 'center',
         justifyContent: 'center',
     },
-    Eagle: {
+    Seagull: {
         // width: 300,
         height: 300,
         borderWidth: 15,

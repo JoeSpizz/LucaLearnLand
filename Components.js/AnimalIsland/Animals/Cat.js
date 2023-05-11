@@ -50,7 +50,8 @@ const styles= EStyleSheet.create({
     textAlign: 'center',
     color: "#FFFF00",
     fontWeight: 'bold',
-    textDecorationLine: 'underline'
+    textDecorationLine: 'underline',
+    marginBottom: -25
     },
     picture:{
         marginTop: 50,

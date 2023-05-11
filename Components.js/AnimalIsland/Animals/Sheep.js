@@ -4,40 +4,40 @@ import {Audio} from 'expo-av'
 import { useEffect } from 'react';
 
 
-function Eagle() {
+function Sheep() {
 useEffect(()=>{
-    const squawk = async ()=>{
+    const baah = async ()=>{
         const {sound} = await Audio.Sound.createAsync(
-          require('../../../assets/animals/eagle.mp3')
+          require('../../../assets/animals/sheep.mp3')
         )
         await sound.playAsync()
     }
-    squawk()
+    baah()
 },[])
 
 const play = ()=>{
-    const squawk = async ()=>{
+    const baah = async ()=>{
         const {sound} = await Audio.Sound.createAsync(
-          require('../../../assets/animals/eagle.mp3')
+          require('../../../assets/animals/sheep.mp3')
         )
         await sound.playAsync()
     }
-    squawk()
+    baah()
 }
 
     return (
         <View style={styles.container}>
-        <Text style={styles.title}>Eagle</Text>
+        <Text style={styles.title}>Sheep</Text>
         <TouchableOpacity onPress={play}>
         <View style={styles.picture} >
-          <Image style={styles.Eagle} source={require("../../../assets/animal-pictures/eagle.jpg")} resizeMode="contain"/>
+          <Image style={styles.Sheep} source={require("../../../assets/animal-pictures/sheep.jpg")} resizeMode="contain"/>
           </View>
         </TouchableOpacity>
       </View>
       )
 }
 
-export default Eagle
+export default Sheep
 
 const styles= EStyleSheet.create({
     container:{
@@ -57,7 +57,7 @@ const styles= EStyleSheet.create({
         alignSelf: 'center',
         justifyContent: 'center',
     },
-    Eagle: {
+    Sheep: {
         // width: 300,
         height: 300,
         borderWidth: 15,

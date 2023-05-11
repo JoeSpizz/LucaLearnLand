@@ -1,4 +1,4 @@
-import { View, Text, Image, PanResponder } from 'react-native';
+import { View, Text, Image, PanResponder, TouchableOpacity } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { useState } from 'react'
 import Cat from './Animals/Cat'
@@ -14,28 +14,49 @@ import Horse from './Animals/Horse';
 import Lion from './Animals/Lion';
 import Pig from './Animals/Pig';
 import Rooster from './Animals/Rooster';
+import Monkey from './Animals/Monkey';
+import Seagull from './Animals/Seagull';
+import Sheep from './Animals/Sheep';
+import Whale from './Animals/Whale';
+import Wolf from './Animals/Wolf';
+
 
 
 function Count({navigation}) {
   const [animal, setAnimal]= useState(0)
 
-const animals = {farm: [<Cat/>, <Cow/>, <Owl/>, <Crow/>, <Donkey/>, <Duck/>, <Eagle/>, <Elephant/>, <Goat/>, <Horse/>, <Lion/>, <Pig/>, <Rooster/>],
-                forest: [],
-                neighborhood: []
+
+const animals = {farm: [<Cow/>,   <Donkey/>, <Duck/>,  <Goat/>, <Horse/>,  <Pig/>, <Rooster/>, <Sheep/>],
+                forest: [<Owl/>,<Eagle/>,<Elephant/>,<Lion/>,<Monkey/>, <Wolf/>],
+                neighborhood: [<Cat/>,<Crow/>,],
+                ocean: [<Seagull/>,<Whale/>,]
                 }
-const [location, setLocation] = useState(animals.farm)
+
+const [location, setLocation] = useState()
+
 const swipeLeft = () => {
-  setAnimal(animal - 1)
+  if(animal === 0){
+    setAnimal(location.length-1)
+  }
+  else{setAnimal(animal - 1)}
 }
 
 const swipeRight = () => {
-  setAnimal(animal + 1)
+  if(animal === location.length -1){
+    setAnimal(0)
+  }
+  else{
+    setAnimal(animal + 1)
+  }
 }
 
 const goHome= ()=>{
     navigation.navigate(`Animals`)
 }
-
+const reset = ()=>{
+  setLocation()
+  setAnimal(0)
+}
 const panResponder = PanResponder.create({
   onStartShouldSetPanResponder: (evt, gestureState) => true,
   onPanResponderRelease: (evt, gestureState) => {
@@ -46,20 +67,29 @@ const panResponder = PanResponder.create({
     }
   },
 })
-
+// console.log(location[animal])
   return (
     <View style={styles.container}>
         <Text style={styles.title}>Learning Animals!</Text>
         <Text style={styles.title2}>Look, Click, Listen, Learn</Text>
-<View>
+{ location ?  
+          <View>
+            <Text style={styles.explore} onPress={reset}> Explore a new Area?</Text>
         {location[animal]}
-        </View>
-    
         <View  style={styles.arrows} {...panResponder.panHandlers}>
         <Image style={styles.arrow} source={require('../../assets/left-arrow.png')} resizeMode="contain" />
       
         <Image style={styles.arrow} source={require('../../assets/right-arrow.png')}  resizeMode="contain"/>
-      </View>
+      </View>  
+        </View>
+        
+      :    <View>
+      <Text> Select an Area to Explore</Text>
+      <Text style={styles.pick} onPress={()=>setLocation(animals.farm)}> Farm </Text>
+      <Text style={styles.pick}  onPress={()=>setLocation(animals.forest)}> Great Outdoors </Text>
+      <Text style={styles.pick}  onPress={()=>setLocation(animals.neighborhood)}> Neighborhood </Text>
+      <Text style={styles.pick}  onPress={()=>setLocation(animals.ocean)}> Ocean </Text>
+      </View>}
         
         <Text style={styles.button} 
         onPress={goHome}
@@ -89,13 +119,28 @@ const styles= EStyleSheet.create({
       color: "#E171FD",
       fontWeight: 'bold'
     },
+    explore:{
+      textAlign: 'center',
+      fontSize: '1.5rem',
+      color: 'red',
+      marginTop: 5,
+      marginBottom: -20,
+      borderWidth: 1,
+      borderColor: "red",
+      width: 250,
+      marginLeft: 'auto',
+      marginRight: 'auto'
+    },
+    pick:{
+      fontSize: '2rem',
+      color: "white"
+    },
     arrows: {
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
       position: 'absolute',
-      bottom: 55,
-      left: 0
+      bottom:190
     },
     arrow: {
       height: 200,
