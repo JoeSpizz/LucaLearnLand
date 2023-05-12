@@ -6,23 +6,23 @@ import { useEffect } from 'react';
 
 function Turkey() {
 useEffect(()=>{
-    const oink = async ()=>{
+    const gobble = async ()=>{
         const {sound} = await Audio.Sound.createAsync(
           require('../../../assets/animals/turkey.mp3')
         )
         await sound.playAsync()
     }
-    oink()
+    gobble()
 },[])
 
 const play = ()=>{
-    const oink = async ()=>{
+    const gobble = async ()=>{
         const {sound} = await Audio.Sound.createAsync(
           require('../../../assets/animals/turkey.mp3')
         )
         await sound.playAsync()
     }
-    oink()
+    gobble()
 }
 
     return (

@@ -6,23 +6,23 @@ import { useEffect } from 'react';
 
 function Turtle() {
 useEffect(()=>{
-    const meow = async ()=>{
+    const roar = async ()=>{
         const {sound} = await Audio.Sound.createAsync(
           require('../../../assets/animals/turtle.mp3')
         )
         await sound.playAsync()
     }
-    meow()
+    roar()
 },[])
 
 const play = ()=>{
-    const meow = async ()=>{
+    const roar = async ()=>{
         const {sound} = await Audio.Sound.createAsync(
           require('../../../assets/animals/turtle.mp3')
         )
         await sound.playAsync()
     }
-    meow()
+    roar()
 }
 
     return (

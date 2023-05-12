@@ -6,23 +6,23 @@ import { useEffect } from 'react';
 
 function Shark() {
 useEffect(()=>{
-    const meow = async ()=>{
+    const bubble = async ()=>{
         const {sound} = await Audio.Sound.createAsync(
           require('../../../assets/animals/bubbles.mp3')
         )
         await sound.playAsync()
     }
-    meow()
+    bubble()
 },[])
 
 const play = ()=>{
-    const meow = async ()=>{
+    const bubble = async ()=>{
         const {sound} = await Audio.Sound.createAsync(
           require('../../../assets/animals/bubbles.mp3')
         )
         await sound.playAsync()
     }
-    meow()
+    bubble()
 }
 
     return (

@@ -35,6 +35,10 @@ import Turtle from './Animals/Turtle';
 import Frog from './Animals/Frog';
 import Crocodile from './Animals/Crocodile';
 import Dolphin from './Animals/Dolphin';
+import Fish from './Animals/Fish';
+import Zebra from './Animals/Zebra';
+import Hippopotamus from './Animals/Hippo';
+import Fox from './Animals/Fox';
 
 
 
@@ -42,10 +46,10 @@ function Count({navigation}) {
   const [animal, setAnimal]= useState(0)
 
 
-const animals = {farm: [<Cow/>,   <Donkey/>, <Duck/>,  <Goat/>, <Horse/>, <Turkey/>, <Pig/>, <Rooster/>, <Sheep/>, <Llama/>,<Chicken/>],
-                forest: [<Owl/>,<Eagle/>,<Elephant/>,<Lion/>,<Monkey/>, <Wolf/>],
+const animals = {farm: [<Cow/>, <Donkey/>, <Duck/>,  <Goat/>, <Horse/>, <Turkey/>, <Pig/>, <Rooster/>, <Sheep/>, <Llama/>,<Chicken/>],
+                forest: [<Owl/>,<Eagle/>,<Elephant/>,<Lion/>,<Zebra/>, <Hippopotamus/>, <Fox/>, <Zebra/>, <Monkey/>, <Wolf/>],
                 neighborhood: [<Cat/>,<Dog/>,<Rabbit/>,<Mouse/>,<GuineaPig/>,<Raccoon/>,<Crow/>,<Squirrel/>,<Skunk/>],
-                ocean: [<Shark/>, <Walrus/>, <Turtle/>, <Frog/>, <Crocodile/>, <Dolphin/>, <Seagull/>,<Whale/>,]
+                ocean: [<Shark/>, <Fish/>,<Walrus/>, <Turtle/>, <Frog/>, <Crocodile/>, <Dolphin/>, <Seagull/>,<Whale/>,]
                 }
 
 const [location, setLocation] = useState()
@@ -90,21 +94,28 @@ const panResponder = PanResponder.create({
         <Text style={styles.title2}>Look, Click, Listen, Learn</Text>
 { location ?  
           <View>
-            <Text style={styles.explore} onPress={reset}> Explore a new Area?</Text>
+            <Text style={styles.explore} onPress={reset}> Explore A New Area?</Text>
         {location[animal]}
         <View  style={styles.arrows} {...panResponder.panHandlers}>
-        <Image style={styles.arrow} source={require('../../assets/left-arrow.png')} resizeMode="contain" />
+        <Image style={styles.arrow} source={require('../../assets/swipe-left.png')} resizeMode="contain" />
       
-        <Image style={styles.arrow} source={require('../../assets/right-arrow.png')}  resizeMode="contain"/>
+        <Image style={styles.arrow} source={require('../../assets/swipe-right.png')}  resizeMode="contain"/>
       </View>  
         </View>
         
-      :    <View>
+      :    <View style={styles.iconBox}>
       <Text> Select an Area to Explore</Text>
-      <Text style={styles.pick} onPress={()=>setLocation(animals.farm)}> Farm </Text>
-      <Text style={styles.pick}  onPress={()=>setLocation(animals.forest)}> Great Outdoors </Text>
-      <Text style={styles.pick}  onPress={()=>setLocation(animals.neighborhood)}> Neighborhood </Text>
-      <Text style={styles.pick}  onPress={()=>setLocation(animals.ocean)}> Ocean </Text>
+      <Text style={styles.pick}  onPress={()=>setLocation(animals.neighborhood)}> 
+      <Image style={styles.icon} source={require('../../assets/animal-pictures/dog-icon.png')} resizeMode="cover"/>
+       </Text>
+      <Text style={styles.pick} onPress={()=>setLocation(animals.farm)}> 
+        <Image style={styles.icon} source={require('../../assets/animal-pictures/cow-icon.png')} resizeMode="cover"/></Text>
+      <Text style={styles.pick}  onPress={()=>setLocation(animals.forest)}> 
+      <Image style={styles.icon} source={require('../../assets/animal-pictures/elephant-icon.png')} resizeMode="cover"/>
+       </Text>
+      <Text style={styles.pick}  onPress={()=>setLocation(animals.ocean)}> 
+      <Image style={styles.icon} source={require('../../assets/animal-pictures/fish-icon.png')} resizeMode="cover"/>
+       </Text>
       </View>}
         
         <Text style={styles.button} 
@@ -138,6 +149,7 @@ const styles= EStyleSheet.create({
     explore:{
       textAlign: 'center',
       fontSize: '1.5rem',
+      fontWeight: "bold",
       color: 'red',
       marginTop: 5,
       marginBottom: -20,
@@ -145,11 +157,21 @@ const styles= EStyleSheet.create({
       borderColor: "red",
       width: 250,
       marginLeft: 'auto',
-      marginRight: 'auto'
+      marginRight: 'auto',
+      backgroundColor: "#00FC00"
+    },
+    iconBox:{
+      alignItems: 'center',
+      justifyContent: 'center'
     },
     pick:{
       fontSize: '2rem',
-      color: "white"
+      color: "white", 
+      height: 150, 
+    },
+    icon:{
+      height: 100,
+      width: 100
     },
     arrows: {
       flexDirection: 'row',

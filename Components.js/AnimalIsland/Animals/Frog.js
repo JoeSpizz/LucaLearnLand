@@ -6,23 +6,23 @@ import { useEffect } from 'react';
 
 function Frog() {
 useEffect(()=>{
-    const meow = async ()=>{
+    const ribbit = async ()=>{
         const {sound} = await Audio.Sound.createAsync(
           require('../../../assets/animals/frogs.mp3')
         )
         await sound.playAsync()
     }
-    meow()
+    ribbit()
 },[])
 
 const play = ()=>{
-    const meow = async ()=>{
+    const ribbit = async ()=>{
         const {sound} = await Audio.Sound.createAsync(
           require('../../../assets/animals/frogs.mp3')
         )
         await sound.playAsync()
     }
-    meow()
+    ribbit()
 }
 
     return (

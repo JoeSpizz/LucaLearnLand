@@ -4,40 +4,40 @@ import {Audio} from 'expo-av'
 import { useEffect } from 'react';
 
 
-function Crocodile() {
+function Fish() {
 useEffect(()=>{
-    const roar = async ()=>{
+    const bubble = async ()=>{
         const {sound} = await Audio.Sound.createAsync(
-          require('../../../assets/animals/crocodile.m4a')
+          require('../../../assets/animals/bubbles.mp3')
         )
         await sound.playAsync()
     }
-    roar()
+    bubble()
 },[])
 
 const play = ()=>{
-    const roar = async ()=>{
+    const bubble = async ()=>{
         const {sound} = await Audio.Sound.createAsync(
-          require('../../../assets/animals/crocodile.m4a')
+          require('../../../assets/animals/bubbles.mp3')
         )
         await sound.playAsync()
     }
-    roar()
+    bubble()
 }
 
     return (
         <View style={styles.container}>
-        <Text style={styles.title}>Crocodile</Text>
+        <Text style={styles.title}>Fish</Text>
         <TouchableOpacity onPress={play}>
         <View style={styles.picture} >
-          <Image style={styles.Crocodile} source={require("../../../assets/animal-pictures/crocodile.jpg")} resizeMode="contain"/>
+          <Image style={styles.Fish} source={require("../../../assets/animal-pictures/fish.jpg")} resizeMode="contain"/>
           </View>
         </TouchableOpacity>
       </View>
       )
 }
 
-export default Crocodile
+export default Fish
 
 const styles= EStyleSheet.create({
     container:{
@@ -58,7 +58,7 @@ const styles= EStyleSheet.create({
         alignSelf: 'center',
         justifyContent: 'center',
     },
-    Crocodile: {
+    Fish: {
         height: 300,
         borderWidth: 15,
         borderStyle: "solid",

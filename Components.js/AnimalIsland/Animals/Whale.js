@@ -6,23 +6,23 @@ import { useEffect } from 'react';
 
 function Whale() {
 useEffect(()=>{
-    const oink = async ()=>{
+    const moan = async ()=>{
         const {sound} = await Audio.Sound.createAsync(
           require('../../../assets/animals/whale.mp3')
         )
         await sound.playAsync()
     }
-    oink()
+    moan()
 },[])
 
 const play = ()=>{
-    const oink = async ()=>{
+    const moan = async ()=>{
         const {sound} = await Audio.Sound.createAsync(
           require('../../../assets/animals/whale.mp3')
         )
         await sound.playAsync()
     }
-    oink()
+    moan()
 }
 
     return (

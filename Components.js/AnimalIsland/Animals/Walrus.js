@@ -6,23 +6,23 @@ import { useEffect } from 'react';
 
 function Walrus() {
 useEffect(()=>{
-    const meow = async ()=>{
+    const grunt = async ()=>{
         const {sound} = await Audio.Sound.createAsync(
           require('../../../assets/animals/walrus.mp3')
         )
         await sound.playAsync()
     }
-    meow()
+    grunt()
 },[])
 
 const play = ()=>{
-    const meow = async ()=>{
+    const grunt = async ()=>{
         const {sound} = await Audio.Sound.createAsync(
           require('../../../assets/animals/walrus.mp3')
         )
         await sound.playAsync()
     }
-    meow()
+    grunt()
 }
 
     return (

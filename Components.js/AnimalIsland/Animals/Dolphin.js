@@ -6,23 +6,23 @@ import { useEffect } from 'react';
 
 function Dolphin() {
 useEffect(()=>{
-    const meow = async ()=>{
+    const sonar = async ()=>{
         const {sound} = await Audio.Sound.createAsync(
           require('../../../assets/animals/dolphin.mp3')
         )
         await sound.playAsync()
     }
-    meow()
+    sonar()
 },[])
 
 const play = ()=>{
-    const meow = async ()=>{
+    const sonar = async ()=>{
         const {sound} = await Audio.Sound.createAsync(
           require('../../../assets/animals/dolphin.mp3')
         )
         await sound.playAsync()
     }
-    meow()
+    sonar()
 }
 
     return (

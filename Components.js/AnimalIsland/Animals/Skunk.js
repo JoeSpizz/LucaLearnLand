@@ -6,23 +6,23 @@ import { useEffect } from 'react';
 
 function Skunk() {
 useEffect(()=>{
-    const oink = async ()=>{
+    const chirp = async ()=>{
         const {sound} = await Audio.Sound.createAsync(
           require('../../../assets/animals/skunk.mp3')
         )
         await sound.playAsync()
     }
-    oink()
+    chirp()
 },[])
 
 const play = ()=>{
-    const oink = async ()=>{
+    const chirp = async ()=>{
         const {sound} = await Audio.Sound.createAsync(
           require('../../../assets/animals/skunk.mp3')
         )
         await sound.playAsync()
     }
-    oink()
+    chirp()
 }
 
     return (

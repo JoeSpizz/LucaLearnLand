@@ -4,40 +4,40 @@ import {Audio} from 'expo-av'
 import { useEffect } from 'react';
 
 
-function Crocodile() {
+function Hippopotamus() {
 useEffect(()=>{
-    const roar = async ()=>{
+    const grunt = async ()=>{
         const {sound} = await Audio.Sound.createAsync(
-          require('../../../assets/animals/crocodile.m4a')
+          require('../../../assets/animals/hippo.mp3')
         )
         await sound.playAsync()
     }
-    roar()
+    grunt()
 },[])
 
 const play = ()=>{
-    const roar = async ()=>{
+    const grunt = async ()=>{
         const {sound} = await Audio.Sound.createAsync(
-          require('../../../assets/animals/crocodile.m4a')
+          require('../../../assets/animals/hippo.mp3')
         )
         await sound.playAsync()
     }
-    roar()
+    grunt()
 }
 
     return (
         <View style={styles.container}>
-        <Text style={styles.title}>Crocodile</Text>
+        <Text style={styles.title}>Hippopotamus</Text>
         <TouchableOpacity onPress={play}>
         <View style={styles.picture} >
-          <Image style={styles.Crocodile} source={require("../../../assets/animal-pictures/crocodile.jpg")} resizeMode="contain"/>
+          <Image style={styles.Hippopotamus} source={require("../../../assets/animal-pictures/hippo.jpg")} resizeMode="contain"/>
           </View>
         </TouchableOpacity>
       </View>
       )
 }
 
-export default Crocodile
+export default Hippopotamus
 
 const styles= EStyleSheet.create({
     container:{
@@ -58,7 +58,7 @@ const styles= EStyleSheet.create({
         alignSelf: 'center',
         justifyContent: 'center',
     },
-    Crocodile: {
+    Hippopotamus: {
         height: 300,
         borderWidth: 15,
         borderStyle: "solid",
