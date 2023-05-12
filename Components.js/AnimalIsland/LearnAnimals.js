@@ -26,6 +26,15 @@ import GuineaPig from './Animals/GuineaPig';
 import Raccoon from './Animals/Raccoon';
 import Squirrel from './Animals/Squirrel';
 import Skunk from './Animals/Skunk';
+import Turkey from './Animals/Turkey';
+import Chicken from './Animals/Chicken';
+import Llama from './Animals/Llama';
+import Shark from './Animals/Shark';
+import Walrus from './Animals/Walrus';
+import Turtle from './Animals/Turtle';
+import Frog from './Animals/Frog';
+import Crocodile from './Animals/Crocodile';
+import Dolphin from './Animals/Dolphin';
 
 
 
@@ -33,10 +42,10 @@ function Count({navigation}) {
   const [animal, setAnimal]= useState(0)
 
 
-const animals = {farm: [<Cow/>,   <Donkey/>, <Duck/>,  <Goat/>, <Horse/>,  <Pig/>, <Rooster/>, <Sheep/>],
+const animals = {farm: [<Cow/>,   <Donkey/>, <Duck/>,  <Goat/>, <Horse/>, <Turkey/>, <Pig/>, <Rooster/>, <Sheep/>, <Llama/>,<Chicken/>],
                 forest: [<Owl/>,<Eagle/>,<Elephant/>,<Lion/>,<Monkey/>, <Wolf/>],
                 neighborhood: [<Cat/>,<Dog/>,<Rabbit/>,<Mouse/>,<GuineaPig/>,<Raccoon/>,<Crow/>,<Squirrel/>,<Skunk/>],
-                ocean: [<Seagull/>,<Whale/>,]
+                ocean: [<Shark/>, <Walrus/>, <Turtle/>, <Frog/>, <Crocodile/>, <Dolphin/>, <Seagull/>,<Whale/>,]
                 }
 
 const [location, setLocation] = useState()
