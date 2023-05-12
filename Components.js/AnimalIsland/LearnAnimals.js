@@ -19,6 +19,13 @@ import Seagull from './Animals/Seagull';
 import Sheep from './Animals/Sheep';
 import Whale from './Animals/Whale';
 import Wolf from './Animals/Wolf';
+import Dog from './Animals/Dog';
+import Rabbit from './Animals/Rabbit';
+import Mouse from './Animals/Mouse';
+import GuineaPig from './Animals/GuineaPig';
+import Raccoon from './Animals/Raccoon';
+import Squirrel from './Animals/Squirrel';
+import Skunk from './Animals/Skunk';
 
 
 
@@ -28,7 +35,7 @@ function Count({navigation}) {
 
 const animals = {farm: [<Cow/>,   <Donkey/>, <Duck/>,  <Goat/>, <Horse/>,  <Pig/>, <Rooster/>, <Sheep/>],
                 forest: [<Owl/>,<Eagle/>,<Elephant/>,<Lion/>,<Monkey/>, <Wolf/>],
-                neighborhood: [<Cat/>,<Crow/>,],
+                neighborhood: [<Cat/>,<Dog/>,<Rabbit/>,<Mouse/>,<GuineaPig/>,<Raccoon/>,<Crow/>,<Squirrel/>,<Skunk/>],
                 ocean: [<Seagull/>,<Whale/>,]
                 }
 
