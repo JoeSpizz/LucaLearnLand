@@ -8,23 +8,43 @@ function Two(props) {
     const [counters, setCounters] = useState(Array(2).fill(null));
     const [tally, setTally]= useState(0)
     const block = []
+    const readNumbers=[require(`../../../assets/numbers/1.mp3`)]
     const handlePress = (i)=>{
             if (!counters[i]) {
           const newCounters = [...counters];
           newCounters[i] = tally + 1;
           setCounters(newCounters);
           setTally(tally+1);
-          
           setPressed([...pressed, i])
-        if((tally+1)===2){
-          async function tada() {
+          if((tally+1)<2){
+          async function count() {
             const { sound } = await Audio.Sound.createAsync(
-              require('../../../assets/sounds/tada.mp3')
+              readNumbers[(tally)]
             );
            
             await sound.playAsync();
           }
-          tada()
+          count()
+          }
+        if((tally+1)===2){
+          async function countTwo() {
+            const { sound } = await Audio.Sound.createAsync(
+              require('../../../assets/numbers/2s.mp3')
+            );
+           
+            await sound.playAsync();
+          }
+          countTwo()
+          setTimeout(() => {
+            async function tada() {
+              const { sound } = await Audio.Sound.createAsync(
+                require('../../../assets/sounds/tada.mp3')
+              );
+             
+              await sound.playAsync();
+            }
+            tada()
+          }, 500);
 
           setTimeout(() => {
             props.onSuccess();

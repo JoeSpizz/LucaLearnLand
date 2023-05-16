@@ -8,7 +8,16 @@ function One(props) {
   
     const handlePress = ()=>{
         setPressed(true)
-        async function tada() {
+        async function countOne() {
+          const { sound } = await Audio.Sound.createAsync(
+            require('../../../assets/numbers/1s.mp3')
+          );
+         
+          await sound.playAsync();
+        }
+        countOne()
+        setTimeout(() => {
+          async function tada() {
             const { sound } = await Audio.Sound.createAsync(
               require('../../../assets/sounds/tada.mp3')
             );
@@ -16,6 +25,8 @@ function One(props) {
             await sound.playAsync();
           }
           tada()
+        }, 500);
+        
 
            setTimeout(() => {
             props.onSuccess();

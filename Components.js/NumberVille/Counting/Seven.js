@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import { View, Image, TouchableWithoutFeedback, Text } from 'react-native'
 import EStyleSheet from 'react-native-extended-stylesheet'
 import {Audio} from 'expo-av'
@@ -8,21 +8,57 @@ function Seven(props) {
     const [counters, setCounters] = useState(Array(7).fill(null));
     const [tally, setTally]= useState(0)
     const block = []
-    const handlePress = (i)=>{
-        if (!counters[i]) {
-          const newCounters = [...counters];
-          newCounters[i] = tally + 1;
-          setCounters(newCounters);
-          setTally(tally+1);
-          setPressed([...pressed, i])
-        
-          if((tally+1)===7){
-            async function tada() {
-                const { sound } = await Audio.Sound.createAsync(require('../../../assets/sounds/tada.mp3')
-                );
-            await sound.playAsync();
-            }
-          tada()
+    const readNumbers=[require(`../../../assets/numbers/1.mp3`),
+    require(`../../../assets/numbers/2.mp3`),
+    require(`../../../assets/numbers/3.mp3`),
+    require(`../../../assets/numbers/4.mp3`),
+    require(`../../../assets/numbers/5.mp3`),
+    require(`../../../assets/numbers/6.mp3`)
+  ]
+
+  useEffect(() => {
+    return () => {
+      // Clean up audio resources
+      Audio.Sound.stopAsync();
+    };
+  }, []);
+
+const handlePress = (i)=>{
+if (!counters[i]) {
+  const newCounters = [...counters];
+  newCounters[i] = tally + 1;
+  setCounters(newCounters);
+  setTally(tally+1);
+  setPressed([...pressed, i])
+  if((tally+1)<7){
+    async function count() {
+      const { sound } = await Audio.Sound.createAsync(
+        readNumbers[(tally)]
+      );
+     
+      await sound.playAsync();
+    }
+    count()
+    }
+  if((tally+1)===7){
+    async function countTwo() {
+      const { sound } = await Audio.Sound.createAsync(
+        require('../../../assets/numbers/7s.mp3')
+      );
+     
+      await sound.playAsync();
+    }
+    countTwo()
+    setTimeout(() => {
+      async function tada() {
+        const { sound } = await Audio.Sound.createAsync(
+          require('../../../assets/sounds/tada.mp3')
+        );
+       
+        await sound.playAsync();
+      }
+      tada()
+    }, 1200);
 
           setTimeout(() => {
             props.onSuccess();

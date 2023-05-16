@@ -8,6 +8,7 @@ function Four(props) {
     const [counters, setCounters] = useState(Array(4).fill(null));
     const [tally, setTally]= useState(0)
     const block = []
+    const readNumbers=[require(`../../../assets/numbers/1.mp3`),require(`../../../assets/numbers/2.mp3`),require(`../../../assets/numbers/3.mp3`)]
     const handlePress = (i)=>{
         if (!counters[i]) {
           const newCounters = [...counters];
@@ -15,15 +16,35 @@ function Four(props) {
           setCounters(newCounters);
           setTally(tally+1);
           setPressed([...pressed, i])
-
-          if((tally+1)===4){
-            async function tada() {
-            const { sound } = await Audio.Sound.createAsync(
-              require('../../../assets/sounds/tada.mp3')
-            );
-            await sound.playAsync();
+          if((tally+1)<4){
+            async function count() {
+              const { sound } = await Audio.Sound.createAsync(
+                readNumbers[(tally)]
+              );
+             
+              await sound.playAsync();
             }
-          tada()
+            count()
+            }
+          if((tally+1)===4){
+            async function countTwo() {
+              const { sound } = await Audio.Sound.createAsync(
+                require('../../../assets/numbers/4s.mp3')
+              );
+             
+              await sound.playAsync();
+            }
+            countTwo()
+            setTimeout(() => {
+              async function tada() {
+                const { sound } = await Audio.Sound.createAsync(
+                  require('../../../assets/sounds/tada.mp3')
+                );
+               
+                await sound.playAsync();
+              }
+              tada()
+            }, 500);
 
           setTimeout(() => {
             props.onSuccess();
