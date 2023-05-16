@@ -37,7 +37,7 @@ function Five(props) {
             count()
             }
           if((tally+1)===5){
-            async function countTwo() {
+            async function countLast() {
               const { sound, status } = await Audio.Sound.createAsync(
                 require('../../../assets/numbers/5s.mp3')
               );
@@ -54,7 +54,7 @@ function Five(props) {
                 sound.unloadAsync();
               }
             }
-            countTwo()
+            countLast()
             setTimeout(() => {
               async function tada() {
                 const { sound, status } = await Audio.Sound.createAsync(

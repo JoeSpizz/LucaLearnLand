@@ -42,7 +42,7 @@ function Six(props) {
             count()
             }
           if((tally+1)===6){
-            async function countTwo() {
+            async function countLast() {
               const { sound, status } = await Audio.Sound.createAsync(
                 require('../../../assets/numbers/6s.mp3')
               );
@@ -59,7 +59,7 @@ function Six(props) {
                 sound.unloadAsync();
               }
             }
-            countTwo()
+            countLast()
             setTimeout(() => {
               async function tada() {
                 const { sound, status } = await Audio.Sound.createAsync(

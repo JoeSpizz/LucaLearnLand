@@ -45,7 +45,7 @@ if (!counters[i]) {
     count()
     }
   if((tally+1)===7){
-    async function countTwo() {
+    async function countLast() {
       const { sound, status } = await Audio.Sound.createAsync(
         require('../../../assets/numbers/7s.mp3')
       );
@@ -62,7 +62,7 @@ if (!counters[i]) {
         sound.unloadAsync();
       }
     }
-    countTwo()
+    countLast()
     setTimeout(() => {
       async function tada() {
         const { sound, status } = await Audio.Sound.createAsync(
@@ -82,7 +82,7 @@ if (!counters[i]) {
         }
       }
       tada()
-    }, 1200);
+    }, 500);
 
           setTimeout(() => {
             props.onSuccess();
