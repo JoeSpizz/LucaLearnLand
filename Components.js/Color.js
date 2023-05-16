@@ -8,20 +8,40 @@ const image = { uri: "https://wallpaperaccess.com/full/1095871.jpg" };
 function Color({navigation}) {
   useEffect(()=>{
     const welcome = async ()=>{
-      const {sound} = await Audio.Sound.createAsync(
+      const {sound, status} = await Audio.Sound.createAsync(
         require('../assets/sounds/color-intro.mp3')
       )
       await sound.playAsync()
+      sound.setOnPlaybackStatusUpdate((status) => {
+        if (status.didJustFinish) {
+          sound.unloadAsync();
+        }
+      });
+    
+      // Use the 'status' object to check if the audio is already finished
+      if (status && status.didJustFinish) {
+        sound.unloadAsync();
+      }
   }
   welcome()
   })
 
 const goHome= ()=>{
   const goBack = async ()=>{
-    const {sound} = await Audio.Sound.createAsync(
+    const {sound, status} = await Audio.Sound.createAsync(
       require('../assets/sounds/what-else.mp3')
     )
     await sound.playAsync()
+    sound.setOnPlaybackStatusUpdate((status) => {
+      if (status.didJustFinish) {
+        sound.unloadAsync();
+      }
+    });
+  
+    // Use the 'status' object to check if the audio is already finished
+    if (status && status.didJustFinish) {
+      sound.unloadAsync();
+    }
 }
 goBack()
     navigation.navigate(`Home`)

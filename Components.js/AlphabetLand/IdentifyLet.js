@@ -41,10 +41,18 @@ useEffect(()=>{
 
       if(key===0){
         async function welcome() {
-            const { sound } = await Audio.Sound.createAsync(
+            const { sound, status } = await Audio.Sound.createAsync(
               require('../../assets/sounds/letter-match-1.mp3')
             );
             await sound.playAsync();
+            sound.setOnPlaybackStatusUpdate((status) => {
+              if (status.didJustFinish) {
+                sound.unloadAsync();
+              }
+            });
+            if (status && status.didJustFinish) {
+              sound.unloadAsync();
+            }
           }
           welcome()
       }

@@ -7,20 +7,36 @@ import { useEffect } from 'react';
 function Squirrel() {
 useEffect(()=>{
     const chirp = async ()=>{
-        const {sound} = await Audio.Sound.createAsync(
+        const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/squirrel.mp3')
         )
         await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+            }
+          });
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
     }
     chirp()
 },[])
 
 const play = ()=>{
     const chirp = async ()=>{
-        const {sound} = await Audio.Sound.createAsync(
+        const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/squirrel.mp3')
         )
         await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+            }
+          });
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
     }
     chirp()
 }

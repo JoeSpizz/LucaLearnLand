@@ -6,10 +6,20 @@ import {Audio} from 'expo-av'
 function TracingNum({navigation}) {
     useEffect(()=>{
         async function welcome() {
-          const { sound } = await Audio.Sound.createAsync(
+          const { sound, status } = await Audio.Sound.createAsync(
             require('../../assets/sounds/number-trace-2.mp3')
           );
           await sound.playAsync();
+          sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+            }
+          });
+        
+          // Use the 'status' object to check if the audio is already finished
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
         }
         welcome()
       })

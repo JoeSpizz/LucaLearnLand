@@ -7,20 +7,36 @@ import { useEffect } from 'react';
 function Hippopotamus() {
 useEffect(()=>{
     const grunt = async ()=>{
-        const {sound} = await Audio.Sound.createAsync(
+        const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/hippo.mp3')
         )
         await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+            }
+          });
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
     }
     grunt()
 },[])
 
 const play = ()=>{
     const grunt = async ()=>{
-        const {sound} = await Audio.Sound.createAsync(
+        const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/hippo.mp3')
         )
         await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+            }
+          });
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
     }
     grunt()
 }

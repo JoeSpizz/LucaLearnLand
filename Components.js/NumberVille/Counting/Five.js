@@ -18,30 +18,60 @@ function Five(props) {
           setPressed([...pressed, i])
           if((tally+1)<5){
             async function count() {
-              const { sound } = await Audio.Sound.createAsync(
+              const { sound, status } = await Audio.Sound.createAsync(
                 readNumbers[(tally)]
               );
              
               await sound.playAsync();
+              sound.setOnPlaybackStatusUpdate((status) => {
+                if (status.didJustFinish) {
+                  sound.unloadAsync();
+                }
+              });
+            
+              // Use the 'status' object to check if the audio is already finished
+              if (status && status.didJustFinish) {
+                sound.unloadAsync();
+              }
             }
             count()
             }
           if((tally+1)===5){
             async function countTwo() {
-              const { sound } = await Audio.Sound.createAsync(
+              const { sound, status } = await Audio.Sound.createAsync(
                 require('../../../assets/numbers/5s.mp3')
               );
              
               await sound.playAsync();
+              sound.setOnPlaybackStatusUpdate((status) => {
+                if (status.didJustFinish) {
+                  sound.unloadAsync();
+                }
+              });
+            
+              // Use the 'status' object to check if the audio is already finished
+              if (status && status.didJustFinish) {
+                sound.unloadAsync();
+              }
             }
             countTwo()
             setTimeout(() => {
               async function tada() {
-                const { sound } = await Audio.Sound.createAsync(
+                const { sound, status } = await Audio.Sound.createAsync(
                   require('../../../assets/sounds/tada.mp3')
                 );
                
                 await sound.playAsync();
+                sound.setOnPlaybackStatusUpdate((status) => {
+                  if (status.didJustFinish) {
+                    sound.unloadAsync();
+                  }
+                });
+              
+                // Use the 'status' object to check if the audio is already finished
+                if (status && status.didJustFinish) {
+                  sound.unloadAsync();
+                }
               }
               tada()
             }, 500);

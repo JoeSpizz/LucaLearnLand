@@ -7,20 +7,36 @@ import { useEffect } from 'react';
 function Rooster() {
 useEffect(()=>{
     const cockadoodledoo = async ()=>{
-        const {sound} = await Audio.Sound.createAsync(
+        const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/rooster-crows.mp3')
         )
         await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+            }
+          });
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
     }
     cockadoodledoo()
 },[])
 
 const play = ()=>{
     const cockadoodledoo = async ()=>{
-        const {sound} = await Audio.Sound.createAsync(
+        const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/rooster-crows.mp3')
         )
         await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+            }
+          });
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
     }
     cockadoodledoo()
 }

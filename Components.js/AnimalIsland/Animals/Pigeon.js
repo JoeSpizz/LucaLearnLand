@@ -7,20 +7,36 @@ import { useEffect } from 'react';
 function Pigeon() {
 useEffect(()=>{
     const coo = async ()=>{
-        const {sound} = await Audio.Sound.createAsync(
+        const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/pigeon.mp3')
         )
         await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+            }
+          });
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
     }
     coo()
 },[])
 
 const play = ()=>{
     const coo = async ()=>{
-        const {sound} = await Audio.Sound.createAsync(
+        const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/pigeon.mp3')
         )
         await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+            }
+          });
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
     }
     coo()
 }

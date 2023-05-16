@@ -1,4 +1,4 @@
-import { View, Text, Image, PanResponder, TouchableOpacity } from 'react-native';
+import { View, Text, Image, PanResponder } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { useState } from 'react'
 import Cat from './Animals/Cat'
@@ -87,7 +87,7 @@ const panResponder = PanResponder.create({
     }
   },
 })
-// console.log(location[animal])
+
   return (
     <View style={styles.container}>
         <Text style={styles.title}>Learning Animals!</Text>

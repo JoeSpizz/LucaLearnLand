@@ -7,20 +7,40 @@ import { useEffect } from 'react';
 function Cat() {
 useEffect(()=>{
     const meow = async ()=>{
-        const {sound} = await Audio.Sound.createAsync(
+        const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/cat.mp3')
         )
         await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+            }
+          });
+        
+          // Use the 'status' object to check if the audio is already finished
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
     }
     meow()
 },[])
 
 const play = ()=>{
     const meow = async ()=>{
-        const {sound} = await Audio.Sound.createAsync(
+        const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/cat.mp3')
         )
         await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+            }
+          });
+        
+          // Use the 'status' object to check if the audio is already finished
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
     }
     meow()
 }

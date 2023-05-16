@@ -7,20 +7,36 @@ import { useEffect } from 'react';
 function Llama() {
 useEffect(()=>{
     const oink = async ()=>{
-        const {sound} = await Audio.Sound.createAsync(
+        const {sound,status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/llama.mp3')
         )
         await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+            }
+          });
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
     }
     oink()
 },[])
 
 const play = ()=>{
     const oink = async ()=>{
-        const {sound} = await Audio.Sound.createAsync(
+        const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/llama.mp3')
         )
         await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+            }
+          });
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
     }
     oink()
 }

@@ -7,20 +7,40 @@ import { useEffect } from 'react';
 function Cow() {
 useEffect(()=>{
     const moo = async ()=>{
-        const {sound} = await Audio.Sound.createAsync(
+        const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/cow.mp3')
         )
         await sound.playAsync()
     }
     moo()
+    sound.setOnPlaybackStatusUpdate((status) => {
+        if (status.didJustFinish) {
+          sound.unloadAsync();
+        }
+      });
+    
+      // Use the 'status' object to check if the audio is already finished
+      if (status && status.didJustFinish) {
+        sound.unloadAsync();
+      }
 },[])
 
 const play = ()=>{
     const moo = async ()=>{
-        const {sound} = await Audio.Sound.createAsync(
+        const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/cow.mp3')
         )
         await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+            }
+          });
+        
+          // Use the 'status' object to check if the audio is already finished
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
     }
     moo()
 }

@@ -14,10 +14,18 @@ const line = "M 175,50 L 30,450"
 function Tracing({ navigation }) {
   useEffect(() => {
     async function welcome() {
-      const { sound } = await Audio.Sound.createAsync(
+      const { sound, status } = await Audio.Sound.createAsync(
         require('../../assets/sounds/letter-trace-1.mp3')
       );
       await sound.playAsync();
+      sound.setOnPlaybackStatusUpdate((status) => {
+        if (status.didJustFinish) {
+          sound.unloadAsync();
+        }
+      });
+      if (status && status.didJustFinish) {
+        sound.unloadAsync();
+      }
     }
     welcome();
   }, []);

@@ -29,23 +29,43 @@ useEffect(()=>{
     setnumber3(Math.floor(Math.random() * 20) + 1)
     setnumber4(Math.floor(Math.random() * 20) + 1)
     async function rumble() {
-        const { sound } = await Audio.Sound.createAsync(
+        const { sound, status } = await Audio.Sound.createAsync(
           require('../../assets/sounds/rumble.mp3')
         );
         setRumble(sound)
        
 
         await sound.playAsync();
+        sound.setOnPlaybackStatusUpdate((status) => {
+          if (status.didJustFinish) {
+            sound.unloadAsync();
+          }
+        });
+      
+        // Use the 'status' object to check if the audio is already finished
+        if (status && status.didJustFinish) {
+          sound.unloadAsync();
+        }
       }
       rumble()
 if(key===0){
       async function welcome() {
-        const { sound } = await Audio.Sound.createAsync(
+        const { sound, status } = await Audio.Sound.createAsync(
           require('../../assets/sounds/number-match-1.mp3')
         );
         setRumble(sound)
        
         await sound.playAsync();
+        sound.setOnPlaybackStatusUpdate((status) => {
+          if (status.didJustFinish) {
+            sound.unloadAsync();
+          }
+        });
+      
+        // Use the 'status' object to check if the audio is already finished
+        if (status && status.didJustFinish) {
+          sound.unloadAsync();
+        }
       }
       welcome()
     }

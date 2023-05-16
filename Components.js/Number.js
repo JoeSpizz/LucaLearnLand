@@ -7,10 +7,20 @@ function Number({navigation}) {
 
   useEffect(()=>{
     const welcome = async ()=>{
-      const {sound} = await Audio.Sound.createAsync(
+      const {sound, status} = await Audio.Sound.createAsync(
         require('../assets/sounds/numberville.mp3')
       )
       await sound.playAsync()
+      sound.setOnPlaybackStatusUpdate((status) => {
+        if (status.didJustFinish) {
+          sound.unloadAsync();
+        }
+      });
+    
+      // Use the 'status' object to check if the audio is already finished
+      if (status && status.didJustFinish) {
+        sound.unloadAsync();
+      }
   }
   welcome()
   })
@@ -20,10 +30,20 @@ function Number({navigation}) {
   }
 const goHome= ()=>{
   const goBack = async ()=>{
-    const {sound} = await Audio.Sound.createAsync(
+    const {sound, status} = await Audio.Sound.createAsync(
       require('../assets/sounds/what-else-2.mp3')
     )
     await sound.playAsync()
+    sound.setOnPlaybackStatusUpdate((status) => {
+      if (status.didJustFinish) {
+        sound.unloadAsync();
+      }
+    });
+  
+    // Use the 'status' object to check if the audio is already finished
+    if (status && status.didJustFinish) {
+      sound.unloadAsync();
+    }
 }
 goBack()
     navigation.navigate(`Home`)

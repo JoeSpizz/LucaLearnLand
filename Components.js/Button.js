@@ -15,11 +15,21 @@ export default function Button({nav, navigation}) {
     useEffect(() => {
         const focusHandler = navigation.addListener('focus', () => {
           async function breaking() {
-            const { sound } = await Audio.Sound.createAsync(
+            const { sound, status } = await Audio.Sound.createAsync(
               require('../assets/sounds/breaking.wav')
             );
             await sound.setVolumeAsync(0.15)
             await sound.playAsync();
+            sound.setOnPlaybackStatusUpdate((status) => {
+              if (status.didJustFinish) {
+                sound.unloadAsync();
+              }
+            });
+          
+            // Use the 'status' object to check if the audio is already finished
+            if (status && status.didJustFinish) {
+              sound.unloadAsync();
+            }
           }
           breaking()
           
@@ -60,11 +70,21 @@ export default function Button({nav, navigation}) {
     }, [navigation]);
 //sound library
     async function takeOff() {
-      const { sound } = await Audio.Sound.createAsync(
+      const { sound, status } = await Audio.Sound.createAsync(
         require('../assets/sounds/takeoffengine.mp3')
       );
       await sound.setVolumeAsync(0.25)
       await sound.playAsync();
+      sound.setOnPlaybackStatusUpdate((status) => {
+        if (status.didJustFinish) {
+          sound.unloadAsync();
+        }
+      });
+    
+      // Use the 'status' object to check if the audio is already finished
+      if (status && status.didJustFinish) {
+        sound.unloadAsync();
+      }
     }
 
    

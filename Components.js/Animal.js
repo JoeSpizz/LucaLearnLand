@@ -7,20 +7,40 @@ function Animal({navigation}) {
 const [forest, setForest] = useState()
 useEffect(()=>{
   const welcome = async ()=>{
-    const {sound} = await Audio.Sound.createAsync(
+    const {sound, status} = await Audio.Sound.createAsync(
       require('../assets/sounds/animal-island.mp3')
     )
     await sound.setVolumeAsync(0.75)
     await sound.playAsync()
+    sound.setOnPlaybackStatusUpdate((status) => {
+      if (status.didJustFinish) {
+        sound.unloadAsync();
+      }
+    });
+  
+    // Use the 'status' object to check if the audio is already finished
+    if (status && status.didJustFinish) {
+      sound.unloadAsync();
+    }
 }
 welcome()
 
 async function forest() {
-  const { sound } = await Audio.Sound.createAsync(
+  const { sound, status } = await Audio.Sound.createAsync(
     require('../assets/animals/forest-ambience.mp3')
   );
   setForest(sound)
   await sound.playAsync();
+  sound.setOnPlaybackStatusUpdate((status) => {
+    if (status.didJustFinish) {
+      sound.unloadAsync();
+    }
+  });
+
+  // Use the 'status' object to check if the audio is already finished
+  if (status && status.didJustFinish) {
+    sound.unloadAsync();
+  }
 }
 forest();
 }, [])

@@ -6,10 +6,20 @@ import {Audio} from 'expo-av'
 function Alphabet({navigation}) {
   useEffect(()=>{
     const welcome = async()=>{
-    const {sound}= await Audio.Sound.createAsync(
+    const {sound, status}= await Audio.Sound.createAsync(
       require('../assets/sounds/alphabetintro.mp3')
     )
     await sound.playAsync()
+    sound.setOnPlaybackStatusUpdate((status) => {
+      if (status.didJustFinish) {
+        sound.unloadAsync();
+      }
+    });
+  
+    // Use the 'status' object to check if the audio is already finished
+    if (status && status.didJustFinish) {
+      sound.unloadAsync();
+    }
     }
     welcome()
   },[])
@@ -18,10 +28,20 @@ function Alphabet({navigation}) {
   }
 const goHome= ()=>{
   const goBack = async ()=>{
-      const {sound} = await Audio.Sound.createAsync(
+      const {sound, status} = await Audio.Sound.createAsync(
         require('../assets/sounds/what-else.mp3')
       )
       await sound.playAsync()
+      sound.setOnPlaybackStatusUpdate((status) => {
+        if (status.didJustFinish) {
+          sound.unloadAsync();
+        }
+      });
+    
+      // Use the 'status' object to check if the audio is already finished
+      if (status && status.didJustFinish) {
+        sound.unloadAsync();
+      }
   }
   goBack()
     navigation.navigate(`Home`)

@@ -7,20 +7,36 @@ import { useEffect } from 'react';
 function Whale() {
 useEffect(()=>{
     const moan = async ()=>{
-        const {sound} = await Audio.Sound.createAsync(
+        const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/whale.mp3')
         )
         await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+            }
+          });
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
     }
     moan()
 },[])
 
 const play = ()=>{
     const moan = async ()=>{
-        const {sound} = await Audio.Sound.createAsync(
+        const {sound,status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/whale.mp3')
         )
         await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+            }
+          });
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
     }
     moan()
 }

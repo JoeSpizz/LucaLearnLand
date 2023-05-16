@@ -7,20 +7,38 @@ import { useEffect } from 'react';
 function Crocodile() {
 useEffect(()=>{
     const roar = async ()=>{
-        const {sound} = await Audio.Sound.createAsync(
+        const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/crocodile.m4a')
         )
         await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+            }
+          });
+        
+          // Use the 'status' object to check if the audio is already finished
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
     }
     roar()
 },[])
 
 const play = ()=>{
     const roar = async ()=>{
-        const {sound} = await Audio.Sound.createAsync(
+        const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/crocodile.m4a')
         )
         await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+            }
+          });
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
     }
     roar()
 }

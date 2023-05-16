@@ -24,7 +24,7 @@ import Nineteen from './Counting/Nineteen';
 import Twenty from './Counting/Twenty';
 
 function Count({navigation}) {
-    const [number, setNumber] = useState(2)
+    const [number, setNumber] = useState(1)
 
     useEffect(()=>{
         async function welcome() {

@@ -7,18 +7,34 @@ import { useEffect } from 'react';
 function Crow() {
 useEffect(()=>{
     const caw = async ()=>{
-        const {sound} = await Audio.Sound.createAsync(
+        const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/crow.mp3')
         )
         await sound.playAsync();
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+            }
+          });
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
     }
     caw()
 },[])
 const play = async ()=>{
-    const { sound } = await Audio.Sound.createAsync(
+    const { sound, status } = await Audio.Sound.createAsync(
         require('../../../assets/animals/crow.mp3')
       );
       await sound.playAsync();
+      sound.setOnPlaybackStatusUpdate((status) => {
+        if (status.didJustFinish) {
+          sound.unloadAsync();
+        }
+      });
+      if (status && status.didJustFinish) {
+        sound.unloadAsync();
+      }
 }
 
     return (
