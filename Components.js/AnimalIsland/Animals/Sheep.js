@@ -6,6 +6,24 @@ import { useEffect } from 'react';
 
 function Sheep() {
 useEffect(()=>{
+    const sheepIntro = async ()=>{
+        const {sound, status} = await Audio.Sound.createAsync(
+          require('../../../assets/animals-spoken/sheep-spoken.mp3')
+        )
+        await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+              baah()
+            }
+          });
+        
+          // Use the 'status' object to check if the audio is already finished
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
+    }
+    sheepIntro()
     const baah = async ()=>{
         const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/sheep.mp3')
@@ -20,7 +38,6 @@ useEffect(()=>{
             sound.unloadAsync();
           }
     }
-    baah()
 },[])
 
 const play = ()=>{

@@ -6,6 +6,24 @@ import { useEffect } from 'react';
 
 function Mouse() {
 useEffect(()=>{
+    const mouseIntro = async ()=>{
+        const {sound, status} = await Audio.Sound.createAsync(
+          require('../../../assets/animals-spoken/mouse-spoken.mp3')
+        )
+        await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+              squeak()
+            }
+          });
+        
+          // Use the 'status' object to check if the audio is already finished
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
+    }
+    mouseIntro()
     const squeak = async ()=>{
         const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/mouse.mp3')
@@ -20,7 +38,6 @@ useEffect(()=>{
             sound.unloadAsync();
           }
     }
-    squeak()
 },[])
 
 const play = ()=>{

@@ -6,6 +6,24 @@ import { useEffect } from 'react';
 
 function Rooster() {
 useEffect(()=>{
+    const roosterIntro = async ()=>{
+        const {sound, status} = await Audio.Sound.createAsync(
+          require('../../../assets/animals-spoken/rooster-spoken.mp3')
+        )
+        await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+              cockadoodledoo()
+            }
+          });
+        
+          // Use the 'status' object to check if the audio is already finished
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
+    }
+    roosterIntro()
     const cockadoodledoo = async ()=>{
         const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/rooster-crows.mp3')
@@ -20,7 +38,6 @@ useEffect(()=>{
             sound.unloadAsync();
           }
     }
-    cockadoodledoo()
 },[])
 
 const play = ()=>{

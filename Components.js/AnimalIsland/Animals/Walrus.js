@@ -6,7 +6,25 @@ import { useEffect } from 'react';
 
 function Walrus() {
 useEffect(()=>{
-    const grunt = async ()=>{
+        const walrusIntro = async ()=>{
+            const {sound, status} = await Audio.Sound.createAsync(
+              require('../../../assets/animals-spoken/walrus-spoken.mp3')
+            )
+            await sound.playAsync()
+            sound.setOnPlaybackStatusUpdate((status) => {
+                if (status.didJustFinish) {
+                  sound.unloadAsync();
+                  grunt()
+                }
+              });
+            
+              // Use the 'status' object to check if the audio is already finished
+              if (status && status.didJustFinish) {
+                sound.unloadAsync();
+              }
+        }
+        walrusIntro()
+        const grunt = async ()=>{
         const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/walrus.mp3')
         )
@@ -20,7 +38,7 @@ useEffect(()=>{
             sound.unloadAsync();
           }
     }
-    grunt()
+  
 },[])
 
 const play = ()=>{

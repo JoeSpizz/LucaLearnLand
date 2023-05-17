@@ -6,6 +6,24 @@ import { useEffect } from 'react';
 
 function Raccoon() {
 useEffect(()=>{
+    const raccoonIntro = async ()=>{
+        const {sound, status} = await Audio.Sound.createAsync(
+          require('../../../assets/animals-spoken/racoon-spoken.mp3')
+        )
+        await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+              squall()
+            }
+          });
+        
+          // Use the 'status' object to check if the audio is already finished
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
+    }
+    raccoonIntro()
     const squall = async ()=>{
         const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/raccoon.mp3')
@@ -20,7 +38,6 @@ useEffect(()=>{
             sound.unloadAsync();
           }
     }
-    squall()
 },[])
 
 const play = ()=>{

@@ -6,6 +6,24 @@ import { useEffect } from 'react';
 
 function Pigeon() {
 useEffect(()=>{
+    const pigeonIntro = async ()=>{
+        const {sound, status} = await Audio.Sound.createAsync(
+          require('../../../assets/animals-spoken/pigeon-spoken.mp3')
+        )
+        await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+              coo()
+            }
+          });
+        
+          // Use the 'status' object to check if the audio is already finished
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
+    }
+    pigeonIntro()
     const coo = async ()=>{
         const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/pigeon.mp3')
@@ -20,7 +38,6 @@ useEffect(()=>{
             sound.unloadAsync();
           }
     }
-    coo()
 },[])
 
 const play = ()=>{

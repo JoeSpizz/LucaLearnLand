@@ -6,6 +6,24 @@ import { useEffect } from 'react';
 
 function Owl() {
 useEffect(()=>{
+    const owlIntro = async ()=>{
+        const {sound, status} = await Audio.Sound.createAsync(
+          require('../../../assets/animals-spoken/owl-spoken.mp3')
+        )
+        await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+              hoot()
+            }
+          });
+        
+          // Use the 'status' object to check if the audio is already finished
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
+    }
+    owlIntro()
     const hoot = async ()=>{
         const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/owl.mp3')
@@ -20,7 +38,6 @@ useEffect(()=>{
             sound.unloadAsync();
           }
     }
-    hoot()
 },[])
 
 const play = ()=>{

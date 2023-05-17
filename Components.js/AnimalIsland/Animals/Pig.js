@@ -6,6 +6,24 @@ import { useEffect } from 'react';
 
 function Pig() {
 useEffect(()=>{
+    const pigIntro = async ()=>{
+        const {sound, status} = await Audio.Sound.createAsync(
+          require('../../../assets/animals-spoken/pig-spoken.mp3')
+        )
+        await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+              oink()
+            }
+          });
+        
+          // Use the 'status' object to check if the audio is already finished
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
+    }
+    pigIntro()
     const oink = async ()=>{
         const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/pig.mp3')
@@ -20,7 +38,6 @@ useEffect(()=>{
             sound.unloadAsync();
           }
     }
-    oink()
 },[])
 
 const play = ()=>{

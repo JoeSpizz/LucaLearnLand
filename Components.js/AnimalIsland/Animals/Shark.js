@@ -6,6 +6,24 @@ import { useEffect } from 'react';
 
 function Shark() {
 useEffect(()=>{
+    const sharkIntro = async ()=>{
+        const {sound, status} = await Audio.Sound.createAsync(
+          require('../../../assets/animals-spoken/shark-spoken.mp3')
+        )
+        await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+              bubble()
+            }
+          });
+        
+          // Use the 'status' object to check if the audio is already finished
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
+    }
+    sharkIntro()
     const bubble = async ()=>{
         const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/bubbles.mp3')
@@ -20,7 +38,6 @@ useEffect(()=>{
             sound.unloadAsync();
           }
     }
-    bubble()
 },[])
 
 const play = ()=>{

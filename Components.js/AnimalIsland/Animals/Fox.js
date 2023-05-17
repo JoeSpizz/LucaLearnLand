@@ -6,6 +6,24 @@ import { useEffect } from 'react';
 
 function Fox() {
 useEffect(()=>{
+    const fishIntro = async ()=>{
+        const {sound, status} = await Audio.Sound.createAsync(
+          require('../../../assets/animals-spoken/fish-spoken.mp3')
+        )
+        await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+              bark()
+            }
+          });
+        
+          // Use the 'status' object to check if the audio is already finished
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
+    }
+    fishIntro()
     const bark = async ()=>{
         const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/fox.mp3')
@@ -20,7 +38,6 @@ useEffect(()=>{
             sound.unloadAsync();
           }
     }
-    bark()
 },[])
 
 const play = ()=>{

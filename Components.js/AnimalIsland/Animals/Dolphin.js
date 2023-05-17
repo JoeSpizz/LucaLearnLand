@@ -6,6 +6,24 @@ import { useEffect } from 'react';
 
 function Dolphin() {
 useEffect(()=>{
+    const dolphinIntro = async ()=>{
+        const {sound, status} = await Audio.Sound.createAsync(
+          require('../../../assets/animals-spoken/dolphin-spoken.mp3')
+        )
+        await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+              sonar()
+            }
+          });
+        
+          // Use the 'status' object to check if the audio is already finished
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
+    }
+    dolphinIntro()
     const sonar = async ()=>{
         const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/dolphin.mp3')
@@ -20,7 +38,7 @@ useEffect(()=>{
             sound.unloadAsync();
           }
     }
-    sonar()
+  
 },[])
 
 const play = ()=>{

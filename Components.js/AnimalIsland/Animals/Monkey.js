@@ -6,6 +6,24 @@ import { useEffect } from 'react';
 
 function Monkey() {
 useEffect(()=>{
+    const monkeyIntro = async ()=>{
+        const {sound, status} = await Audio.Sound.createAsync(
+          require('../../../assets/animals-spoken/monkey-spoken.mp3')
+        )
+        await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+              monkeyhowl()
+            }
+          });
+        
+          // Use the 'status' object to check if the audio is already finished
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
+    }
+    monkeyIntro()
     const monkeyhowl = async ()=>{
         const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/monkey.mp3')
@@ -20,7 +38,6 @@ useEffect(()=>{
             sound.unloadAsync();
           }
     }
-    monkeyhowl()
 },[])
 
 const play = ()=>{

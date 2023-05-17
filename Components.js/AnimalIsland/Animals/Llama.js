@@ -6,7 +6,25 @@ import { useEffect } from 'react';
 
 function Llama() {
 useEffect(()=>{
-    const oink = async ()=>{
+    const llamaIntro = async ()=>{
+        const {sound, status} = await Audio.Sound.createAsync(
+          require('../../../assets/animals-spoken/llama-spoken.mp3')
+        )
+        await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+              noise()
+            }
+          });
+        
+          // Use the 'status' object to check if the audio is already finished
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
+    }
+    llamaIntro()
+    const noise = async ()=>{
         const {sound,status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/llama.mp3')
         )
@@ -20,11 +38,11 @@ useEffect(()=>{
             sound.unloadAsync();
           }
     }
-    oink()
+    noise()
 },[])
 
 const play = ()=>{
-    const oink = async ()=>{
+    const noise = async ()=>{
         const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/llama.mp3')
         )
@@ -38,7 +56,7 @@ const play = ()=>{
             sound.unloadAsync();
           }
     }
-    oink()
+    noise()
 }
 
     return (

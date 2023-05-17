@@ -5,6 +5,24 @@ import { useEffect } from 'react';
 
 
 function Deer() {
+    const deerIntro = async ()=>{
+        const {sound, status} = await Audio.Sound.createAsync(
+          require('../../../assets/animals-spoken/deer-spoken.mp3')
+        )
+        await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+              bark()
+            }
+          });
+        
+          // Use the 'status' object to check if the audio is already finished
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
+    }
+    deerIntro()
 useEffect(()=>{
     const bark = async ()=>{
         const {sound, status} = await Audio.Sound.createAsync(
@@ -20,7 +38,7 @@ useEffect(()=>{
             sound.unloadAsync();
           }
     }
-    bark()
+    
 },[])
 
 const play = ()=>{

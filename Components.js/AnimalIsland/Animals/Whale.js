@@ -6,6 +6,24 @@ import { useEffect } from 'react';
 
 function Whale() {
 useEffect(()=>{
+    const whaleIntro = async ()=>{
+        const {sound, status} = await Audio.Sound.createAsync(
+          require('../../../assets/animals-spoken/whale-spoken.mp3')
+        )
+        await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+              moan()
+            }
+          });
+        
+          // Use the 'status' object to check if the audio is already finished
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
+    }
+    whaleIntro()
     const moan = async ()=>{
         const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/whale.mp3')
@@ -20,7 +38,6 @@ useEffect(()=>{
             sound.unloadAsync();
           }
     }
-    moan()
 },[])
 
 const play = ()=>{

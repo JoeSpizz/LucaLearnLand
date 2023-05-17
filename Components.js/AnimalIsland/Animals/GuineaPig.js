@@ -6,6 +6,24 @@ import { useEffect } from 'react';
 
 function GuineaPig() {
 useEffect(()=>{
+    const guineaPigIntro = async ()=>{
+        const {sound, status} = await Audio.Sound.createAsync(
+          require('../../../assets/animals-spoken/guineapig-spoken.mp3')
+        )
+        await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+              chirp()
+            }
+          });
+        
+          // Use the 'status' object to check if the audio is already finished
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
+    }
+    guineaPigIntro()
     const chirp = async ()=>{
         const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/guinea-pig.mp3')
@@ -20,7 +38,6 @@ useEffect(()=>{
             sound.unloadAsync();
           }
     }
-    chirp()
 },[])
 
 const play = ()=>{

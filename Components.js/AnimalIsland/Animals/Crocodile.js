@@ -26,6 +26,22 @@ useEffect(()=>{
 },[])
 
 const play = ()=>{
+    const crocIntro = async ()=>{
+        const {sound, status} = await Audio.Sound.createAsync(
+          require('../../../assets/animals-spoken/crocodile-spoken.mp3')
+        )
+        await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+              roar()
+            }
+          });
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
+    }
+    crocIntro()
     const roar = async ()=>{
         const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/crocodile.m4a')
@@ -40,7 +56,7 @@ const play = ()=>{
             sound.unloadAsync();
           }
     }
-    roar()
+ 
 }
 
     return (

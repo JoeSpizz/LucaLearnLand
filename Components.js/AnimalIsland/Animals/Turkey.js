@@ -6,6 +6,24 @@ import { useEffect } from 'react';
 
 function Turkey() {
 useEffect(()=>{
+    const turkeyIntro = async ()=>{
+        const {sound, status} = await Audio.Sound.createAsync(
+          require('../../../assets/animals-spoken/turkey-spoken.mp3')
+        )
+        await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+              gobble()
+            }
+          });
+        
+          // Use the 'status' object to check if the audio is already finished
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
+    }
+    turkeyIntro()
     const gobble = async ()=>{
         const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/turkey.mp3')
@@ -20,7 +38,6 @@ useEffect(()=>{
             sound.unloadAsync();
           }
     }
-    gobble()
 },[])
 
 const play = ()=>{

@@ -6,6 +6,24 @@ import { useEffect } from 'react';
 
 function Turtle() {
 useEffect(()=>{
+    const turtleIntro = async ()=>{
+        const {sound, status} = await Audio.Sound.createAsync(
+          require('../../../assets/animals-spoken/turtle-spoken.mp3')
+        )
+        await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+              roar()
+            }
+          });
+        
+          // Use the 'status' object to check if the audio is already finished
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
+    }
+    turtleIntro()
     const roar = async ()=>{
         const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/turtle.mp3')
@@ -20,7 +38,7 @@ useEffect(()=>{
             sound.unloadAsync();
           }
     }
-    roar()
+
 },[])
 
 const play = ()=>{

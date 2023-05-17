@@ -6,6 +6,24 @@ import { useEffect } from 'react';
 
 function Duck() {
 useEffect(()=>{
+    const duckIntro = async ()=>{
+        const {sound, status} = await Audio.Sound.createAsync(
+          require('../../../assets/animals-spoken/duck-spoken.mp3')
+        )
+        await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+              quack()
+            }
+          });
+        
+          // Use the 'status' object to check if the audio is already finished
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
+    }
+    duckIntro()
     const quack = async ()=>{
         const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/duck.mp3')
@@ -20,7 +38,7 @@ useEffect(()=>{
             sound.unloadAsync();
           }
     }
-    quack()
+
 },[])
 
 const play = ()=>{

@@ -6,6 +6,24 @@ import { useEffect } from 'react';
 
 function Frog() {
 useEffect(()=>{
+    const frogIntro = async ()=>{
+        const {sound, status} = await Audio.Sound.createAsync(
+          require('../../../assets/animals-spoken/frog-spoken.mp3')
+        )
+        await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+              ribbit()
+            }
+          });
+        
+          // Use the 'status' object to check if the audio is already finished
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
+    }
+    frogIntro()
     const ribbit = async ()=>{
         const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/frogs.mp3')
@@ -20,7 +38,6 @@ useEffect(()=>{
             sound.unloadAsync();
           }
     }
-    ribbit()
 },[])
 
 const play = ()=>{

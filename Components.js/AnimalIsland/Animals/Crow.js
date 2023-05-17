@@ -6,6 +6,25 @@ import { useEffect } from 'react';
 
 function Crow() {
 useEffect(()=>{
+    const crowIntro = async ()=>{
+        const {sound, status} = await Audio.Sound.createAsync(
+          require('../../../assets/animals-spoken/crow-spoken.mp3')
+        )
+        await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+              caw()
+            }
+          });
+        
+          // Use the 'status' object to check if the audio is already finished
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
+    }
+    crowIntro()
+
     const caw = async ()=>{
         const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/crow.mp3')
@@ -20,7 +39,7 @@ useEffect(()=>{
             sound.unloadAsync();
           }
     }
-    caw()
+    
 },[])
 const play = async ()=>{
     const { sound, status } = await Audio.Sound.createAsync(

@@ -24,6 +24,24 @@ useEffect(()=>{
 },[])
 
 const play = ()=>{
+    const dogIntro = async ()=>{
+        const {sound, status} = await Audio.Sound.createAsync(
+          require('../../../assets/animals-spoken/dog-spoken.mp3')
+        )
+        await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+              bark()
+            }
+          });
+        
+          // Use the 'status' object to check if the audio is already finished
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
+    }
+    dogIntro()
     const bark = async ()=>{
         const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/dog.mp3')
@@ -38,7 +56,7 @@ const play = ()=>{
             sound.unloadAsync();
           }
     }
-    bark()
+    
 }
 
     return (

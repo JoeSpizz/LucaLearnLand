@@ -6,6 +6,24 @@ import { useEffect } from 'react';
 
 function Elephant() {
 useEffect(()=>{
+    const elephantIntro = async ()=>{
+        const {sound, status} = await Audio.Sound.createAsync(
+          require('../../../assets/animals-spoken/elephant-spoken.mp3')
+        )
+        await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+              honk()
+            }
+          });
+        
+          // Use the 'status' object to check if the audio is already finished
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
+    }
+    elephantIntro()
     const honk = async ()=>{
         const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/elephant.mp3')
@@ -19,8 +37,7 @@ useEffect(()=>{
           if (status && status.didJustFinish) {
             sound.unloadAsync();
           }
-    }
-    honk()
+        }
 },[])
 
 const play = ()=>{

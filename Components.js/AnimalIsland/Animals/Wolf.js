@@ -6,6 +6,24 @@ import { useEffect } from 'react';
 
 function Wolf() {
 useEffect(()=>{
+    const wolfIntro = async ()=>{
+        const {sound, status} = await Audio.Sound.createAsync(
+          require('../../../assets/animals-spoken/wolf-spoken.mp3')
+        )
+        await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+              howl()
+            }
+          });
+        
+          // Use the 'status' object to check if the audio is already finished
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
+    }
+    wolfIntro()
     const howl = async ()=>{
         const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/wolf.mp3')

@@ -6,6 +6,24 @@ import { useEffect } from 'react';
 
 function Eagle() {
 useEffect(()=>{
+    const eagleIntro = async ()=>{
+        const {sound, status} = await Audio.Sound.createAsync(
+          require('../../../assets/animals-spoken/eagle-spoken.mp3')
+        )
+        await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+              squawk()
+            }
+          });
+        
+          // Use the 'status' object to check if the audio is already finished
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
+    }
+    eagleIntro()
     const squawk = async ()=>{
         const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/eagle.mp3')
@@ -20,7 +38,6 @@ useEffect(()=>{
             sound.unloadAsync();
           }
     }
-    squawk()
 },[])
 
 const play = ()=>{

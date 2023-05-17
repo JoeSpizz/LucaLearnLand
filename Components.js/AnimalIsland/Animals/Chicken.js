@@ -6,23 +6,41 @@ import { useEffect } from 'react';
 
 function Chicken() {
 useEffect(()=>{
+    const chickenIntro = async ()=>{
+        const {sound, status} = await Audio.Sound.createAsync(
+          require('../../../assets/animals-spoken/chicken-spoken.mp3')
+        )
+        await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+              cluck()
+            }
+          });
+        
+          // Use the 'status' object to check if the audio is already finished
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
+    }
+    chickenIntro()
     const cluck = async ()=>{
         const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/chicken.mp3')
         )
         await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+            }
+          });
+        
+          // Use the 'status' object to check if the audio is already finished
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
     }
-    cluck()
-    sound.setOnPlaybackStatusUpdate((status) => {
-        if (status.didJustFinish) {
-          sound.unloadAsync();
-        }
-      });
     
-      // Use the 'status' object to check if the audio is already finished
-      if (status && status.didJustFinish) {
-        sound.unloadAsync();
-      }
 },[])
 
 const play = ()=>{

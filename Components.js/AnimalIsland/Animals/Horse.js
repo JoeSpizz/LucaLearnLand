@@ -6,6 +6,24 @@ import { useEffect } from 'react';
 
 function Horse() {
 useEffect(()=>{
+    const horseIntro = async ()=>{
+        const {sound, status} = await Audio.Sound.createAsync(
+          require('../../../assets/animals-spoken/horse-spoken.mp3')
+        )
+        await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+              neigh()
+            }
+          });
+        
+          // Use the 'status' object to check if the audio is already finished
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
+    }
+    horseIntro()
     const neigh = async ()=>{
         const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/horse.mp3')
@@ -20,7 +38,6 @@ useEffect(()=>{
             sound.unloadAsync();
           }
     }
-    neigh()
 },[])
 
 const play = ()=>{

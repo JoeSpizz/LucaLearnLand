@@ -6,6 +6,27 @@ import { useEffect } from 'react';
 
 function Cat() {
 useEffect(()=>{
+    const catIntro = async ()=>{
+        const {sound, status} = await Audio.Sound.createAsync(
+          require('../../../assets/animals-spoken/cat-spoken.mp3')
+        )
+        await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+              meow()
+            }
+          });
+        
+          // Use the 'status' object to check if the audio is already finished
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+            meow()
+          }
+    }
+    catIntro()
+
+
     const meow = async ()=>{
         const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/cat.mp3')
@@ -22,7 +43,7 @@ useEffect(()=>{
             sound.unloadAsync();
           }
     }
-    meow()
+  
 },[])
 
 const play = ()=>{

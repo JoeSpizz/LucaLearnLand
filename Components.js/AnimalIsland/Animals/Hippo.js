@@ -6,6 +6,24 @@ import { useEffect } from 'react';
 
 function Hippopotamus() {
 useEffect(()=>{
+    const hippo = async ()=>{
+        const {sound, status} = await Audio.Sound.createAsync(
+          require('../../../assets/animals-spoken/hippopotamus-spoken.mp3')
+        )
+        await sound.playAsync()
+        sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+              moo()
+            }
+          });
+        
+          // Use the 'status' object to check if the audio is already finished
+          if (status && status.didJustFinish) {
+            sound.unloadAsync();
+          }
+    }
+    hippoIntro()
     const grunt = async ()=>{
         const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/hippo.mp3')
@@ -20,7 +38,6 @@ useEffect(()=>{
             sound.unloadAsync();
           }
     }
-    grunt()
 },[])
 
 const play = ()=>{
