@@ -92,32 +92,31 @@ const panResponder = PanResponder.create({
     <View style={styles.container}>
         <Text style={styles.title}>Learning Animals!</Text>
         <Text style={styles.title2}>Look, Click, Listen, Learn</Text>
-{ location ?  
+        { location ?  
           <View>
             <Text style={styles.explore} onPress={reset}> Explore A New Area?</Text>
-        {location[animal]}
-        <View  style={styles.arrows} {...panResponder.panHandlers}>
-        <Image style={styles.arrow} source={require('../../assets/swipe-left.png')} resizeMode="contain" />
-      
-        <Image style={styles.arrow} source={require('../../assets/swipe-right.png')}  resizeMode="contain"/>
-      </View>  
-        </View>
-        
-      :    <View style={styles.iconBox}>
-      <Text> Select an Area to Explore</Text>
-      <Text style={styles.pick}  onPress={()=>setLocation(animals.neighborhood)}> 
-      <Image style={styles.icon} source={require('../../assets/animal-pictures/dog-icon.png')} resizeMode="cover"/>
-       </Text>
-      <Text style={styles.pick} onPress={()=>setLocation(animals.farm)}> 
-        <Image style={styles.icon} source={require('../../assets/animal-pictures/cow-icon.png')} resizeMode="cover"/></Text>
-      <Text style={styles.pick}  onPress={()=>setLocation(animals.forest)}> 
-      <Image style={styles.icon} source={require('../../assets/animal-pictures/elephant-icon.png')} resizeMode="cover"/>
-       </Text>
-      <Text style={styles.pick}  onPress={()=>setLocation(animals.ocean)}> 
-      <Image style={styles.icon} source={require('../../assets/animal-pictures/fish-icon.png')} resizeMode="cover"/>
-       </Text>
-      </View>}
-        
+              {location[animal]}
+              <View  style={styles.arrows} {...panResponder.panHandlers}>
+                <Image style={styles.arrow} source={require('../../assets/swipe-left.png')} resizeMode="contain" />
+                <Image style={styles.arrow} source={require('../../assets/swipe-right.png')}  resizeMode="contain"/>
+              </View>  
+          </View>
+      :    
+          <View style={styles.iconBox}>
+            <Text> Select an Area to Explore</Text>
+            <Text style={styles.pick}  onPress={()=>setLocation(animals.neighborhood)}> 
+              <Image style={styles.icon} source={require('../../assets/animal-pictures/dog-icon.png')} resizeMode="cover"/>
+            </Text>
+            <Text style={styles.pick} onPress={()=>setLocation(animals.farm)}> 
+              <Image style={styles.icon} source={require('../../assets/animal-pictures/cow-icon.png')} resizeMode="cover"/></Text>
+              <Text style={styles.pick}  onPress={()=>setLocation(animals.forest)}> 
+              <Image style={styles.icon} source={require('../../assets/animal-pictures/elephant-icon.png')} resizeMode="cover"/>
+            </Text>
+            <Text style={styles.pick}  onPress={()=>setLocation(animals.ocean)}> 
+              <Image style={styles.icon} source={require('../../assets/animal-pictures/fish-icon.png')} resizeMode="cover"/>
+            </Text>
+          </View>
+          }
         <Text style={styles.button} 
         onPress={goHome}
         > Back to the Animal Island</Text>

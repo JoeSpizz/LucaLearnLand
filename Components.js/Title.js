@@ -1,14 +1,14 @@
 import { View, Pressable, Text, TouchableOpacity, Modal, Linking } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Truck from './Button';
-import Button from './Button';
 import { Ionicons } from '@expo/vector-icons';
 
 
 
 function Title({navigation}) {
   const [popMessageVisible, setPopMessageVisible] = useState(false);
+
 
   const handlePress = () => {
     setPopMessageVisible(true);

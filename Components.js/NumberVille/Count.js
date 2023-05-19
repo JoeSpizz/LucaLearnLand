@@ -73,17 +73,13 @@ const goHome= ()=>{
     <View style={styles.container}>
         <Text style={styles.title}>
           Count
-          </Text>
+        </Text>
         <Text style={styles.title2}>
           How many do you see?
         </Text>
-        
         <View style={styles.countBoxContainer}>
-  
-       {images[number-1]}
-    
+          {images[number-1]}
         </View>
-        
         <Text style={styles.button} 
         onPress={goHome}> 
         Back to the NumberVille

@@ -68,7 +68,7 @@ export default function Button({nav, navigation}) {
         return focusHandler;
 
     }, [navigation]);
-//sound library
+
     async function takeOff() {
       const { sound, status } = await Audio.Sound.createAsync(
         require('../assets/sounds/takeoffengine.mp3')
@@ -87,11 +87,6 @@ export default function Button({nav, navigation}) {
       }
     }
 
-   
-
-
-
-    //navigate to next page on press
 const wiggle = ()=>{
     takeOff()
     let down = Animated.timing(spinValue,{
@@ -129,27 +124,23 @@ const wiggle = ()=>{
                 useNativeDriver: true,
               }),
              
-        ]).start(()=> {navigation.navigate(`${nav}`)});
-    
+        ]).start(()=> {navigation.navigate(`${nav}`)});    
 }
-
-
 
   return (
     <View>
-    <Animated.View style={{
+      <Animated.View style={{
         height: 100,
-       transform: [{ translateX: transX}, {translateY: transY}, {rotate: engine}],
+        transform: [{ translateX: transX}, {translateY: transY}, {rotate: engine}],
       }}>
         
-    <Text style={styles.buttonLabel}
-    onPress={wiggle}
-    > 
-     <Image style={styles.buttonImage} source={require('./truck2.png')}/>
-      </Text>
-   
-  </Animated.View>
-    <Text style={styles.buttonText}  onPress={wiggle}>{nav}</Text>
+        <Text style={styles.buttonLabel}
+        onPress={wiggle}
+        > 
+        <Image style={styles.buttonImage} source={require('./truck2.png')}/>
+        </Text>
+      </Animated.View>
+      <Text style={styles.buttonText}  onPress={wiggle}>{nav}</Text>
     </View>
   )
 }
@@ -158,7 +149,6 @@ const styles = EStyleSheet.create({
   
     buttonLabel: {
       height: '100%'
-      
     },
     buttonImage:{
       height: 60,

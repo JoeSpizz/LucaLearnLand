@@ -37,45 +37,40 @@ const goHome= ()=>{
           sound.unloadAsync();
         }
       });
-    
-      // Use the 'status' object to check if the audio is already finished
-      if (status && status.didJustFinish) {
-        sound.unloadAsync();
-      }
   }
   goBack()
     navigation.navigate(`Home`)
 }
   return (
-    <View style={styles.container}>
+  <View style={styles.container}>
         <Text style={styles.title}>Alphabet Land</Text>
         <Text style={styles.title2}>Let's Learn Our Letters!</Text>
+  <View>
+    <Text style={styles.button} onPress={()=>{pressed('Tracing')}}>
+      <View style={styles.buttonContainer}>
+        <Image style={styles.truck} source={require('../assets/trucks/truck-7.png')} />
+        <Text style={styles.buttonText}>Trace</Text>
+      </View>
+    </Text>
+    <Text style={styles.button} onPress={()=>{pressed('IdentifyLet')}}>
+      <View style={styles.buttonContainer}>
+        <Image style={styles.truck} source={require('../assets/trucks/truck-7.png')} />
+        <Text style={styles.buttonText}>Identify</Text>
+      </View>
+    </Text>
+    <Text style={styles.button} onPress={()=>{pressed('Cases')}}>
+      <View style={styles.buttonContainer}>
+        <Image style={styles.truck} source={require('../assets/trucks/truck-7.png')} />
+        <Text style={styles.buttonText}>Upper vs Lower</Text>
+      </View>
+    </Text>
+  </View>
 
-        <View>
-  <Text style={styles.button} onPress={()=>{pressed('Tracing')}}>
-    <View style={styles.buttonContainer}>
-      <Image style={styles.truck} source={require('../assets/trucks/truck-7.png')} />
-      <Text style={styles.buttonText}>Trace</Text>
-    </View>
-  </Text>
-  <Text style={styles.button} onPress={()=>{pressed('IdentifyLet')}}>
-    <View style={styles.buttonContainer}>
-      <Image style={styles.truck} source={require('../assets/trucks/truck-7.png')} />
-      <Text style={styles.buttonText}>Identify</Text>
-    </View>
-  </Text>
-  <Text style={styles.button} onPress={()=>{pressed('Cases')}}>
-    <View style={styles.buttonContainer}>
-      <Image style={styles.truck} source={require('../assets/trucks/truck-7.png')} />
-      <Text style={styles.buttonText}>Upper vs Lower</Text>
-    </View>
-  </Text>
-</View>
-
-        <Text style={styles.homeButton} 
+    <Text style={styles.homeButton} 
         onPress={goHome}
-        > Back to the PlayGround</Text>
-    </View>
+        > Back to the PlayGround
+    </Text>
+  </View>
   )
 }
 

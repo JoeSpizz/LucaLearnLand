@@ -36,11 +36,6 @@ async function forest() {
       sound.unloadAsync();
     }
   });
-
-  // Use the 'status' object to check if the audio is already finished
-  if (status && status.didJustFinish) {
-    sound.unloadAsync();
-  }
 }
 forest();
 }, [])
@@ -71,33 +66,33 @@ goBack()
         <Text style={styles.title2}>The Creature Quarter</Text>
 
         <View>
-        <Text style={styles.button} onPress={()=>{pressed('LearnAnimals')}}>
-          <View>
-          <Image style={styles.truck} source={require('../assets/trucks/truck6.png')} />
-           <Text style={styles.buttonText}> Learn Animals</Text>
+          <Text style={styles.button} onPress={()=>{pressed('LearnAnimals')}}>
+            <View>
+              <Image style={styles.truck} source={require('../assets/trucks/truck6.png')} />
+              <Text style={styles.buttonText}> Learn Animals</Text>
            </View>
-        </Text>
+          </Text>
         </View>
         <View>
-        <Text style={styles.button} onPress={()=>{pressed('AnimalSounds')}}>
-          <View>
-          <Image style={styles.truck} source={require('../assets/trucks/truck6.png')} />
-          <Text style={styles.buttonText}>Identify Sound</Text>
-          </View>
-        </Text>
+          <Text style={styles.button} onPress={()=>{pressed('AnimalSounds')}}>
+            <View>
+              <Image style={styles.truck} source={require('../assets/trucks/truck6.png')} />
+              <Text style={styles.buttonText}>Identify Sound</Text>
+            </View>
+          </Text>
         </View>
         <View>
-        <Text style={styles.button} onPress={()=>{pressed('AnimalPictures')}}>
-          <View>
-          <Image style={styles.truck} source={require('../assets/trucks/truck6.png')} />
-         <Text style={styles.buttonText}>Identify Picture </Text>
-         </View>
-        </Text>
+          <Text style={styles.button} onPress={()=>{pressed('AnimalPictures')}}>
+            <View>
+              <Image style={styles.truck} source={require('../assets/trucks/truck6.png')} />
+              <Text style={styles.buttonText}>Identify Picture </Text>
+            </View>
+          </Text>
         </View>
-        
         <Text style={styles.homeButton} 
-        onPress={goHome}
-        > Back to the PlayGround</Text>
+        onPress={goHome}> 
+        Back to the PlayGround
+        </Text>
     </View>
   )
 }

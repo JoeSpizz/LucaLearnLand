@@ -18,10 +18,6 @@ function Color({navigation}) {
         }
       });
     
-      // Use the 'status' object to check if the audio is already finished
-      if (status && status.didJustFinish) {
-        sound.unloadAsync();
-      }
   }
   welcome()
   })
@@ -37,11 +33,7 @@ const goHome= ()=>{
         sound.unloadAsync();
       }
     });
-  
-    // Use the 'status' object to check if the audio is already finished
-    if (status && status.didJustFinish) {
-      sound.unloadAsync();
-    }
+
 }
 goBack()
     navigation.navigate(`Home`)

@@ -89,28 +89,29 @@ if(key===0){
 
 
 
-const blocks =[ <TouchableWithoutFeedback key={1} onPress={()=>guess(number)}>
+const blocks =[ 
+<TouchableWithoutFeedback key={1} onPress={()=>guess(number)}>
     <View>
-    <Image style={styles.racer} source={myImage}/>
-    <Text style={styles.racerNumber}> {number}</Text>
+      <Image style={styles.racer} source={myImage}/>
+      <Text style={styles.racerNumber}> {number}</Text>
     </View>
 </TouchableWithoutFeedback>, 
 <TouchableWithoutFeedback key={2} onPress={()=>guess(number2)}>
     <View>
-    <Image style={styles.racer} source={myImage}/>
-    <Text style={styles.racerNumber}> {number2}</Text>
+      <Image style={styles.racer} source={myImage}/>
+      <Text style={styles.racerNumber}> {number2}</Text>
     </View>
 </TouchableWithoutFeedback>, 
 <TouchableWithoutFeedback key={3} onPress={()=>guess(number3)}>
     <View>
-    <Image style={styles.racer} source={myImage}/>
-    <Text style={styles.racerNumber}> {number3}</Text>
+      <Image style={styles.racer} source={myImage}/>
+      <Text style={styles.racerNumber}> {number3}</Text>
     </View>
 </TouchableWithoutFeedback>, 
 <TouchableWithoutFeedback key={4} onPress={()=>guess(number4)}>
     <View>
-    <Image style={styles.racer} source={myImage}/>
-    <Text style={styles.racerNumber}> {number4}</Text>
+     <Image style={styles.racer} source={myImage}/>
+      <Text style={styles.racerNumber}> {number4}</Text>
     </View>
 </TouchableWithoutFeedback>]
 
@@ -218,34 +219,32 @@ const goHome= async()=>{
 }
 
   return (
-      <View style={styles.big}>
-    <Animated.View style={animatedStyle}>
-    <View style={styles.container}>
-     
-        <Text style={styles.title}>What Number is This?</Text>
-        <Text style={styles.title2}> You've gotten it right {key} times!</Text>
-        {/* randomizes the Racer's with numbers on their chests */}
-        <View style={styles.grid}>
-        {shuffledArray.map((block) => block)}
-        </View>
-        {/* truck carrying the correct number */}
-        <Animated.View  style={[{
-       transform: [{ translateX: transX}, {translateY: transY},{rotate: engine}]
-      },styles.guessBox]}>
-           <Text style={styles.number}>
-           {number}
+    <View style={styles.big}>
+      <Animated.View style={animatedStyle}>
+        <View style={styles.container}> 
+          <Text style={styles.title}>What Number is This?</Text>
+          <Text style={styles.title2}> You've gotten it right {key} times!</Text>
+          {/* randomizes the Racer's with numbers on their chests */}
+          <View style={styles.grid}>
+             {shuffledArray.map((block) => block)}
+          </View>
+          {/* truck carrying the correct number */}
+          <Animated.View  style={[{
+            transform: [{ translateX: transX}, {translateY: transY},{rotate: engine}]
+            },styles.guessBox]}>
+            <Text style={styles.number}>
+              {number}
             </Text>
             <Text style={styles.identifier} >
-            <Image style={styles.truck} source={require('../../assets/trucks/racecar-2.png')} />
-        </Text>
-        </Animated.View>
-
-        <Text style={styles.button} 
-        onPress={goHome}
-        > Back to the NumberVille</Text>
-       
-    </View>
-    </Animated.View>
+              <Image style={styles.truck} source={require('../../assets/trucks/racecar-2.png')} />
+            </Text>
+          </Animated.View>
+          <Text style={styles.button} 
+          onPress={goHome}
+          > Back to the NumberVille
+          </Text>
+        </View>
+      </Animated.View>
     </View>
   )
 }
