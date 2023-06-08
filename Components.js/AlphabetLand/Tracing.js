@@ -3,15 +3,17 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import { useEffect, useRef, useState } from 'react';
 import { Audio } from 'expo-av';
 import Svg, { Path } from 'react-native-svg';
-import Drag from './Drag.js'
 
 
 
-const line = "M 175,50 L 30,450"
 
-// M 175,0 L 320,450 M 255,250 L 95,255";
+const line1 = "M 190,50 L 30,450"
+const line2 = "M 190,50 L 350,450"   
+const line3 = "M 100,250 L 3,250"  
 
 function Tracing({ navigation }) {
+  const [currentLine, setCurrentLine] = useState(line1)
+  const [complete, setComplete] = useState(false)
   useEffect(() => {
     async function welcome() {
       const { sound, status } = await Audio.Sound.createAsync(
@@ -41,10 +43,6 @@ function Tracing({ navigation }) {
         const pathLength = pathRef.current.getTotalLength();
         const pathPoint = pathRef.current.getPointAtLength(pathLength + gestureState.dy);
         const x = pathPoint.x-20+ lastPanPosition.x ; // adjust for the radius of the ball
-        console.log("last pan ")
-        console.log(lastPanPosition)
-        console.log('and then x ')
-        console.log(x)
         const y = pathPoint.y+115 + lastPanPosition.y; // adjust for the radius of the ball
         if (pathPoint.x >= 30 && pathPoint.x <= 175) {
            pan.x.setValue(x);
@@ -52,7 +50,7 @@ function Tracing({ navigation }) {
       setLastPanPosition({x: x, y: y})
         }
       },
-      onPanResponderRelease:(_, gestureState)=>{
+      onPanResponderRelease:()=>{
        
       }
     })
@@ -67,16 +65,14 @@ function Tracing({ navigation }) {
       <Text style={styles.title}>Tracings</Text>
       <Text style={styles.title2}>The future home of the tracing game</Text>
 
+      
+
       <Svg style={styles.trail}>
-        <Path
-          ref={pathRef}
-          d={line}
-          stroke="yellow"
-          strokeWidth="4"
-          fill="none"
-        />
-        
+        <Path d={line1}  ref={pathRef} stroke="yellow" strokeWidth="4" fill="none" />
+        <Path d={line2} stroke="yellow" strokeWidth="4" fill="none" /> 
+        <Path d={line3} stroke="yellow" strokeWidth="4" fill="none" />
       </Svg>
+    
  
 
       <Animated.View

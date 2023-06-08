@@ -1,36 +1,74 @@
-import {View, Text } from 'react-native';
+import {View, Text, TouchableOpacity } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import {useEffect} from 'react'
+import {useEffect, useState} from 'react'
 import {Audio} from 'expo-av'
 
 function TracingNum({navigation}) {
     useEffect(()=>{
         async function welcome() {
-          const { sound, status } = await Audio.Sound.createAsync(
+          const { sound } = await Audio.Sound.createAsync(
             require('../../assets/sounds/number-trace-2.mp3')
           );
           await sound.playAsync();
-          sound.setOnPlaybackStatusUpdate((status) => {
-            if (status.didJustFinish) {
-              sound.unloadAsync();
-            }
-          });
-        
-          // Use the 'status' object to check if the audio is already finished
-          if (status && status.didJustFinish) {
-            sound.unloadAsync();
-          }
         }
         welcome()
       })
 const goHome= ()=>{
     navigation.navigate(`Numbers`)
 }
+
+const [letter, setLetter] = useState('A');
+const [filled, setFilled] = useState(0);
+const [sound, setSound] = useState();
+
+useEffect(() => {
+  if (filled >= 0.95) {
+    setFilled(0);
+    setLetter(String.fromCharCode(letter.charCodeAt(0) + 1));
+    playSound();
+  }
+}, [filled]);
+
+const playSound = () => {
+  setSound(new Sound('tada.mp3', Sound.MAIN_BUNDLE, (error) => {
+    if (error) {
+      console.log('failed to load the sound', error);
+    }
+  }));
+  setTimeout(() => {
+    sound.play();
+  }, 200);
+}
+
+const handlePress = (e) => {
+  if (e.nativeEvent.size) {
+    const x = e.nativeEvent.locationX;
+    const y = e.nativeEvent.locationY;
+    const width = e.nativeEvent.size.width;
+    const height = e.nativeEvent.size.height;
+    
+    const area = width * height;
+    const filledArea = x * y;
+    setFilled(filledArea / area);
+    
+    const newColor = `rgb(${Math.floor(255*filled)}, 0, 0)`;
+    setStyle({backgroundColor: newColor});
+  }
+}
   return (
     <View style={styles.container}>
         <Text style={styles.title}>Trace the Number</Text>
         <Text style={styles.title2}>Follow along and Learn</Text>
         
+        <View style={styles.gameContainer}>
+      <TouchableOpacity 
+        style={[styles.letter, {backgroundColor: `#${Math.floor(255*filled).toString(16)}`}]}
+        onPress={handlePress}>
+        <Text style={styles.text}>{letter}</Text>
+      </TouchableOpacity>
+    </View>
+
+
         <Text style={styles.button} 
         onPress={goHome}
         > Back to the NumberVille</Text>
@@ -73,5 +111,23 @@ const styles= EStyleSheet.create({
         color: '#00FC00',
         paddingTop: 10,
         fontSize: '1.5rem'
+      },
+      gameContainer: {
+        flex: 1, 
+        backgroundColor: 'gray',
+        alignItems: 'center', 
+        justifyContent: 'center'
+      },
+      letter: {
+        width: '80%', 
+        height: '80%', 
+        backgroundColor: 'white',
+        borderRadius: 20,
+        alignItems: 'center', 
+        justifyContent: 'center'
+      },
+      text: {
+        fontSize: 400, 
+        color: 'black'
       }
 })

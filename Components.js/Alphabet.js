@@ -28,7 +28,7 @@ function Alphabet({navigation}) {
   }
 const goHome= ()=>{
   const goBack = async ()=>{
-      const {sound, status} = await Audio.Sound.createAsync(
+      const {sound} = await Audio.Sound.createAsync(
         require('../assets/sounds/what-else.mp3')
       )
       await sound.playAsync()
