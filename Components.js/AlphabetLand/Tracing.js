@@ -9,11 +9,9 @@ import Svg, { Path } from 'react-native-svg';
 
 const line1 = "M 190,50 L 30,450"
 const line2 = "M 190,50 L 350,450"   
-const line3 = "M 100,250 L 3,250"  
+const line3 = "M 110,250 L 270,250"  
 
 function Tracing({ navigation }) {
-  const [currentLine, setCurrentLine] = useState(line1)
-  const [complete, setComplete] = useState(false)
   useEffect(() => {
     async function welcome() {
       const { sound, status } = await Audio.Sound.createAsync(
@@ -33,25 +31,29 @@ function Tracing({ navigation }) {
   }, []);
 
   const pathRef = useRef();
-  const pan = useRef(new Animated.ValueXY({ x: 10, y: 565 })).current;
+
   const [lastPanPosition, setLastPanPosition] = useState({ x: 0, y: 0 });
-  console.log(lastPanPosition)
+  const pan = useRef(new Animated.ValueXY({ x: 10, y: 565 })).current;
+  
   const panResponder = useRef(
     PanResponder.create({
       onMoveShouldSetPanResponder: () => true,
+      onPanResponderGrant: (evt, gestureState) => {
+        const offsetX = gestureState.dx;
+        const offsetY = gestureState.dy;
+        pan.x.setValue(offsetX);
+        pan.y.setValue(offsetY);
+      },
       onPanResponderMove: (evt, gestureState) => {
         const pathLength = pathRef.current.getTotalLength();
         const pathPoint = pathRef.current.getPointAtLength(pathLength + gestureState.dy);
         const x = pathPoint.x-20+ lastPanPosition.x ; // adjust for the radius of the ball
         const y = pathPoint.y+115 + lastPanPosition.y; // adjust for the radius of the ball
-        if (pathPoint.x >= 30 && pathPoint.x <= 175) {
-           pan.x.setValue(x);
-      pan.y.setValue(y);;
-      setLastPanPosition({x: x, y: y})
-        }
+        pan.x.setValue(x);
+        pan.y.setValue(y);;
       },
-      onPanResponderRelease:()=>{
-       
+      onPanResponderRelease: (evt, gestureState) => {
+        console.log(pan.x)
       }
     })
   ).current;
