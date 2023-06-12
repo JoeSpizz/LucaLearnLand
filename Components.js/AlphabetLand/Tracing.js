@@ -1,15 +1,12 @@
 import { View, Text, PanResponder, Animated } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Audio } from 'expo-av';
-import Svg, { Path } from 'react-native-svg';
+import DraggableBall from './Drag'
 
-
-
-
-const line1 = "M 190,50 L 30,450"
-const line2 = "M 190,50 L 350,450"   
-const line3 = "M 110,250 L 270,250"  
+const line1 = "M 190,50 L 30,450";
+const line2 = "M 190,50 L 350,450";
+const line3 = "M 110,250 L 270,250";
 
 function Tracing({ navigation }) {
   useEffect(() => {
@@ -30,33 +27,23 @@ function Tracing({ navigation }) {
     welcome();
   }, []);
 
-  const pathRef = useRef();
-
   const [lastPanPosition, setLastPanPosition] = useState({ x: 0, y: 0 });
-  const pan = useRef(new Animated.ValueXY({ x: 10, y: 565 })).current;
-  
-  const panResponder = useRef(
+  const [pan] = useState(new Animated.ValueXY({ x: 10, y: 565 }));
+  const [panResponder] = useState(
     PanResponder.create({
       onMoveShouldSetPanResponder: () => true,
-      onPanResponderGrant: (evt, gestureState) => {
-        const offsetX = gestureState.dx;
-        const offsetY = gestureState.dy;
-        pan.x.setValue(offsetX);
-        pan.y.setValue(offsetY);
-      },
       onPanResponderMove: (evt, gestureState) => {
-        const pathLength = pathRef.current.getTotalLength();
-        const pathPoint = pathRef.current.getPointAtLength(pathLength + gestureState.dy);
-        const x = pathPoint.x-20+ lastPanPosition.x ; // adjust for the radius of the ball
-        const y = pathPoint.y+115 + lastPanPosition.y; // adjust for the radius of the ball
+        const pathPoint = pathRef.getPointAtLength(gestureState.dy);
+        const x = pathPoint.x - 20 + lastPanPosition.x;
+        const y = pathPoint.y + 115 + lastPanPosition.y;
         pan.x.setValue(x);
-        pan.y.setValue(y);;
+        pan.y.setValue(y);
       },
       onPanResponderRelease: (evt, gestureState) => {
-        console.log(pan.x)
+        setLastPanPosition({ x: gestureState.dx, y: gestureState.dy });
       }
     })
-  ).current;
+  );
 
   const goHome = () => {
     navigation.navigate(`Letters`);
@@ -67,21 +54,10 @@ function Tracing({ navigation }) {
       <Text style={styles.title}>Tracings</Text>
       <Text style={styles.title2}>The future home of the tracing game</Text>
 
-      
-
-      <Svg style={styles.trail}>
-        <Path d={line1}  ref={pathRef} stroke="yellow" strokeWidth="4" fill="none" />
-        <Path d={line2} stroke="yellow" strokeWidth="4" fill="none" /> 
-        <Path d={line3} stroke="yellow" strokeWidth="4" fill="none" />
-      </Svg>
-    
- 
-
-      <Animated.View
-        style={[styles.draggable, pan.getLayout()]}
-        {...panResponder.panHandlers}
-      />
-
+      <View style={styles.gameContainer}>
+      <Text style={styles.text}>A</Text>
+      <DraggableBall />
+    </View>
       <Text style={styles.button} onPress={goHome}>
         Back to the Alphabet Land
       </Text>
@@ -125,7 +101,11 @@ const styles = EStyleSheet.create({
       color: "#FFFF00",
       fontWeight: 'bold'
     },
-
+    text: {
+      fontSize: 100,
+      fontWeight: 'bold',
+      marginBottom: 20,
+    },
     button: {
         borderRadius: 10,
         borderWidth: 5,

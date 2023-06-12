@@ -1,30 +1,41 @@
-import React, { useState, useRef } from 'react';
-import { StyleSheet, View, Text, PanResponder, Animated } from 'react-native';
+import React, { useRef, useState } from 'react';
+import { View, PanResponder, Animated, StyleSheet } from 'react-native';
+import Svg, { Path } from 'react-native-svg';
 
+const DraggableBall = () => {
+  const [ballPosition] = useState(new Animated.ValueXY({ x: 150, y: 80 }));
+  const [path, setPath] = useState('');
 
-const Drag = () => {
-  const pan = useRef(new Animated.ValueXY({ x: 10, y: 565 })).current;
-  const [lastPosition, setLastPosition] = useState({ x: 0, y: 0 });
-
-
-  const panResponder = PanResponder.create({
-    onMoveShouldSetPanResponder: () => true,
-    onPanResponderMove:(_, gestureState) => {
-        pan.x.setValue(lastPosition.x + gestureState.dx);
-        pan.y.setValue(lastPosition.y + gestureState.dy);
+  const panResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onMoveShouldSetPanResponderCapture: () => true,
+      onPanResponderGrant: () => {
+        setPath(`M${ballPosition.x._value},${ballPosition.y._value} `);
       },
-    onPanResponderRelease: (_, gestureState) => {
-        setLastPosition({ x: lastPosition.x + gestureState.dx, y: lastPosition.y + gestureState.dy });
-    }
-      });
+      onPanResponderMove: (_, gestureState) => {
+        const { dx, dy, moveX, moveY } = gestureState;
+        ballPosition.setValue({
+          x: ballPosition.x._value + dx,
+          y: ballPosition.y._value + dy,
+        });
+        setPath(prevPath => `${prevPath}L${moveX},${moveY} `);
+        gestureState.dx = 0; // Reset dx value
+        gestureState.dy = 0; // Reset dy value
+      },
+    })
+  ).current;
 
   return (
     <View style={styles.container}>
-    <Animated.View
-      style={[styles.box, { transform: [{ translateX: pan.x }, { translateY: pan.y }] }]}
-      {...panResponder.panHandlers}
-    />
-  </View>
+      <Svg style={StyleSheet.absoluteFill}>
+        <Path d={path} stroke="blue" strokeWidth={4} fill="none" />
+      </Svg>
+      <Animated.View
+        style={[styles.ball, ballPosition.getLayout()]}
+        {...panResponder.panHandlers}
+      />
+    </View>
   );
 };
 
@@ -34,11 +45,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  box: {
-    width: 100,
-    height: 100,
-    backgroundColor: 'green',
+  ball: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: 'blue',
   },
 });
 
-export default Drag;
+export default DraggableBall;
