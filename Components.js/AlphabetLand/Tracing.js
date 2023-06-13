@@ -36,8 +36,8 @@ function Tracing({ navigation }) {
         const pathPoint = pathRef.getPointAtLength(gestureState.dy);
         const x = pathPoint.x - 20 + lastPanPosition.x;
         const y = pathPoint.y + 115 + lastPanPosition.y;
-        pan.x.setValue(x);
-        pan.y.setValue(y);
+        pan.x.setValue(pan.x._value + x);
+        pan.y.setValue(pan.y._value + y);
       },
       onPanResponderRelease: (evt, gestureState) => {
         setLastPanPosition({ x: gestureState.dx, y: gestureState.dy });
