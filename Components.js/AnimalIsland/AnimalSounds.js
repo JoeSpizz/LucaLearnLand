@@ -8,17 +8,16 @@ import AnimalSoundImage from './AnimalSoundImageComponent/AnimalSoundImage';
 
 
 function Count({navigation}) {
-  const animalArray = ['cat', 'chicken', 'cow', 'duck', 'goat', 'crow', 'deer', 'dog', 'dolphin', 'donkey', 'eagle', 'elephant', 'fox', 'frogs', 'hippo', 'horse', 'lion' ];
+  const animalArray = ['cat', 'chicken', 'cow', 'duck', 'goat', 'crow', 'deer', 'dog', 'dolphin', 'donkey', 'eagle', 'elephant', 'fox', 'frogs', 'hippo', 'horse', 'lion', 'monkey', 'mouse', 'owl', 'pig', 'pigeon', 'rooster', 'seagull', 'walrus', 'whale', 'wolf', 'zebra'  ];
   const getRandomAnimal = () => {
     return animalArray[Math.floor(Math.random() * animalArray.length)];
   };
   const [animal, setAnimal] = useState(getRandomAnimal());
-  const randomAnimalSeed = [animal, getRandomAnimal(), getRandomAnimal()]
-  const [randomAnimals, setrandomAnimals] = useState([
+  const [randomAnimalSeed, setRandomAnimalSeed] = useState([animal, getRandomAnimal(), getRandomAnimal()])
+  const randomAnimals=[
     <AnimalSoundImage animal={animal}/>, //picture
     <AnimalSoundImage animal={randomAnimalSeed[1]}/>, //picture
-    <AnimalSoundImage animal={randomAnimalSeed[2]}/>, //picture
-  ]);
+    <AnimalSoundImage animal={randomAnimalSeed[2]}/>]
   const [choices, setChoices] = useState()
   const [key, setKey] = useState(0)
   const [pan, setPan] = useState({ x: new Animated.Value(0), y: new Animated.Value(0) });
@@ -98,20 +97,22 @@ function Count({navigation}) {
         height: 50,
         index: 3
       }];
-       
-        // check for overlap
-        const overlap = randomAnimal.map(randomAnimalRectangle=> !(
-          (correctAnimal.x + correctAnimal.width < randomAnimalRectangle.x ||
+      const overlap = randomAnimal.map((randomAnimalRectangle, index) => {
+        const isOverlapping = !(
+          correctAnimal.x + correctAnimal.width < randomAnimalRectangle.x ||
           randomAnimalRectangle.x + randomAnimalRectangle.width < correctAnimal.x ||
           correctAnimal.y + correctAnimal.height < randomAnimalRectangle.y ||
-          randomAnimalRectangle.y + randomAnimalRectangle.height < correctAnimal.y)
-        ))
-    
-        if (overlap.includes(true)) {
-          let letter = overlap.indexOf(true)
-          console.log(overlap)
-          
-          if(randomAnimalSeed[letter] === animal){
+          randomAnimalRectangle.y + randomAnimalRectangle.height < correctAnimal.y
+        );
+        console.log(overlap)
+        return isOverlapping ? animalArray[index] : undefined;
+      });
+      if (overlap.includes(animal)) {
+        
+        const overlappedAnimalIndex = overlap.indexOf(animal);
+        const overlappedAnimal = overlap[overlappedAnimalIndex];
+        
+        if (randomAnimalSeed[overlappedAnimalIndex] === animal) {
             async function tada() {
               const { sound } = await Audio.Sound.createAsync(
                 require('../../assets/sounds/tada.mp3')
@@ -122,7 +123,11 @@ function Count({navigation}) {
             tada()
             const next = getRandomAnimal()
             setAnimal(next)
-
+            setRandomAnimalSeed([
+              next,
+              getRandomAnimal(),
+              getRandomAnimal(),
+            ])
             setTimeout(() => {
               setKey(key+1)
               setLastPanPosition({x:0, y:0})
@@ -165,7 +170,7 @@ function Count({navigation}) {
         {...panResponder.panHandlers}
       >
         <Text style={styles.animalSound}>
-          <Ionicons name="volume-high" style={styles.animalSound}/></Text>
+          <Ionicons name="volume-high" style={styles.animalSound}/> </Text>
       </Animated.View>
     </View>
     <View style={{ position: 'absolute', bottom: 150, left: 0, right: 0 }}>
