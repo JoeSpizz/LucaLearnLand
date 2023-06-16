@@ -14,11 +14,8 @@ function Count({navigation}) {
   };
   const [animal, setAnimal] = useState(getRandomAnimal());
   const [randomAnimalSeed, setRandomAnimalSeed] = useState([animal, getRandomAnimal(), getRandomAnimal()])
+  
   const [choices, setChoices] = useState()
-  const randomAnimals=[
-    <AnimalSoundImage animal={choices[0]}/>, //picture
-    <AnimalSoundImage animal={choices[1]}/>, //picture
-    <AnimalSoundImage animal={choices[2]}/>]
   const [key, setKey] = useState(0)
   const [pan, setPan] = useState({ x: new Animated.Value(0), y: new Animated.Value(0) });
   const [lastPanPosition, setLastPanPosition] = useState({ x: 0, y: 0 });
@@ -28,8 +25,11 @@ function Count({navigation}) {
     return [...array].sort(() => Math.random() - 0.5);
   };
   const shuffledArray = shuffleArray(randomAnimalSeed);
-
-  setChoices(shuffledArray)
+  const randomAnimals=[
+    <AnimalSoundImage animal={shuffledArray[0]}/>, //picture
+    <AnimalSoundImage animal={shuffledArray[1]}/>, //picture
+    <AnimalSoundImage animal={shuffledArray[2]}/>]
+  setChoices(randomAnimals)
   },[animal])
 
   useEffect(()=>{
@@ -105,10 +105,10 @@ function Count({navigation}) {
           randomAnimalRectangle.y + randomAnimalRectangle.height < correctAnimal.y
         );
         console.log(overlap)
-        return isOverlapping ? choices[index] : undefined;
+        return isOverlapping ? shuffledArray[index] : undefined;
       });
       if (overlap.includes(animal)) {
-        //this is where we need to fix
+        console.log(overlap)
             async function tada() {
               const { sound } = await Audio.Sound.createAsync(
                 require('../../assets/sounds/tada.mp3')
@@ -129,7 +129,7 @@ function Count({navigation}) {
               setLastPanPosition({x:0, y:0})
               setPan({x: new Animated.Value(0), y: new Animated.Value(0)})
           }, 50);
-        }
+          }
           else{
             async function wrong() {
               const { sound } = await Audio.Sound.createAsync(
@@ -141,8 +141,6 @@ function Count({navigation}) {
             wrong()
             Vibration.vibrate(500)
           }
-
-        
     
     },
   });
