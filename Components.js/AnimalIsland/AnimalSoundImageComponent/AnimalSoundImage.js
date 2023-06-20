@@ -3,7 +3,6 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import React from 'react';
 
 function AnimalSoundImage({ animal }) {
-    const animalArray = ['cat', 'chicken', 'cow', 'duck', 'goat', 'crow', 'deer', 'dog', 'dolphin', 'donkey', 'eagle', 'elephant', 'fox', 'frogs', 'hippo', 'horse', 'lion', 'monkey', 'mouse', 'owl', 'pig', 'pigeon', 'rooster', 'seagull', 'walrus', 'whale', 'wolf', 'zebra'  ];
     const animalPictures = {
         cat: require("../../../assets/animal-pictures/cat-1.jpg"),
         chicken: require('../../../assets/animal-pictures/chicken.jpeg'),
@@ -39,10 +38,7 @@ function AnimalSoundImage({ animal }) {
       
     return (
         <View>
-            <Text>
                 <Image style={styles.image} source={image} />
-            
-            </Text>
         </View>
     );
 }
@@ -50,6 +46,9 @@ function AnimalSoundImage({ animal }) {
 export default AnimalSoundImage;
 
 const styles = EStyleSheet.create({
+    imageBox:{
+        
+    },
     image: {
         width: 100,
         height: 100

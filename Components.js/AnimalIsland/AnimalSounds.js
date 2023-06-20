@@ -20,7 +20,7 @@ function Count({navigation}) {
   const [pan, setPan] = useState({ x: new Animated.Value(0), y: new Animated.Value(0) });
   const [lastPanPosition, setLastPanPosition] = useState({ x: 0, y: 0 });
 
- useEffect(()=>{
+
    const shuffleArray = (array) => {
     return [...array].sort(() => Math.random() - 0.5);
   };
@@ -29,14 +29,45 @@ function Count({navigation}) {
     <AnimalSoundImage animal={shuffledArray[0]}/>, //picture
     <AnimalSoundImage animal={shuffledArray[1]}/>, //picture
     <AnimalSoundImage animal={shuffledArray[2]}/>]
-  setChoices(randomAnimals)
-  },[animal])
+
+    const animalSounds = {
+      cat: require("../../assets/animals/cat.mp3"),
+      chicken: require('../../assets/animals/chicken.mp3'),
+      cow: require('../../assets/animals/cow.mp3'),
+      duck: require('../../assets/animals/duck.mp3'),
+      goat: require('../../assets/animals/goat.mp3'),
+      crow: require('../../assets/animals/crow.mp3'),
+      deer: require('../../assets/animals/deer.mp3'),
+      dog: require('../../assets/animals/dog.mp3'),
+      dolphin: require('../../assets/animals/dolphin.mp3'),
+      donkey: require('../../assets/animals/donkey.mp3'),
+      eagle: require('../../assets/animals/eagle.mp3'),
+      elephant: require('../../assets/animals/elephant.mp3'),
+      fox: require('../../assets/animals/fox.mp3'),
+      frogs: require('../../assets/animals/frogs.mp3'),
+      hippo: require('../../assets/animals/hippo.mp3'),
+      horse: require('../../assets/animals/horse.mp3'),
+      lion: require('../../assets/animals/lion.mp3'),
+      monkey: require('../../assets/animals/monkey.mp3'),
+      mouse: require('../../assets/animals/mouse.mp3'),
+      owl: require('../../assets/animals/owl.mp3'),
+      pig: require('../../assets/animals/pig.mp3'),
+      pigeon: require('../../assets/animals/pigeon.mp3'),
+      rooster: require('../../assets/animals/rooster-crows.mp3'),
+      seagull: require('../../assets/animals/seagulls.mp3'),
+      walrus: require('../../assets/animals/walrus.mp3'),
+      whale: require('../../assets/animals/whale.mp3'),
+      wolf: require('../../assets/animals/wolf.mp3'),
+      zebra: require('../../assets/animals/zebra.mp3'),
+  };
+  const noise = animalSounds[animal]
+
 
   useEffect(()=>{
     if(key===0){
     async function welcome() {
       const { sound, status } = await Audio.Sound.createAsync(
-        require('../../assets/sounds/letter-case-2.mp3')
+        require('../../assets/sounds/animal-sound-1.mp3')
       );
       await sound.playAsync();
       sound.setOnPlaybackStatusUpdate((status) => {
@@ -48,8 +79,46 @@ function Count({navigation}) {
         sound.unloadAsync();
       }
     }
-    welcome()}
-  },[])
+    welcome()
+    setChoices(randomAnimals)
+    setTimeout(() => {
+    async function animalNoise() {
+      const { sound, status } = await Audio.Sound.createAsync(
+       noise
+      );
+      await sound.playAsync();
+      sound.setOnPlaybackStatusUpdate((status) => {
+        if (status.didJustFinish) {
+          sound.unloadAsync();
+        }
+      });
+      if (status && status.didJustFinish) {
+        sound.unloadAsync();
+      }
+    }
+    animalNoise()}, 2500)
+    }
+    else{
+      setChoices(randomAnimals)
+      setTimeout(()=>{
+      async function animalNoise() {
+        const { sound, status } = await Audio.Sound.createAsync(
+         noise
+        );
+        await sound.playAsync();
+        sound.setOnPlaybackStatusUpdate((status) => {
+          if (status.didJustFinish) {
+            sound.unloadAsync();
+          }
+        });
+        if (status && status.didJustFinish) {
+          sound.unloadAsync();
+        }
+      }
+      animalNoise()
+    }, 1250)
+    }
+  },[animal])
 
 
   const panResponder = PanResponder.create({
@@ -67,7 +136,7 @@ function Count({navigation}) {
         y: lastPanPosition.y + gestureState.dy,
       };
       const correctAnimalDimensions = {
-        width: 65,
+        width: 150,
         height: 100,
       };
       const correctAnimal = {
@@ -87,7 +156,7 @@ function Count({navigation}) {
       {
         x: 40,
         y: 420,
-        width: 5,
+        width: 55,
         height: 50,
         index: 1
       },{
@@ -95,7 +164,7 @@ function Count({navigation}) {
         y: 420,
         width: 35,
         height: 50,
-        index: 3
+        index: 2
       }];
       const overlap = randomAnimal.map((randomAnimalRectangle, index) => {
         const isOverlapping = !(
@@ -104,7 +173,7 @@ function Count({navigation}) {
           correctAnimal.y + correctAnimal.height < randomAnimalRectangle.y ||
           randomAnimalRectangle.y + randomAnimalRectangle.height < correctAnimal.y
         );
-        console.log(overlap)
+        // console.log(shuffledArray)
         return isOverlapping ? shuffledArray[index] : undefined;
       });
       if (overlap.includes(animal)) {
@@ -115,6 +184,14 @@ function Count({navigation}) {
               );
              
               await sound.playAsync();
+              sound.setOnPlaybackStatusUpdate((status) => {
+                if (status.didJustFinish) {
+                  sound.unloadAsync();
+                }
+              });
+              if (status && status.didJustFinish) {
+                sound.unloadAsync();
+              }
             }
             tada()
             const next = getRandomAnimal()
@@ -124,11 +201,11 @@ function Count({navigation}) {
               getRandomAnimal(),
               getRandomAnimal(),
             ])
-            setTimeout(() => {
+        
               setKey(key+1)
               setLastPanPosition({x:0, y:0})
               setPan({x: new Animated.Value(0), y: new Animated.Value(0)})
-          }, 50);
+        
           }
           else{
             async function wrong() {
@@ -137,6 +214,7 @@ function Count({navigation}) {
               );
              
               await sound.playAsync();
+              
             }
             wrong()
             Vibration.vibrate(500)
@@ -150,40 +228,41 @@ function Count({navigation}) {
   }
   return (
     <View style={styles.container}>
-        <Text style={styles.title}>Who makes this sound?</Text>
-        <Text style={styles.title2}>A listening game</Text>
-        
+      <Text style={styles.title}>Who makes this sound?</Text>
+      <Text style={styles.title2}>A listening game</Text>
         <View style={styles.correctAnimal}>
-      <Animated.View
-        style={[styles.text, {
-          transform: [
-            { translateX: pan.x },
-            { translateY: pan.y }
-          ]
-        }]}
-        {...panResponder.panHandlers}
-      >
-        <Text style={styles.animalSound}>
-          <Ionicons name="volume-high" style={styles.animalSound}/> </Text>
-      </Animated.View>
-    </View>
-    <View style={{ position: 'absolute', bottom: 150, left: 0, right: 0 }}>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-          <View style={{ flex: 1, alignItems: 'center' }}>
-            <Text style={styles.guessAnimal}>{choices? choices[0] : null}</Text>
-          </View>
-          <View style={{ flex: 1, alignItems: 'center' }}>
-            <Text style={styles.guessAnimal}>{choices ? choices[1] : null}</Text>
-          </View>
-          <View style={{ flex: 1, alignItems: 'center' }}>
-            <Text style={styles.guessAnimal}>{choices? choices[2]: null}</Text>
+          <Animated.View
+            style={[styles.text, {
+            transform: [
+              { translateX: pan.x },
+              { translateY: pan.y }
+            ]
+            }]}
+            {...panResponder.panHandlers}
+          >
+            <Text style={styles.animalSound}>
+              <Ionicons name="volume-high" style={styles.animalSound}/>
+            </Text>
+          </Animated.View>
+        </View>
+        <View style={{ position: 'absolute', bottom: 150, left: 0, right: 0 }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+            <View style={{ flex: 1, alignItems: 'center' }}>
+              <Text style={styles.guessAnimal}>{choices? choices[0] : null}</Text>
+            </View>
+            <View style={{ flex: 1, alignItems: 'center' }}>
+              <Text style={styles.guessAnimal}>{choices ? choices[1] : null}</Text>
+            </View>
+            <View style={{ flex: 1, alignItems: 'center' }}>
+              <Text style={styles.guessAnimal}>{choices? choices[2]: null}</Text>
+            </View>
           </View>
         </View>
-      </View>
-
-        <Text style={styles.button} 
+      <Text style={styles.button} 
         onPress={goHome}
-        > Back to the Animal Island</Text>
+      >
+        Back to the Animal Island
+      </Text>
     </View>
   )
 }
@@ -225,19 +304,14 @@ const styles= EStyleSheet.create({
         fontSize: '1.5rem'
       },
       guessAnimal: {
-       color: "#E171FD",
-       textAlign:'center',
-       fontSize: '2rem',
        borderColor: "#E171FD",
        borderWidth: 1,
-       width: 100,
        zIndex: 1
-
       },
       animalSound: {
         textAlign: 'center',
         color: '#E171FD',
-        fontSize: '8rem',
+        fontSize: '5rem',
       },
       correctAnimal:{
         zIndex:2
