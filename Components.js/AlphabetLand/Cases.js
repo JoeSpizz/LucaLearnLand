@@ -5,30 +5,27 @@ import {Audio} from 'expo-av'
 
 function Cases({navigation}) {
   const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  const getRandomLetter = () => {
-    return LETTERS[Math.floor(Math.random() * LETTERS.length)];
-  };
-  const getMatchingLowercaseLetter = (letter) => {
-    return letter.toLowerCase();
-  };
+  const getRandomLetter = () => {return LETTERS[Math.floor(Math.random() * LETTERS.length)]};
+  const getMatchingLowercaseLetter = (letter) => {return letter.toLowerCase()};
   const [uppercaseLetter, setUppercaseLetter] = useState(getRandomLetter());
-  const [lowercaseLetters, setLowercaseLetters] = useState([
-    getMatchingLowercaseLetter(uppercaseLetter),
-    getRandomLetter().toLowerCase(),
-    getRandomLetter().toLowerCase(),
-  ]);
+  const [lowercaseLetters, setLowercaseLetters] = useState(
+          [
+            getMatchingLowercaseLetter(uppercaseLetter),
+            getRandomLetter().toLowerCase(),
+            getRandomLetter().toLowerCase(),
+          ]);
   const [test, setTest] = useState()
   const [key, setKey] = useState(0)
   const [pan, setPan] = useState({ x: new Animated.Value(0), y: new Animated.Value(0) });
   const [lastPanPosition, setLastPanPosition] = useState({ x: 0, y: 0 });
 
   // shuffles array so lowercase letters are random
- useEffect(()=>{
+  useEffect(()=>{
    const shuffleArray = (array) => {
     return [...array].sort(() => Math.random() - 0.5);
-  };
-  const shuffledArray = shuffleArray(lowercaseLetters);
-  setTest(shuffledArray)
+    };
+    const shuffledArray = shuffleArray(lowercaseLetters);
+    setTest(shuffledArray)
   },[uppercaseLetter])
 
   useEffect(()=>{
@@ -42,14 +39,10 @@ function Cases({navigation}) {
         if (status.didJustFinish) {
           sound.unloadAsync();
         }
-      });
-      if (status && status.didJustFinish) {
-        sound.unloadAsync();
-      }
+      })
     }
     welcome()}
   },[])
-
 
   const panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
@@ -57,7 +50,6 @@ function Cases({navigation}) {
       pan.x.setValue(lastPanPosition.x + gestureState.dx);
       pan.y.setValue(lastPanPosition.y + gestureState.dy);
       setLastPanPosition({ x: lastPanPosition.x + gestureState.dx, y: lastPanPosition.y + gestureState.dy });
-
     },
     onPanResponderRelease: (evt, gestureState) => {
       //defines position and size of uppercase letter block
@@ -98,7 +90,7 @@ function Cases({navigation}) {
         index: 2
       }];
        
-        // check for overlap between the upper letter and the lowercase letter
+      // check for overlap between the upper letter and the lowercase letter
         const overlap = lowercaseLetterRects.map(lowercaseLetterRect=> !(
           (upperLetterRect.x + upperLetterRect.width < lowercaseLetterRect.x ||
           lowercaseLetterRect.x + lowercaseLetterRect.width < upperLetterRect.x ||
@@ -113,7 +105,6 @@ function Cases({navigation}) {
               const { sound } = await Audio.Sound.createAsync(
                 require('../../assets/sounds/tada.mp3')
               );
-             
               await sound.playAsync();
               sound.setOnPlaybackStatusUpdate((status) => {
                 if (status.didJustFinish) {
@@ -134,31 +125,27 @@ function Cases({navigation}) {
               setKey(key+1)
               setLastPanPosition({x:0, y:0})
               setPan({x: new Animated.Value(0), y: new Animated.Value(0)})
-          }, 50);
+            }, 50);
           }
           else{
             async function wrong() {
               const { sound } = await Audio.Sound.createAsync(
                 require('../../assets/sounds/incorrect.mp3')
               );
-             
               await sound.playAsync();
               sound.setOnPlaybackStatusUpdate((status) => {
                 if (status.didJustFinish) {
                   sound.unloadAsync();
                 }
               });
-             
                 setLastPanPosition({ x: 0, y: 0 });
                 setPan({ x: new Animated.Value(0), y: new Animated.Value(0) });
-              
             }
             wrong()
             async function tryAgain() {
               const { sound } = await Audio.Sound.createAsync(
                 require('../../assets/sounds/try-again-1.mp3')
               );
-             
               await sound.playAsync();
               sound.setOnPlaybackStatusUpdate((status) => {
                 if (status.didJustFinish) {
@@ -169,19 +156,13 @@ function Cases({navigation}) {
               tryAgain()
             Vibration.vibrate(500)
           }
-
         }
         if(upperLetterPosition.x < -185 || upperLetterPosition.x > 185 || upperLetterPosition.y < -70 || upperLetterPosition.y > 565){
-
           setLastPanPosition({ x: 0, y: 0 });
           setPan({ x: new Animated.Value(0), y: new Animated.Value(0) });  
         }
-    
     },
   });
-
-
-
   
 const goHome= ()=>{
     navigation.navigate(`Letters`)
@@ -191,19 +172,18 @@ const goHome= ()=>{
         <Text style={styles.title}>Upper vs Lower Case</Text>
         <Text style={styles.title2}>You've paired {key} letters</Text>
       <View style={styles.correctLetter}>
-      <Animated.View
-        style={[styles.text, {
+        <Animated.View
+          style={[styles.text, {
           transform: [
             { translateX: pan.x },
             { translateY: pan.y }
-          ]
-        }]}
-        {...panResponder.panHandlers}
-      >
-        <Text style={styles.upperLetter}>{uppercaseLetter}</Text>
-      </Animated.View>
-    </View>
-    <View style={{ position: 'absolute', bottom: 150, left: 0, right: 0 }}>
+          ]}]}
+          {...panResponder.panHandlers}
+        >
+          <Text style={styles.upperLetter}>{uppercaseLetter}</Text>
+        </Animated.View>
+      </View>
+      <View style={{ position: 'absolute', bottom: 150, left: 0, right: 0 }}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
           <View style={{ flex: 1, alignItems: 'center' }}>
             <Text style={styles.guessLetter}>{test? test[0] : null}</Text>
@@ -216,10 +196,11 @@ const goHome= ()=>{
           </View>
         </View>
       </View>
-
-        <Text style={styles.button} 
-        onPress={goHome}
-        > Back to the Alphabet Land</Text>
+      <Text style={styles.button} 
+      onPress={goHome}
+      > 
+      Back to the Alphabet Land
+      </Text>
     </View>
   )
 }

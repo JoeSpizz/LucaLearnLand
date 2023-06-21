@@ -20,9 +20,6 @@ function Tracing({ navigation }) {
           sound.unloadAsync();
         }
       });
-      if (status && status.didJustFinish) {
-        sound.unloadAsync();
-      }
     }
     welcome();
   }, []);
@@ -51,11 +48,16 @@ function Tracing({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tracings</Text>
-      <Text style={styles.title2}>The future home of the tracing game</Text>
-
+      <Text style={styles.title}>
+        Tracings
+      </Text>
+      <Text style={styles.title2}>
+        The future home of the tracing game
+      </Text>
       <View style={styles.gameContainer}>
-      <Text style={styles.text}>A</Text>
+        <Text style={styles.text}>
+          A
+        </Text>
       <DraggableBall />
     </View>
       <Text style={styles.button} onPress={goHome}>

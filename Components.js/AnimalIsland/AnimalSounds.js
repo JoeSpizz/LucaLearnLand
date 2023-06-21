@@ -185,20 +185,25 @@ function Count({navigation}) {
               );
              
               await sound.playAsync();
+              sound.setOnPlaybackStatusUpdate((status) => {
+                if (status.didJustFinish) {
+                  sound.unloadAsync();
+                }
+              });
             }
             tada()
-            const next = getRandomAnimal()
-            setAnimal(next)
-            setRandomAnimalSeed([
-              next,
-              getRandomAnimal(),
-              getRandomAnimal(),
-            ])
-            setTimeout(() => {
-              setKey(key+1)
-              setLastPanPosition({x:0, y:0})
-              setPan({x: new Animated.Value(0), y: new Animated.Value(0)})
-          }, 50);
+          //   const next = getRandomAnimal()
+          //   setAnimal(next)
+          //   setRandomAnimalSeed([
+          //     next,
+          //     getRandomAnimal(),
+          //     getRandomAnimal(),
+          //   ])
+          //   setTimeout(() => {
+          //     setKey(key+1)
+          //     setLastPanPosition({x:0, y:0})
+          //     setPan({x: new Animated.Value(0), y: new Animated.Value(0)})
+          // }, 50);
           }
           else{
             async function wrong() {
@@ -207,6 +212,11 @@ function Count({navigation}) {
               );
              
               await sound.playAsync();
+              sound.setOnPlaybackStatusUpdate((status) => {
+                if (status.didJustFinish) {
+                  sound.unloadAsync();
+                }
+              });
             }
             wrong()
             Vibration.vibrate(500)

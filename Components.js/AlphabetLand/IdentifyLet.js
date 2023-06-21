@@ -15,15 +15,13 @@ function IdentifyLet({navigation}) {
         inputRange: [0, 1],
         outputRange: ['0deg', '360deg']
       })
-      const shakeAnimation = useRef(new Animated.Value(0)).current;
-      const [rumble, setRumble] = useState()
-      const [letter, setLetter] = useState('');
-      const [letter2, setLetter2] = useState('');
-      const [letter3, setLetter3] = useState('');
-      const [letter4, setLetter4] = useState('');
+    const shakeAnimation = useRef(new Animated.Value(0)).current;
+    const [rumble, setRumble] = useState()
+    const [letter, setLetter] = useState('');
+    const [letter2, setLetter2] = useState('');
+    const [letter3, setLetter3] = useState('');
+    const [letter4, setLetter4] = useState('');
 
-
-   
 useEffect(()=>{
     setLetter(String.fromCharCode(65 + Math.floor(Math.random() * 26)))
     setLetter2(String.fromCharCode(65 + Math.floor(Math.random() * 26)))
@@ -34,8 +32,12 @@ useEffect(()=>{
           require('../../assets/sounds/rumble.mp3')
         );
         setRumble(sound)
-       
         await sound.playAsync();
+        sound.setOnPlaybackStatusUpdate((status) => {
+          if (status.didJustFinish) {
+            sound.unloadAsync();
+          }
+        });
       }
       rumble()
 
@@ -50,9 +52,6 @@ useEffect(()=>{
                 sound.unloadAsync();
               }
             });
-            if (status && status.didJustFinish) {
-              sound.unloadAsync();
-            }
           }
           welcome()
       }
@@ -72,32 +71,42 @@ useEffect(()=>{
            
 }, [key]);
 
-
-
-const blocks =[ <TouchableWithoutFeedback key={1} onPress={()=>guess(letter)}>
+const blocks =[ 
+  <TouchableWithoutFeedback key={1} onPress={()=>guess(letter)}>
     <View>
-    <Image style={styles.racer} source={myImage}/>
-    <Text style={styles.racerLetter}> {letter}</Text>
+      <Image style={styles.racer} source={myImage}/>
+        <Text style={styles.racerLetter}> 
+        {letter}
+        </Text>
     </View>
-</TouchableWithoutFeedback>, 
-<TouchableWithoutFeedback key={2} onPress={()=>guess(letter2)}>
+  </TouchableWithoutFeedback>
+  , 
+  <TouchableWithoutFeedback key={2} onPress={()=>guess(letter2)}>
     <View>
-    <Image style={styles.racer} source={myImage}/>
-    <Text style={styles.racerLetter}> {letter2}</Text>
+      <Image style={styles.racer} source={myImage}/>
+        <Text style={styles.racerLetter}> 
+          {letter2}
+        </Text>
     </View>
-</TouchableWithoutFeedback>, 
-<TouchableWithoutFeedback key={3} onPress={()=>guess(letter3)}>
+  </TouchableWithoutFeedback>
+  , 
+  <TouchableWithoutFeedback key={3} onPress={()=>guess(letter3)}>
     <View>
-    <Image style={styles.racer} source={myImage}/>
-    <Text style={styles.racerLetter}> {letter3}</Text>
+      <Image style={styles.racer} source={myImage}/>
+      <Text style={styles.racerLetter}> 
+        {letter3}
+      </Text>
     </View>
-</TouchableWithoutFeedback>, 
-<TouchableWithoutFeedback key={4} onPress={()=>guess(letter4)}>
+  </TouchableWithoutFeedback>
+, 
+  <TouchableWithoutFeedback key={4} onPress={()=>guess(letter4)}>
     <View>
-    <Image style={styles.racer} source={myImage}/>
-    <Text style={styles.racerLetter}> {letter4}</Text>
+      <Image style={styles.racer} source={myImage}/>
+      <Text style={styles.racerLetter}> 
+        {letter4}
+      </Text>
     </View>
-</TouchableWithoutFeedback>]
+  </TouchableWithoutFeedback>]
 
 const shuffleArray = (array) => {
   return [...array].sort(() => Math.random() - 0.5);
@@ -117,8 +126,12 @@ const success = ()=>{
         const { sound } = await Audio.Sound.createAsync(
           require('../../assets/sounds/quicktakeoff.mp3')
         );
-       
         await sound.playAsync();
+        sound.setOnPlaybackStatusUpdate((status) => {
+          if (status.didJustFinish) {
+            sound.unloadAsync();
+          }
+        })
       }
       takeOff()
 
@@ -126,8 +139,12 @@ const success = ()=>{
         const { sound } = await Audio.Sound.createAsync(
           require('../../assets/sounds/tada.mp3')
         );
-       
         await sound.playAsync();
+        sound.setOnPlaybackStatusUpdate((status) => {
+          if (status.didJustFinish) {
+            sound.unloadAsync();
+          }
+        })
       }
       tada()
       setLetter('')
@@ -169,7 +186,6 @@ const success = ()=>{
         ]).start(()=> {
         setMyImage(require('../../assets/racers/racer2.png'))  
         setKey(key+1)})
-   
 }
 
 const failure = () => {
@@ -177,7 +193,6 @@ const failure = () => {
         const { sound } = await Audio.Sound.createAsync(
           require('../../assets/sounds/incorrect.mp3')
         );
-       
         await sound.playAsync();
       }
       wrong()
@@ -197,40 +212,43 @@ const failure = () => {
 const goHome= async()=>{
     if (rumble) {
         await rumble.stopAsync();
-      }
-    
+    }
     navigation.navigate(`Letters`)
 }
 
   return (
-      <View style={styles.big}>
-    <Animated.View style={animatedStyle}>
-    <View style={styles.container}>
-     
-        <Text style={styles.title}>What Letter is This?</Text>
-        <Text style={styles.title2}> You've gotten it right {key} times!</Text>
-        {/* randomizes the Racer's with letters on their chests */}
-        <View style={styles.grid}>
-        {shuffledArray.map((block) => block)}
-        </View>
-        {/* truck carrying the correct letter */}
-        <Animated.View  style={[{
-       transform: [{ translateX: transX}, {translateY: transY},{rotate: engine}]
-      },styles.guessBox]}>
-           <Text style={styles.letter}>
-           {letter}
+    <View style={styles.big}>
+      <Animated.View style={animatedStyle}>
+        <View style={styles.container}>
+          <Text style={styles.title}>
+            What Letter is This?
+          </Text>
+          <Text style={styles.title2}> 
+            You've gotten it right {key} times!
+          </Text>
+          {/* randomizes the Racer's with letters on their chests */}
+          <View style={styles.grid}>
+            {shuffledArray.map((block) => block)}
+          </View>
+          {/* truck carrying the correct letter */}
+          <Animated.View  style={[{
+            transform: [{ translateX: transX}, {translateY: transY},{rotate: engine}]
+            },styles.guessBox]}
+            >
+            <Text style={styles.letter}>
+              {letter}
             </Text>
             <Text style={styles.identifier} >
-            <Image style={styles.truck} source={require('../../assets/trucks/truck6.png')} />
-        </Text>
-        </Animated.View>
-
-        <Text style={styles.button} 
-        onPress={goHome}
-        > Back to the Alphabet Land</Text>
-       
-    </View>
-    </Animated.View>
+              <Image style={styles.truck} source={require('../../assets/trucks/truck6.png')} />
+            </Text>
+          </Animated.View>
+          <Text style={styles.button} 
+            onPress={goHome}
+          > 
+            Back to the Alphabet Land
+          </Text>
+        </View>
+      </Animated.View>
     </View>
   )
 }

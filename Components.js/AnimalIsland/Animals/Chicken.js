@@ -34,11 +34,6 @@ useEffect(()=>{
               sound.unloadAsync();
             }
           });
-        
-          // Use the 'status' object to check if the audio is already finished
-          if (status && status.didJustFinish) {
-            sound.unloadAsync();
-          }
     }
     
 },[])
@@ -54,24 +49,21 @@ const play = ()=>{
               sound.unloadAsync();
             }
           });
-        
-          // Use the 'status' object to check if the audio is already finished
-          if (status && status.didJustFinish) {
-            sound.unloadAsync();
-          }
     }
     cluck()
 }
 
     return (
         <View style={styles.container}>
-        <Text style={styles.title}>Chicken</Text>
-        <TouchableOpacity onPress={play}>
-        <View style={styles.picture} >
-          <Image style={styles.Chicken} source={require("../../../assets/animal-pictures/chicken.jpeg")} resizeMode="contain"/>
-          </View>
-        </TouchableOpacity>
-      </View>
+          <Text style={styles.title}>
+            Chicken
+          </Text>
+          <TouchableOpacity onPress={play}>
+            <View style={styles.picture} >
+              <Image style={styles.Chicken} source={require("../../../assets/animal-pictures/chicken.jpeg")} resizeMode="contain"/>
+            </View>
+          </TouchableOpacity>
+        </View>
       )
 }
 

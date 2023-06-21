@@ -17,12 +17,6 @@ useEffect(()=>{
               meow()
             }
           });
-        
-          // Use the 'status' object to check if the audio is already finished
-          if (status && status.didJustFinish) {
-            sound.unloadAsync();
-            meow()
-          }
     }
     catIntro()
 
@@ -37,11 +31,6 @@ useEffect(()=>{
               sound.unloadAsync();
             }
           });
-        
-          // Use the 'status' object to check if the audio is already finished
-          if (status && status.didJustFinish) {
-            sound.unloadAsync();
-          }
     }
   
 },[])
@@ -57,24 +46,21 @@ const play = ()=>{
               sound.unloadAsync();
             }
           });
-        
-          // Use the 'status' object to check if the audio is already finished
-          if (status && status.didJustFinish) {
-            sound.unloadAsync();
-          }
     }
     meow()
 }
 
     return (
         <View style={styles.container}>
-        <Text style={styles.title}>Cat</Text>
-        <TouchableOpacity onPress={play}>
-        <View style={styles.picture} >
-          <Image style={styles.cat} source={require("../../../assets/animal-pictures/cat-1.jpg")} resizeMode="contain"/>
-          </View>
-        </TouchableOpacity>
-      </View>
+          <Text style={styles.title}>
+            Cat
+          </Text>
+          <TouchableOpacity onPress={play}>
+            <View style={styles.picture} >
+              <Image style={styles.cat} source={require("../../../assets/animal-pictures/cat-1.jpg")} resizeMode="contain"/>
+            </View>
+          </TouchableOpacity>
+        </View>
       )
 }
 
@@ -83,7 +69,6 @@ export default Cat
 const styles= EStyleSheet.create({
     container:{
         height: '100%',
-      
     },
     title: {
     marginTop: 30,
@@ -100,7 +85,6 @@ const styles= EStyleSheet.create({
         justifyContent: 'center',
     },
     cat: {
-        // width: 300,
         height: 300,
         borderWidth: 15,
         borderStyle: "solid",
