@@ -60,7 +60,6 @@ function Cases({navigation}) {
 
     },
     onPanResponderRelease: (evt, gestureState) => {
-     
       //defines position and size of uppercase letter block
       const upperLetterPosition = {
         x: lastPanPosition.x + gestureState.dx,
@@ -96,7 +95,7 @@ function Cases({navigation}) {
         y: 420,
         width: 35,
         height: 50,
-        index: 3
+        index: 2
       }];
        
         // check for overlap between the upper letter and the lowercase letter
@@ -116,6 +115,11 @@ function Cases({navigation}) {
               );
              
               await sound.playAsync();
+              sound.setOnPlaybackStatusUpdate((status) => {
+                if (status.didJustFinish) {
+                  sound.unloadAsync();
+                }
+              });
             }
             tada()
             const next = getRandomLetter()
@@ -139,11 +143,38 @@ function Cases({navigation}) {
               );
              
               await sound.playAsync();
+              sound.setOnPlaybackStatusUpdate((status) => {
+                if (status.didJustFinish) {
+                  sound.unloadAsync();
+                }
+              });
+             
+                setLastPanPosition({ x: 0, y: 0 });
+                setPan({ x: new Animated.Value(0), y: new Animated.Value(0) });
+              
             }
             wrong()
+            async function tryAgain() {
+              const { sound } = await Audio.Sound.createAsync(
+                require('../../assets/sounds/try-again-1.mp3')
+              );
+             
+              await sound.playAsync();
+              sound.setOnPlaybackStatusUpdate((status) => {
+                if (status.didJustFinish) {
+                  sound.unloadAsync();
+                }
+              });
+            }
+              tryAgain()
             Vibration.vibrate(500)
           }
 
+        }
+        if(upperLetterPosition.x < -185 || upperLetterPosition.x > 185 || upperLetterPosition.y < -70 || upperLetterPosition.y > 565){
+
+          setLastPanPosition({ x: 0, y: 0 });
+          setPan({ x: new Animated.Value(0), y: new Animated.Value(0) });  
         }
     
     },
@@ -241,7 +272,7 @@ const styles= EStyleSheet.create({
       },
       upperLetter: {
         textAlign: 'center',
-        color: '#FFFF00',
+        color: 'green',
         fontSize: '8rem',
       },
       correctLetter:{

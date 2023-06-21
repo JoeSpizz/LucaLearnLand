@@ -100,7 +100,6 @@ function Count({navigation}) {
     }
     else{
       setChoices(randomAnimals)
-      setTimeout(()=>{
       async function animalNoise() {
         const { sound, status } = await Audio.Sound.createAsync(
          noise
@@ -115,8 +114,10 @@ function Count({navigation}) {
           sound.unloadAsync();
         }
       }
-      animalNoise()
-    }, 1250)
+      setTimeout(()=>{
+        animalNoise()
+      }, 950)
+     
     }
   },[animal])
 
@@ -136,7 +137,7 @@ function Count({navigation}) {
         y: lastPanPosition.y + gestureState.dy,
       };
       const correctAnimalDimensions = {
-        width: 150,
+        width: 65,
         height: 100,
       };
       const correctAnimal = {
@@ -156,7 +157,7 @@ function Count({navigation}) {
       {
         x: 40,
         y: 420,
-        width: 55,
+        width: 5,
         height: 50,
         index: 1
       },{
@@ -184,14 +185,6 @@ function Count({navigation}) {
               );
              
               await sound.playAsync();
-              sound.setOnPlaybackStatusUpdate((status) => {
-                if (status.didJustFinish) {
-                  sound.unloadAsync();
-                }
-              });
-              if (status && status.didJustFinish) {
-                sound.unloadAsync();
-              }
             }
             tada()
             const next = getRandomAnimal()
@@ -201,11 +194,11 @@ function Count({navigation}) {
               getRandomAnimal(),
               getRandomAnimal(),
             ])
-        
+            setTimeout(() => {
               setKey(key+1)
               setLastPanPosition({x:0, y:0})
               setPan({x: new Animated.Value(0), y: new Animated.Value(0)})
-        
+          }, 50);
           }
           else{
             async function wrong() {
@@ -214,7 +207,6 @@ function Count({navigation}) {
               );
              
               await sound.playAsync();
-              
             }
             wrong()
             Vibration.vibrate(500)
