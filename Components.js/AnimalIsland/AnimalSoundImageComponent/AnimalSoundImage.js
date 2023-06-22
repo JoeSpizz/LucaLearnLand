@@ -1,4 +1,4 @@
-import { View, Text, Image } from 'react-native';
+import { View, Image } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import React from 'react';
 
@@ -47,7 +47,6 @@ export default AnimalSoundImage;
 
 const styles = EStyleSheet.create({
     imageBox:{
-        
     },
     image: {
         width: 100,

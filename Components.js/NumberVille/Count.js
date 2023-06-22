@@ -43,8 +43,8 @@ function Count({navigation}) {
         setNumber(1)
       }
       const images = [
-        <One onSuccess={success} />,
-        <Two onSuccess={success} />,
+       <One onSuccess={success} />,
+       <Two onSuccess={success} />,
        <Three onSuccess={success} />,
        <Four onSuccess={success} />,
        <Five onSuccess={success} />,

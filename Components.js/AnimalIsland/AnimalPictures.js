@@ -7,12 +7,17 @@ const goHome= ()=>{
 }
   return (
     <View style={styles.container}>
-        <Text style={styles.title}>What is this Animal?</Text>
-        <Text style={styles.title2}>A naming game</Text>
-        
+        <Text style={styles.title}>
+          What is this Animal?
+        </Text>
+        <Text style={styles.title2}>
+          A naming game
+        </Text>
         <Text style={styles.button} 
         onPress={goHome}
-        > Back to the Animal Island</Text>
+        > 
+          Back to the Animal Island
+        </Text>
     </View>
   )
 }

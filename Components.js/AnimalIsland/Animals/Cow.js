@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 
 
 function Cow() {
-useEffect(()=>{
+  useEffect(()=>{
     const cowIntro = async ()=>{
         const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals-spoken/cow-spoken.mp3')
@@ -17,11 +17,6 @@ useEffect(()=>{
               moo()
             }
           });
-        
-          // Use the 'status' object to check if the audio is already finished
-          if (status && status.didJustFinish) {
-            sound.unloadAsync();
-          }
     }
     cowIntro()
     const moo = async ()=>{
@@ -34,17 +29,10 @@ useEffect(()=>{
               sound.unloadAsync();
             }
           });
-        
-          // Use the 'status' object to check if the audio is already finished
-          if (status && status.didJustFinish) {
-            sound.unloadAsync();
-          }
     }
-    
-  
-},[])
+  },[])
 
-const play = ()=>{
+  const play = ()=>{
     const moo = async ()=>{
         const {sound, status} = await Audio.Sound.createAsync(
           require('../../../assets/animals/cow.mp3')
@@ -62,17 +50,19 @@ const play = ()=>{
           }
     }
     moo()
-}
+  }
 
     return (
         <View style={styles.container}>
-        <Text style={styles.title}>Cow</Text>
-        <TouchableOpacity onPress={play}>
-        <View style={styles.picture} >
-          <Image style={styles.Cow} source={require("../../../assets/animal-pictures/cow.jpg")} resizeMode="contain"/>
-          </View>
-        </TouchableOpacity>
-      </View>
+          <Text style={styles.title}>
+            Cow
+          </Text>
+          <TouchableOpacity onPress={play}>
+            <View style={styles.picture} >
+              <Image style={styles.Cow} source={require("../../../assets/animal-pictures/cow.jpg")} resizeMode="contain"/>
+            </View>
+          </TouchableOpacity>
+        </View>
       )
 }
 

@@ -90,8 +90,12 @@ const panResponder = PanResponder.create({
 
   return (
     <View style={styles.container}>
-        <Text style={styles.title}>Learning Animals!</Text>
-        <Text style={styles.title2}>Look, Click, Listen, Learn</Text>
+        <Text style={styles.title}>
+          Learning Animals!
+        </Text>
+        <Text style={styles.title2}>
+          Look, Click, Listen, Learn
+        </Text>
         { location ?  
           <View>
             <Text style={styles.explore} onPress={reset}> Explore A New Area?</Text>
@@ -103,7 +107,9 @@ const panResponder = PanResponder.create({
           </View>
       :    
           <View style={styles.iconBox}>
-            <Text> Select an Area to Explore</Text>
+            <Text> 
+              Select an Area to Explore
+            </Text>
             <Text style={styles.pick}  onPress={()=>setLocation(animals.neighborhood)}> 
               <Image style={styles.icon} source={require('../../assets/animal-pictures/dog-icon.png')} resizeMode="cover"/>
             </Text>
