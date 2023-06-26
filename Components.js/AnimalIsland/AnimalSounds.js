@@ -7,7 +7,7 @@ import AnimalSoundImage from './AnimalSoundImageComponent/AnimalSoundImage';
 
 
 
-function Count({navigation}) {
+function Listen({navigation}) {
   const animalArray = ['cat', 'chicken', 'cow', 'duck', 'goat', 'crow', 'deer', 'dog', 'dolphin', 'donkey', 'eagle', 'elephant', 'fox', 'frogs', 'hippo', 'horse', 'lion', 'monkey', 'mouse', 'owl', 'pig', 'pigeon', 'rooster', 'seagull', 'walrus', 'whale', 'wolf', 'zebra'  ];
   const getRandomAnimal = () => {
     return animalArray[Math.floor(Math.random() * animalArray.length)];
@@ -19,16 +19,6 @@ function Count({navigation}) {
   const [key, setKey] = useState(0)
   const [pan, setPan] = useState({ x: new Animated.Value(0), y: new Animated.Value(0) });
   const [lastPanPosition, setLastPanPosition] = useState({ x: 0, y: 0 });
-
-
-   const shuffleArray = (array) => {
-    return [...array].sort(() => Math.random() - 0.5);
-  };
-  const shuffledArray = shuffleArray(randomAnimalSeed);
-  const randomAnimals=[
-    <AnimalSoundImage animal={shuffledArray[0]}/>, //picture
-    <AnimalSoundImage animal={shuffledArray[1]}/>, //picture
-    <AnimalSoundImage animal={shuffledArray[2]}/>]
 
     const animalSounds = {
       cat: require("../../assets/animals/cat.mp3"),
@@ -61,9 +51,21 @@ function Count({navigation}) {
       zebra: require('../../assets/animals/zebra.mp3'),
   };
   const noise = animalSounds[animal]
-
+  const [shuffledAnimalArray, setShuffledAnimalArray] = useState([]);
 
   useEffect(()=>{
+    const shuffleArray = (array) => {
+      return [...array].sort(() => Math.random() - 0.5);
+    };
+    const newShuffledAnimalArray = shuffleArray(randomAnimalSeed);
+    setShuffledAnimalArray(newShuffledAnimalArray);
+
+    const randomAnimals = [
+      <AnimalSoundImage animal={newShuffledAnimalArray[0]} />, // picture
+      <AnimalSoundImage animal={newShuffledAnimalArray[1]} />, // picture
+      <AnimalSoundImage animal={newShuffledAnimalArray[2]} />,
+    ];
+
     if(key===0){
     async function welcome() {
       const { sound, status } = await Audio.Sound.createAsync(
@@ -75,9 +77,6 @@ function Count({navigation}) {
           sound.unloadAsync();
         }
       });
-      if (status && status.didJustFinish) {
-        sound.unloadAsync();
-      }
     }
     welcome()
     setChoices(randomAnimals)
@@ -92,9 +91,6 @@ function Count({navigation}) {
           sound.unloadAsync();
         }
       });
-      if (status && status.didJustFinish) {
-        sound.unloadAsync();
-      }
     }
     animalNoise()}, 2500)
     }
@@ -110,9 +106,6 @@ function Count({navigation}) {
             sound.unloadAsync();
           }
         });
-        if (status && status.didJustFinish) {
-          sound.unloadAsync();
-        }
       }
       setTimeout(()=>{
         animalNoise()
@@ -120,8 +113,7 @@ function Count({navigation}) {
      
     }
   },[animal])
-
-
+  // console.log(ShuffledAnimalArray)
   const panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
     onPanResponderMove: (evt, gestureState) => {
@@ -137,8 +129,8 @@ function Count({navigation}) {
         y: lastPanPosition.y + gestureState.dy,
       };
       const correctAnimalDimensions = {
-        width: 65,
-        height: 100,
+        width: 90,
+        height: 50,
       };
       const correctAnimal = {
         x: correctAnimalPosition.x,
@@ -149,36 +141,34 @@ function Count({navigation}) {
     
       const randomAnimal = [{
         x: -120,
-        y: 420,
-        width: 25,
-        height: 50,
+        y: 350,
+        width: 45,
+        height: 80,
         index: 0
       },
       {
         x: 40,
-        y: 420,
-        width: 5,
-        height: 50,
+        y: 350,
+        width: 25,
+        height: 80,
         index: 1
       },{
         x: 160,
-        y: 420,
+        y: 350,
         width: 35,
-        height: 50,
+        height: 80,
         index: 2
       }];
-      const overlap = randomAnimal.map((randomAnimalRectangle, index) => {
-        const isOverlapping = !(
-          correctAnimal.x + correctAnimal.width < randomAnimalRectangle.x ||
+      const overlap = randomAnimal.map(randomAnimalRectangle =>!(
+          (correctAnimal.x + correctAnimal.width < randomAnimalRectangle.x ||
           randomAnimalRectangle.x + randomAnimalRectangle.width < correctAnimal.x ||
           correctAnimal.y + correctAnimal.height < randomAnimalRectangle.y ||
           randomAnimalRectangle.y + randomAnimalRectangle.height < correctAnimal.y
-        );
-        // console.log(shuffledArray)
-        return isOverlapping ? shuffledArray[index] : undefined;
-      });
-      if (overlap.includes(animal)) {
-        console.log(overlap)
+      )));
+
+      if(overlap.includes(true)){
+        let index = overlap.indexOf(true)
+        if (shuffledAnimalArray[index]===animal) {
             async function tada() {
               const { sound } = await Audio.Sound.createAsync(
                 require('../../assets/sounds/tada.mp3')
@@ -192,18 +182,18 @@ function Count({navigation}) {
               });
             }
             tada()
-          //   const next = getRandomAnimal()
-          //   setAnimal(next)
-          //   setRandomAnimalSeed([
-          //     next,
-          //     getRandomAnimal(),
-          //     getRandomAnimal(),
-          //   ])
-          //   setTimeout(() => {
-          //     setKey(key+1)
-          //     setLastPanPosition({x:0, y:0})
-          //     setPan({x: new Animated.Value(0), y: new Animated.Value(0)})
-          // }, 50);
+            const next = getRandomAnimal()
+            setAnimal(next)
+            setRandomAnimalSeed([
+              next,
+              getRandomAnimal(),
+              getRandomAnimal(),
+            ])
+            setTimeout(() => {
+              setKey(key+1)
+              setLastPanPosition({x:0, y:0})
+              setPan({x: new Animated.Value(0), y: new Animated.Value(0)})
+          }, 50);
           }
           else{
             async function wrong() {
@@ -222,6 +212,24 @@ function Count({navigation}) {
             Vibration.vibrate(500)
           }
     
+      }
+      if(correctAnimalPosition.x < -185 || correctAnimalPosition.x > 185 || correctAnimalPosition.y < -70 || correctAnimalPosition.y > 565){
+        setLastPanPosition({ x: 0, y: 0 });
+        setPan({ x: new Animated.Value(0), y: new Animated.Value(0) });  
+        async function animalNoise() {
+          const { sound, status } = await Audio.Sound.createAsync(
+           noise
+          );
+          await sound.playAsync();
+          sound.setOnPlaybackStatusUpdate((status) => {
+            if (status.didJustFinish) {
+              sound.unloadAsync();
+            }
+          });
+        }
+          animalNoise()
+
+      }
     },
   });
 
@@ -269,7 +277,7 @@ function Count({navigation}) {
   )
 }
 
-export default Count
+export default Listen
 
 const styles= EStyleSheet.create({
     container:{
@@ -310,9 +318,12 @@ const styles= EStyleSheet.create({
        borderWidth: 1,
        zIndex: 1
       },
-      animalSound: {
+      text: {
+        marginTop: 25
+      }
+,      animalSound: {
         textAlign: 'center',
-        color: '#E171FD',
+        color: 'yellow',
         fontSize: '5rem',
       },
       correctAnimal:{

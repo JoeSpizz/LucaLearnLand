@@ -5,7 +5,7 @@ import {Audio} from 'expo-av'
 
 function Cases({navigation}) {
   const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  const getRandomLetter = () => {return LETTERS[Math.floor(Math.random() * LETTERS.length)]};
+  const getRandomLetter = () => {return LETTERS[Math.floor(Math.random() * 26)]};
   const getMatchingLowercaseLetter = (letter) => {return letter.toLowerCase()};
   const [uppercaseLetter, setUppercaseLetter] = useState(getRandomLetter());
   const [lowercaseLetters, setLowercaseLetters] = useState(
@@ -14,7 +14,7 @@ function Cases({navigation}) {
             getRandomLetter().toLowerCase(),
             getRandomLetter().toLowerCase(),
           ]);
-  const [test, setTest] = useState()
+  const [possibleLetterArray, setPossibleLetterArray] = useState()
   const [key, setKey] = useState(0)
   const [pan, setPan] = useState({ x: new Animated.Value(0), y: new Animated.Value(0) });
   const [lastPanPosition, setLastPanPosition] = useState({ x: 0, y: 0 });
@@ -25,7 +25,7 @@ function Cases({navigation}) {
     return [...array].sort(() => Math.random() - 0.5);
     };
     const shuffledArray = shuffleArray(lowercaseLetters);
-    setTest(shuffledArray)
+    setPossibleLetterArray(shuffledArray)
   },[uppercaseLetter])
 
   useEffect(()=>{
@@ -52,7 +52,6 @@ function Cases({navigation}) {
       setLastPanPosition({ x: lastPanPosition.x + gestureState.dx, y: lastPanPosition.y + gestureState.dy });
     },
     onPanResponderRelease: (evt, gestureState) => {
-      //defines position and size of uppercase letter block
       const upperLetterPosition = {
         x: lastPanPosition.x + gestureState.dx,
         y: lastPanPosition.y + gestureState.dy,
@@ -100,7 +99,8 @@ function Cases({navigation}) {
     
         if (overlap.includes(true)) {
           let letter = overlap.indexOf(true)
-          if(test[letter] === uppercaseLetter.toLowerCase()){
+          console.log(letter)
+          if(possibleLetterArray[letter] === uppercaseLetter.toLowerCase()){
             async function tada() {
               const { sound } = await Audio.Sound.createAsync(
                 require('../../assets/sounds/tada.mp3')
@@ -186,13 +186,13 @@ const goHome= ()=>{
       <View style={{ position: 'absolute', bottom: 150, left: 0, right: 0 }}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
           <View style={{ flex: 1, alignItems: 'center' }}>
-            <Text style={styles.guessLetter}>{test? test[0] : null}</Text>
+            <Text style={styles.guessLetter}>{possibleLetterArray? possibleLetterArray[0] : null}</Text>
           </View>
           <View style={{ flex: 1, alignItems: 'center' }}>
-            <Text style={styles.guessLetter}>{test ? test[1] : null}</Text>
+            <Text style={styles.guessLetter}>{possibleLetterArray ? possibleLetterArray[1] : null}</Text>
           </View>
           <View style={{ flex: 1, alignItems: 'center' }}>
-            <Text style={styles.guessLetter}>{test? test[2]: null}</Text>
+            <Text style={styles.guessLetter}>{possibleLetterArray? possibleLetterArray[2]: null}</Text>
           </View>
         </View>
       </View>
