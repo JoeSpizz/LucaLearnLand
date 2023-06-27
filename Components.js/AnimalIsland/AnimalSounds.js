@@ -1,4 +1,4 @@
-import {View, Text, PanResponder, Animated, Vibration } from 'react-native';
+import {View, Text, PanResponder, Animated, Vibration, Image } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { useEffect, useState } from 'react';
 import {Audio} from 'expo-av'
@@ -232,7 +232,21 @@ function Listen({navigation}) {
       }
     },
   });
+const replaySound = ()=>{
+  async function animalNoise() {
+    const { sound, status } = await Audio.Sound.createAsync(
+     noise
+    );
+    await sound.playAsync();
+    sound.setOnPlaybackStatusUpdate((status) => {
+      if (status.didJustFinish) {
+        sound.unloadAsync();
+      }
+    });
+  }
+    animalNoise()
 
+}
   const goHome= ()=>{
     navigation.navigate(`Animals`)
   }
@@ -240,18 +254,20 @@ function Listen({navigation}) {
     <View style={styles.container}>
       <Text style={styles.title}>Who makes this sound?</Text>
       <Text style={styles.title2}>A listening game</Text>
+      <Ionicons name="volume-high" onPress={()=>replaySound()} style={styles.audio}/>
         <View style={styles.correctAnimal}>
           <Animated.View
             style={[styles.text, {
             transform: [
               { translateX: pan.x },
               { translateY: pan.y }
-            ]
+            ],  alignItems: 'center', // Center horizontally
+            justifyContent: 'center', 
             }]}
             {...panResponder.panHandlers}
           >
-            <Text style={styles.animalSound}>
-              <Ionicons name="volume-high" style={styles.animalSound}/>
+            <Text style={styles.animalSoundBox}>
+             <Image source={require("../../assets/trucks/animal_safari_truck.png")} style={styles.animalSound} resizeMode='cover'/>
             </Text>
           </Animated.View>
         </View>
@@ -322,12 +338,22 @@ const styles= EStyleSheet.create({
         marginTop: 25
       }
 ,      animalSound: {
-        textAlign: 'center',
-        color: 'yellow',
-        fontSize: '5rem',
+        width: 70,
+        height: 80,
+      },
+      animalSoundBox: {
+    
+        width: 100,
+        height: 200
+       
       },
       correctAnimal:{
         zIndex:2
+      },
+      audio:{
+        fontSize: '2rem',
+        color: 'yellow',
+        textAlign: 'center'
       }
      
 })
