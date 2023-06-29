@@ -43,7 +43,7 @@ useEffect(()=>{
 
       if(key===0){
         async function welcome() {
-            const { sound, status } = await Audio.Sound.createAsync(
+            const { sound } = await Audio.Sound.createAsync(
               require('../../assets/sounds/letter-match-1.mp3')
             );
             await sound.playAsync();

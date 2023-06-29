@@ -98,9 +98,8 @@ function Cases({navigation}) {
         ))
     
         if (overlap.includes(true)) {
-          let letter = overlap.indexOf(true)
-          console.log(letter)
-          if(possibleLetterArray[letter] === uppercaseLetter.toLowerCase()){
+          let overlapIndex = overlap.indexOf(true)
+          if(possibleLetterArray[overlapIndex] === uppercaseLetter.toLowerCase()){
             async function tada() {
               const { sound } = await Audio.Sound.createAsync(
                 require('../../assets/sounds/tada.mp3')

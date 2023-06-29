@@ -14,7 +14,7 @@ function Listen({navigation}) {
   };
   const [animal, setAnimal] = useState(getRandomAnimal());
   const [randomAnimalSeed, setRandomAnimalSeed] = useState([animal, getRandomAnimal(), getRandomAnimal()])
-  
+  const [playingNoise, setPlayingNoise] = useState()
   const [choices, setChoices] = useState()
   const [key, setKey] = useState(0)
   const [pan, setPan] = useState({ x: new Animated.Value(0), y: new Animated.Value(0) });
@@ -54,6 +54,7 @@ function Listen({navigation}) {
   const [shuffledAnimalArray, setShuffledAnimalArray] = useState([]);
 
   useEffect(()=>{
+    setPlayingNoise(false)
     const shuffleArray = (array) => {
       return [...array].sort(() => Math.random() - 0.5);
     };
@@ -85,10 +86,12 @@ function Listen({navigation}) {
       const { sound, status } = await Audio.Sound.createAsync(
        noise
       );
+      setPlayingNoise(sound)
       await sound.playAsync();
       sound.setOnPlaybackStatusUpdate((status) => {
         if (status.didJustFinish) {
           sound.unloadAsync();
+          setPlayingNoise(false)
         }
       });
     }
@@ -100,10 +103,12 @@ function Listen({navigation}) {
         const { sound, status } = await Audio.Sound.createAsync(
          noise
         );
+        setPlayingNoise(sound)
         await sound.playAsync();
         sound.setOnPlaybackStatusUpdate((status) => {
           if (status.didJustFinish) {
             sound.unloadAsync();
+            setPlayingNoise(false)
           }
         });
       }
@@ -113,6 +118,12 @@ function Listen({navigation}) {
      
     }
   },[animal])
+
+  const stopSound = async ()=>{
+    if(playingNoise){
+      await playingNoise.stopAsync();
+    }
+  }
   // console.log(ShuffledAnimalArray)
   const panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
@@ -141,22 +152,22 @@ function Listen({navigation}) {
     
       const randomAnimal = [{
         x: -120,
-        y: 350,
+        y: 290,
         width: 45,
-        height: 80,
+        height: 60,
         index: 0
       },
       {
         x: 40,
-        y: 350,
+        y: 290,
         width: 25,
-        height: 80,
+        height: 60,
         index: 1
       },{
-        x: 160,
-        y: 350,
+        x: 175,
+        y: 290,
         width: 35,
-        height: 80,
+        height: 60,
         index: 2
       }];
       const overlap = randomAnimal.map(randomAnimalRectangle =>!(
@@ -167,13 +178,14 @@ function Listen({navigation}) {
       )));
 
       if(overlap.includes(true)){
+    
+       stopSound()
         let index = overlap.indexOf(true)
         if (shuffledAnimalArray[index]===animal) {
             async function tada() {
               const { sound } = await Audio.Sound.createAsync(
                 require('../../assets/sounds/tada.mp3')
               );
-             
               await sound.playAsync();
               sound.setOnPlaybackStatusUpdate((status) => {
                 if (status.didJustFinish) {
@@ -200,8 +212,6 @@ function Listen({navigation}) {
               const { sound } = await Audio.Sound.createAsync(
                 require('../../assets/sounds/incorrect.mp3')
               );
-             
-              await sound.playAsync();
               sound.setOnPlaybackStatusUpdate((status) => {
                 if (status.didJustFinish) {
                   sound.unloadAsync();
@@ -220,10 +230,12 @@ function Listen({navigation}) {
           const { sound, status } = await Audio.Sound.createAsync(
            noise
           );
+          setPlayingNoise(sound)
           await sound.playAsync();
           sound.setOnPlaybackStatusUpdate((status) => {
             if (status.didJustFinish) {
               sound.unloadAsync();
+              setPlayingNoise(false)
             }
           });
         }
@@ -237,6 +249,7 @@ const replaySound = ()=>{
     const { sound, status } = await Audio.Sound.createAsync(
      noise
     );
+    setPlayingNoise(sound)
     await sound.playAsync();
     sound.setOnPlaybackStatusUpdate((status) => {
       if (status.didJustFinish) {
@@ -338,8 +351,8 @@ const styles= EStyleSheet.create({
         marginTop: 25
       }
 ,      animalSound: {
-        width: 70,
-        height: 80,
+        width: 75,
+        height: 90,
       },
       animalSoundBox: {
     
